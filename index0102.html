@@ -287,59 +287,54 @@
             <p>Data de início: <b><span id="resDataInicio"></span></b></p>
             <p>Data final: <b><span id="resDataFim"></span></b></p>
             <p>Duração: <b><span id="resDuracao"></span></b></p>
-            <p>Tipo de Dieta: <b><span id="resTipoDieta"></span></b></p>
-            <div class="calories-total">
-                <p>Calorias Diárias: <b><span id="resCalDia"></span> kcal</b></p>
-                <p>Calorias Mensais: <b><span id="resCalMes"></span> kcal</b></p>
-                <p>Calorias Total Dieta: <b><span id="resCalTotalDieta"></span> kcal</b></p>
-                <hr style="border:1px solid #333; margin:1rem 0;">
-                <p style="color:#00e676">Faltando este Mês: <b><span id="resFaltandoMes"></span> kcal</b></p>
-                <p style="color:#00e676">Faltando na Dieta: <b><span id="resFaltandoDieta"></span> kcal</b></p>
-            </div>
-            <button onclick="salvarNutri()">Salvar Análise</button>
-        </div>
-
-        <div id="controleSection" class="hidden">
-            <h2>3️⃣ Controle de Consumo</h2>
-            <button id="loadUserButton" onclick="carregarUsuario()">Carregar Usuário</button>
-            <select id="userSelect" onchange="carregarUsuario()" style="margin-top:1rem;"></select>
-            
-            <label>Data do Consumo: <input type="date" id="consumptionDate" onchange="carregarConsumoDoDia()"></label>
-            <label>Meta de Calorias: <input type="number" id="caloriesLimit" readonly></label>
-            
-            <label>Categoria de Alimento: <select id="categorySelect" onchange="gerarTabelaAlimentos()">
-                <option value="">Selecione</option>
-            </select></label>
-
-            <table>
-                <thead>
-                    <tr><th>Alimento</th><th>Qtd</th><th>Cal</th></tr>
-                </thead>
-                <tbody id="foodTableBody"></tbody>
-            </table>
-
-            <div class="calories-total">
-                <p>Total Consumido: <b id="totalCalories">0</b> kcal</p>
-                <p>Restante no Mês: <b id="remainingCalories">0</b> kcal</p>
-                <p>Restante na Dieta: <b id="remainingTotalDieta">0</b> kcal</p>
-            </div>
-            <button onclick="generateDailyReport()">Gerar Relatório do Dia</button>
+            <p>Tipo de dieta: <b><span id="resTipoDieta"></span></b></p>
+            <p>Calorias por dia: <b><span id="resCalDia"></span> kcal</b></p>
+            <p>Calorias por mês: <b><span id="resCalMes"></span> kcal</b></p>
+            <p>Total calorias na dieta: <b><span id="resCalTotalDieta"></span> kcal</b></p>
+            <p>Restante este mês: <b><span id="resFaltandoMes"></span> kcal</b></p>
+            <p>Restante na dieta: <b><span id="resFaltandoDieta"></span> kcal</b></p>
+            <button onclick="salvarNutri()">Salvar na lista do nutricionista</button>
         </div>
 
         <div id="listaSection" class="hidden">
-            <h2>4️⃣ Lista de Usuários Cadastrados</h2>
+            <h2>3️⃣ Lista do Nutricionista</h2>
             <div style="overflow-x:auto;">
                 <table id="tabelaNutri">
-                    <thead>
-                        <tr>
-                            <th>Nome</th><th>Idade</th><th>Gênero</th><th>Altura</th><th>Peso</th><th>IMC</th>
-                            <th>Ideal</th><th>A Emagrecer</th><th>Cal/Dia</th><th>Cal/Mês</th><th>Cal/Total</th>
-                            <th>Duração</th><th>Tipo</th><th>Exerc.</th><th>Início</th><th>Fim</th>
-                        </tr>
-                    </thead>
+                    <thead><tr>
+                        <th>Nome</th><th>Idade</th><th>Gênero</th><th>Altura</th><th>Peso</th>
+                        <th>IMC</th><th>Peso Ideal</th><th>Kg Emagrecer</th>
+                        <th>Cal/Dia</th><th>Cal/Mês</th><th>Total</th><th>Duração</th><th>Tipo</th><th>Exercício</th><th>Início</th><th>Fim</th>
+                    </tr></thead>
                     <tbody></tbody>
                 </table>
             </div>
+        </div>
+
+        <div id="controleSection" class="hidden">
+            <h2>🍽️ Controle de Alimentos</h2>
+            <label for="userSelect">Selecionar usuário:</label>
+            <select id="userSelect" onchange="resetLoadButton()"><option value="">Selecione</option></select>
+            <button id="loadUserButton" onclick="carregarUsuario()">Carregar Usuário</button>
+            <div style="margin-top:1.5rem;">
+                <label for="consumptionDate">Data do consumo:</label>
+                <input type="date" id="consumptionDate" onchange="carregarConsumoDoDia()">
+                <label for="caloriesLimit" style="margin-top:1rem;">Limite calórico dia:</label>
+                <input type="number" id="caloriesLimit" value="0" readonly>
+            </div>
+            <label for="categorySelect" style="margin-top:1.5rem;">Categoria:</label>
+            <select id="categorySelect" onchange="gerarTabelaAlimentos()"><option value="">Selecione</option></select>
+            <div style="overflow-x:auto; margin-top:1rem;">
+                <table>
+                    <thead><tr><th>Alimento</th><th>Porções</th><th>Total</th></tr></thead>
+                    <tbody id="foodTableBody"><tr><td colspan="3">Selecione um usuário e categoria.</td></tr></tbody>
+                </table>
+            </div>
+            <div class="calories-total">
+                Total consumido: <span id="totalCalories">0</span> kcal<br>
+                Restante no mês: <span id="remainingCalories">0</span> kcal<br>
+                Restante na dieta: <span id="remainingTotalDieta">0</span> kcal
+            </div>
+            <button onclick="generateDailyReport()">📄 Gerar Relatório do Dia</button>
         </div>
     </div>
 </div>
@@ -368,120 +363,159 @@ window.addEventListener('appinstalled', (evt) => {
     document.getElementById('pwaInstallBanner').style.display = 'none';
 });
 
-// ====== FIREBASE CONFIG ORIGINAL ======
+// ====== FIREBASE ======
 const firebaseConfig = {
-    apiKey: "AIzaSyC-L8v4-5-8-8-8-8-8-8-8",
-    authDomain: "dieta-monitorada.firebaseapp.com",
-    databaseURL: "https://dieta-monitorada-default-rtdb.firebaseio.com",
-    projectId: "dieta-monitorada",
-    storageBucket: "dieta-monitorada.appspot.com",
-    messagingSenderId: "123456789",
-    appId: "1:123456789:web:123456789"
+    apiKey: "AIzaSyCEAFNYezHe0_qsk-0ob4ibcEglUEP_KH0",
+    authDomain: "dieta-monitorada-b9500.firebaseapp.com",
+    databaseURL: "https://dieta-monitorada-b9500-default-rtdb.firebaseio.com",
+    projectId: "dieta-monitorada-b9500",
+    storageBucket: "dieta-monitorada-b9500.firebasestorage.app",
+    messagingSenderId: "515092760726",
+    appId: "1:515092760726:web:cf0f62f5879d2a9dc35ab7"
 };
 firebase.initializeApp(firebaseConfig);
 const db = firebase.database();
 
-// ====== CONSTANTES E VARS ======
+// ====== ESTADO ======
 const CALORIAS_POR_KG = 7700;
 const DIAS_NO_MES = 30;
-const USER_PREFIX = '_dietaUser_';
-const DAILY_PREFIX = '_dietaDaily_';
+const USER_PREFIX = "userCadastro_";
+const DAILY_PREFIX = "dailyConsumption_";
+
 let currentUser = null;
 let dailyConsumption = {};
 let speaking = false;
+let sessionTel = null;
+let statusListener = null;
 
-// ====== FUNÇÕES AUXILIARES ======
-function sanitizeKey(k) { return k.replace(/[.#$[\]]/g, "_"); }
-function formatDateToBR(d) { if(!d) return ""; const [y,m,day]=d.split('-'); return `${day}/${m}/${y}`; }
-function calcularDataFim(inicio, meses) {
-    const d = new Date(inicio + 'T00:00:00');
+// ====== UTILS ======
+function sanitizeKey(str) { return str.replace(/[.#$/\[\]\s]/g, '_'); }
+function formatDateToBR(d) {
+    if (!d) return '';
+    const [y,m,day] = d.split('-');
+    return `${day}/${m}/${y}`;
+}
+function getDuracaoText(v) {
+    const el = document.getElementById("duracaoDieta");
+    if (el) for (let o of el.options) if (o.value == v) return o.text;
+    return `${v} meses`;
+}
+function calcularDataFim(ini, meses) {
+    if (!ini || !meses) return "";
+    const d = new Date(ini + 'T00:00:00');
     d.setMonth(d.getMonth() + Number(meses));
-    return d.toISOString().split('T')[0];
+    d.setDate(d.getDate() - 1);
+    return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
 }
-function getDuracaoText(m) { return m === "3" ? "3 Meses" : "6 Meses"; }
-function splitFoodName(fullName, cal) {
-    const parts = fullName.split('(');
-    const foodName = parts[0].trim();
-    const portion = parts[1] ? '(' + parts[1] : '';
-    return { foodName, portionLine: `${portion} — ${cal} kcal` };
+function splitFoodName(name, cal) {
+    const m = name.match(/^(.*?)(\s*\((.*?)\))?$/);
+    const foodName = m ? m[1].trim() : name;
+    const portion = (m && m[3]) ? m[3].trim() + ' ' : '';
+    return { foodName, portionLine: portion + cal + ' kcal' };
 }
 
-// ====== FLUXO DE CADASTRO E STATUS ======
+// ====== FOTO ======
+let fotoBase64 = "";
 function onFotoChange(input) {
-    if (input.files && input.files[0]) {
-        const reader = new FileReader();
-        reader.onload = function(e) {
-            document.getElementById('fotoPreview').src = e.target.result;
-            document.getElementById('fotoPreview').style.display = 'block';
-            document.getElementById('fotoIcon').style.display = 'none';
-            document.getElementById('fotoText').textContent = "Foto selecionada!";
-            document.getElementById('fotoText').classList.add('selected');
-        };
-        reader.readAsDataURL(input.files[0]);
-    }
+    const file = input.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onloadend = () => {
+        fotoBase64 = reader.result;
+        document.getElementById('fotoPreview').src = fotoBase64;
+        document.getElementById('fotoPreview').style.display = 'block';
+        document.getElementById('fotoIcon').style.display = 'none';
+        document.getElementById('fotoText').textContent = '✅ Foto selecionada';
+        document.getElementById('fotoText').className = 'foto-text selected';
+    };
+    reader.readAsDataURL(file);
 }
 
+// ====== CADASTRO ======
 async function cadastrar() {
     const nome = document.getElementById('cadNome').value.trim();
-    const tel = document.getElementById('cadTelefone').value.trim();
-    const foto = document.getElementById('fotoPreview').src;
-    if (!nome || !tel) { alert("Nome e Telefone são obrigatórios!"); return; }
-    const btn = document.getElementById('btnCadastrar');
-    btn.disabled = true; btn.textContent = "Enviando...";
-    const key = sanitizeKey(tel);
-    const userData = { nome, tel, foto: foto.startsWith('data') ? foto : '', status: 'aguardando', dataCadastro: new Date().toISOString() };
-    try {
-        await db.ref('adminUsers/' + key).set(userData);
-        localStorage.setItem('_dietaTel', tel);
-        mostrarAguardando(userData);
-        iniciarListenerStatus(tel);
-    } catch(e) { alert("Erro ao cadastrar: " + e.message); btn.disabled = false; btn.textContent = "Cadastrar e Aguardar Liberação"; }
-}
+    const tel = document.getElementById('cadTelefone').value.trim().replace(/\D/g,'');
+    if (!nome || !tel) { alert('Nome e telefone são obrigatórios.'); return; }
 
-async function verificarJaCadastrado() {
-    const tel = document.getElementById('cadTelefone').value.trim();
-    if (!tel) { alert("Digite seu telefone para verificar."); return; }
+    const btn = document.getElementById('btnCadastrar');
+    btn.disabled = true; btn.textContent = 'Enviando...';
+
     const key = sanitizeKey(tel);
     const snap = await db.ref('adminUsers/' + key).get();
     if (snap.exists()) {
         const d = snap.val();
-        localStorage.setItem('_dietaTel', tel);
-        if (d.status === 'liberado') iniciarApp(d);
-        else { mostrarAguardando(d); iniciarListenerStatus(tel); }
-    } else alert("Cadastro não encontrado com este telefone.");
+        if (d.status === 'liberado') { iniciarApp(d); return; }
+        mostrarAguardando(d);
+        btn.disabled = false; btn.textContent = 'Cadastrar e Aguardar Liberação';
+        return;
+    }
+
+    const userData = {
+        id: tel, nome, telefone: tel, foto: fotoBase64,
+        status: 'aguardando', cadastradoEm: Date.now()
+    };
+    await db.ref('adminUsers/' + key).set(userData);
+    sessionTel = tel;
+    localStorage.setItem('_dietaTel', tel);
+    mostrarAguardando(userData);
+    iniciarListenerStatus(tel);
+    btn.disabled = false; btn.textContent = 'Cadastrar e Aguardar Liberação';
 }
 
-function mostrarAguardando(u) {
+async function verificarJaCadastrado() {
+    const tel = localStorage.getItem('_dietaTel');
+    if (!tel) { alert('Nenhum cadastro encontrado neste dispositivo.'); return; }
+    const key = sanitizeKey(tel);
+    const snap = await db.ref('adminUsers/' + key).get();
+    if (!snap.exists()) { alert('Cadastro não encontrado.'); return; }
+    const d = snap.val();
+    if (d.status === 'liberado') { iniciarApp(d); return; }
+    mostrarAguardando(d);
+    iniciarListenerStatus(tel);
+}
+
+function mostrarAguardando(userData) {
     document.getElementById('cadastroScreen').style.display = 'none';
     document.getElementById('aguardandoScreen').style.display = 'flex';
     const preview = document.getElementById('userInfoPreview');
-    preview.innerHTML = `
-        ${u.foto ? `<img src="${u.foto}">` : `<div class="no-foto">👤</div>`}
-        <div class="info"><p>Usuário:</p><strong>${u.nome}</strong></div>
-    `;
+    const fotoHtml = userData.foto
+        ? `<img src="${userData.foto}" alt="foto">`
+        : `<div class="no-foto">👤</div>`;
+    preview.innerHTML = `${fotoHtml}<div class="info"><strong>${userData.nome}</strong><p>Tel: ${userData.telefone}</p></div>`;
 }
 
 function iniciarListenerStatus(tel) {
     const key = sanitizeKey(tel);
-    db.ref('adminUsers/' + key).on('value', snap => {
+    if (statusListener) statusListener();
+    statusListener = db.ref('adminUsers/' + key).on('value', snap => {
+        if (!snap.exists()) return;
         const d = snap.val();
-        if (d && d.status === 'liberado') {
-            db.ref('adminUsers/' + key).off();
-            iniciarApp(d);
+        if (d.status === 'liberado') iniciarApp(d);
+        if (d.status === 'excluido') {
+            localStorage.removeItem('_dietaTel');
+            location.reload();
         }
     });
 }
 
-function iniciarApp(u) {
+function iniciarApp(userData) {
+    if (statusListener) { statusListener(); statusListener = null; }
     document.getElementById('cadastroScreen').style.display = 'none';
     document.getElementById('aguardandoScreen').style.display = 'none';
     document.getElementById('appSection').style.display = 'block';
-    document.getElementById('bannerNome').textContent = u.nome;
-    const bFoto = document.getElementById('bannerFoto');
-    if (u.foto) bFoto.innerHTML = `<img src="${u.foto}">`;
-    else bFoto.innerHTML = `<div class="no-foto-mini">👤</div>`;
-    mostrarLista(u.nome);
-    loadUserCadastro(u.nome);
+
+    // Banner
+    const bannerNome = document.getElementById('bannerNome');
+    const bannerFoto = document.getElementById('bannerFoto');
+    if (bannerNome) bannerNome.textContent = userData.nome;
+    if (bannerFoto) {
+        bannerFoto.innerHTML = userData.foto 
+            ? `<img src="${userData.foto}" alt="foto">`
+            : `<div class="no-foto-mini">👤</div>`;
+    }
+    
+    mostrarLista(userData.nome);
+    loadUserCadastro(userData.nome);
 }
 
 function sair() {
@@ -489,7 +523,7 @@ function sair() {
     location.reload();
 }
 
-// ====== LÓGICA DO APP PRINCIPAL ======
+// ====== APP PRINCIPAL ======
 function saveUserCadastro() {
     const nome = document.getElementById("nome").value.trim();
     if (!nome) return;
@@ -504,13 +538,13 @@ function saveUserCadastro() {
         tipoDieta: document.getElementById("tipoDieta").value,
         exercicio: document.getElementById("exercicio").value
     };
-    localStorage.setItem(`${USER_PREFIX}${nome}`, JSON.stringify(u));
+    localStorage.setItem(USER_PREFIX + nome, JSON.stringify(u));
     resetAnalisarButton();
     mostrarLista(nome);
 }
 
 function loadUserCadastro(nome) {
-    const raw = localStorage.getItem(`${USER_PREFIX}${nome}`);
+    const raw = localStorage.getItem(USER_PREFIX + nome);
     if (!raw) return;
     const u = JSON.parse(raw);
     document.getElementById("nome").value = u.nome || "";
@@ -534,51 +568,57 @@ function resetLoadButton() {
     gerarTabelaAlimentos();
 }
 function resetAnalisarButton() {
-    document.getElementById("analisarButton").textContent = "Análise Atualizada";
+    document.getElementById("analisarButton").textContent = "Analisar peso ideal";
     document.getElementById("analisarButton").classList.remove("active");
 }
 
 function calcularResultados(u) {
-    const alturaM = Number(u.altura) / 100;
-    const pesoN = Number(u.peso);
+    const altM = Number(u.altura)/100;
+    const peso = Number(u.peso);
     const dur = Number(u.duracaoDieta);
     const ex = Number(u.exercicio);
-    if (!alturaM || !pesoN || !dur || !u.idade) return { imc:0, pesoIdeal:0, kgEmagrecer:0, calDia:0, calMes:0, calTotalDieta:0 };
-    const imc = pesoN / (alturaM * alturaM);
-    let pesoIdeal = u.genero === "Masculino"
-        ? alturaM*100 - 100 - ((alturaM*100 - 150)/4)
-        : alturaM*100 - 100 - ((alturaM*100 - 150)/2);
-    const kgEmagrecer = pesoN - pesoIdeal;
+    if (!altM || !peso || !dur || !u.idade) return { imc:0, pesoIdeal:0, kgEmagrecer:0, calDia:0, calMes:0, total:0 };
+
+    const imc = peso / (altM * altM);
+    let pesoIdeal = u.genero === "Masculino" 
+        ? (altM*100 - 100) - ((altM*100 - 150)/4)
+        : (altM*100 - 100) - ((altM*100 - 150)/2);
+    const kgEmagrecer = peso - pesoIdeal;
+
     let tmb = u.genero === "Masculino"
-        ? 66 + (13.7*pesoN) + (5*(alturaM*100)) - (6.8*Number(u.idade))
-        : 655 + (9.6*pesoN) + (1.8*(alturaM*100)) - (4.7*Number(u.idade));
+        ? 66 + (13.7 * peso) + (5 * altM * 100) - (6.8 * Number(u.idade))
+        : 655 + (9.6 * peso) + (1.8 * altM * 100) - (4.7 * Number(u.idade));
+    
     const fator = ex === 1 ? 1.55 : 1.2;
     const manutencao = tmb * fator;
     const corteTotal = kgEmagrecer * CALORIAS_POR_KG;
     const corteDiario = corteTotal / (dur * 4 * 7);
+    
     let calDia = manutencao - corteDiario;
     if (u.tipoDieta === "Balanceada") calDia *= 1.30;
     if (calDia < 1000) calDia = 1000;
-    return { imc, pesoIdeal, kgEmagrecer, calDia, calMes: calDia * DIAS_NO_MES, calTotalDieta: calDia * dur * DIAS_NO_MES };
+
+    return { imc, pesoIdeal, kgEmagrecer, calDia, calMes: calDia * DIAS_NO_MES, total: calDia * dur * DIAS_NO_MES };
 }
 
 function getConsumedTotals(nome, u) {
     let consumedDieta = 0, consumedMes = 0;
     const today = new Date().toISOString().split('T')[0];
     const currentMonth = today.substring(0,7);
+
     for (let i = 0; i < localStorage.length; i++) {
         const key = localStorage.key(i);
         if (!key.startsWith(DAILY_PREFIX + nome + '_')) continue;
         try {
             const data = JSON.parse(localStorage.getItem(key));
             let daily = 0;
-            for (const [fn, qty] of Object.entries(data)) {
+            for (let fn in data) {
                 const f = allFoodsMap.get(fn);
-                if (f) daily += f.cal * qty;
+                if (f) daily += f.cal * data[fn];
             }
             consumedDieta += daily;
-            const dateStr = key.substring(key.lastIndexOf('_') + 1);
-            if (dateStr.length === 10 && dateStr.substring(0,7) === currentMonth) consumedMes += daily;
+            const dateStr = key.split('_')[2];
+            if (dateStr && dateStr.substring(0,7) === currentMonth) consumedMes += daily;
         } catch(e) {}
     }
     return { consumedMes, consumedDieta };
@@ -591,6 +631,7 @@ function analisar() {
     const peso = document.getElementById("peso").value;
     const dataInicio = document.getElementById("dataInicio").value;
     if (!nome || !idade || !altura || !peso || !dataInicio) { alert("Preencha todos os campos."); return; }
+
     const u = {
         nome, idade, genero: document.getElementById("genero").value,
         altura, peso, dataInicio,
@@ -598,33 +639,34 @@ function analisar() {
         tipoDieta: document.getElementById("tipoDieta").value,
         exercicio: document.getElementById("exercicio").value
     };
-    const { imc, pesoIdeal, kgEmagrecer, calDia, calMes, calTotalDieta } = calcularResultados(u);
+
+    const res = calcularResultados(u);
     const dataFim = calcularDataFim(dataInicio, u.duracaoDieta);
-    const { consumedMes, consumedDieta } = getConsumedTotals(nome, u);
+    const cons = getConsumedTotals(nome, u);
 
     document.getElementById("resNome").textContent = nome;
     document.getElementById("resGenero").textContent = u.genero;
     document.getElementById("resPeso").textContent = Number(peso).toFixed(1);
     document.getElementById("resAltura").textContent = altura;
-    document.getElementById("resIMC").textContent = imc.toFixed(2);
-    document.getElementById("resPesoIdeal").textContent = pesoIdeal.toFixed(1);
-    document.getElementById("resKgEmagrecer").textContent = kgEmagrecer > 0 ? kgEmagrecer.toFixed(1) : "0.0";
+    document.getElementById("resIMC").textContent = res.imc.toFixed(2);
+    document.getElementById("resPesoIdeal").textContent = res.pesoIdeal.toFixed(1);
+    document.getElementById("resKgEmagrecer").textContent = res.kgEmagrecer > 0 ? res.kgEmagrecer.toFixed(1) : "0.0";
     document.getElementById("resDataInicio").textContent = formatDateToBR(dataInicio);
     document.getElementById("resDataFim").textContent = formatDateToBR(dataFim);
     document.getElementById("resDuracao").textContent = getDuracaoText(u.duracaoDieta);
     document.getElementById("resTipoDieta").textContent = u.tipoDieta;
-    document.getElementById("resCalDia").textContent = calDia.toFixed(0);
-    document.getElementById("resCalMes").textContent = calMes.toFixed(0);
-    document.getElementById("resCalTotalDieta").textContent = calTotalDieta.toFixed(0);
-    document.getElementById("resFaltandoMes").textContent = (calMes - consumedMes).toFixed(0);
-    document.getElementById("resFaltandoDieta").textContent = (calTotalDieta - consumedDieta).toFixed(0);
+    document.getElementById("resCalDia").textContent = res.calDia.toFixed(0);
+    document.getElementById("resCalMes").textContent = res.calMes.toFixed(0);
+    document.getElementById("resCalTotalDieta").textContent = res.total.toFixed(0);
+    document.getElementById("resFaltandoMes").textContent = (res.calMes - cons.consumedMes).toFixed(0);
+    document.getElementById("resFaltandoDieta").textContent = (res.total - cons.consumedDieta).toFixed(0);
 
     document.getElementById("resultadoSection").classList.remove("hidden");
     document.getElementById("controleSection").classList.remove("hidden");
     document.getElementById("analisarButton").textContent = "Análise Atualizada";
     document.getElementById("analisarButton").classList.add("active");
     saveUserCadastro();
-    carregarUsuarioControle(nome, calDia);
+    carregarUsuarioControle(nome, res.calDia);
 }
 
 function salvarNutri() {
@@ -645,19 +687,20 @@ function mostrarLista(nomeParaSelecionar = '') {
     }
     users.sort((a,b) => a.nome.localeCompare(b.nome));
     users.forEach(u => {
-        const { imc, pesoIdeal, kgEmagrecer, calDia, calMes, calTotalDieta } = calcularResultados(u);
+        const res = calcularResultados(u);
         const dataFim = calcularDataFim(u.dataInicio, u.duracaoDieta);
         const tr = document.createElement("tr");
         tr.innerHTML = `<td>${u.nome}</td><td>${u.idade}</td><td>${u.genero}</td>
-            <td>${u.altura}</td><td>${u.peso}</td><td>${imc.toFixed(2)}</td>
-            <td>${pesoIdeal.toFixed(2)}</td><td>${kgEmagrecer.toFixed(2)}</td>
-            <td>${calDia.toFixed(0)}</td><td>${calMes.toFixed(0)}</td><td>${calTotalDieta.toFixed(0)}</td>
+            <td>${u.altura}</td><td>${u.peso}</td><td>${res.imc.toFixed(2)}</td>
+            <td>${res.pesoIdeal.toFixed(2)}</td><td>${res.kgEmagrecer.toFixed(2)}</td>
+            <td>${res.calDia.toFixed(0)}</td><td>${res.calMes.toFixed(0)}</td><td>${res.total.toFixed(0)}</td>
             <td>${getDuracaoText(u.duracaoDieta)}</td><td>${u.tipoDieta}</td>
             <td>${u.exercicio=="1"?"Sim":"Não"}</td>
             <td>${formatDateToBR(u.dataInicio)}</td><td>${formatDateToBR(dataFim)}</td>`;
         tr.onclick = () => { loadUserCadastro(u.nome); window.scrollTo(0,0); };
         tbody.appendChild(tr);
     });
+
     const sel = document.getElementById("userSelect");
     sel.innerHTML = '<option value="">Selecione</option>';
     users.forEach(u => {
@@ -672,11 +715,11 @@ function mostrarLista(nomeParaSelecionar = '') {
 async function carregarUsuario() {
     const nome = document.getElementById("userSelect").value;
     if (!nome) { alert("Selecione um usuário."); return; }
-    const raw = localStorage.getItem(`${USER_PREFIX}${nome}`);
+    const raw = localStorage.getItem(USER_PREFIX + nome);
     if (!raw) { alert("Cadastro não encontrado."); return; }
     const u = JSON.parse(raw);
-    const { calDia } = calcularResultados(u);
-    carregarUsuarioControle(nome, calDia);
+    const res = calcularResultados(u);
+    carregarUsuarioControle(nome, res.calDia);
 }
 
 function carregarUsuarioControle(nome, calDia) {
@@ -687,6 +730,7 @@ function carregarUsuarioControle(nome, calDia) {
     document.getElementById("consumptionDate").value = today;
     document.getElementById("caloriesLimit").value = calDia.toFixed(0);
     carregarConsumoDoDia();
+    
     if (document.getElementById("categorySelect").options.length <= 1) {
         const cats = [...new Set(foods.map(f => f.category))].sort();
         cats.forEach(c => {
@@ -702,7 +746,7 @@ function carregarConsumoDoDia() {
     if (!currentUser) return;
     const date = document.getElementById("consumptionDate").value;
     if (!date) { dailyConsumption = {}; updateDailyTotal(); return; }
-    const raw = localStorage.getItem(`${DAILY_PREFIX}${currentUser}_${date}`);
+    const raw = localStorage.getItem(DAILY_PREFIX + currentUser + '_' + date);
     dailyConsumption = raw ? JSON.parse(raw) : {};
     gerarTabelaAlimentos();
     updateDailyTotal();
@@ -712,9 +756,9 @@ function saveConsumoDoDia() {
     if (!currentUser) return;
     const date = document.getElementById("consumptionDate").value;
     if (!date) return;
-    const key = `${DAILY_PREFIX}${currentUser}_${date}`;
+    const key = DAILY_PREFIX + currentUser + '_' + date;
     const toSave = {};
-    for (const [fn, qty] of Object.entries(dailyConsumption)) if (qty > 0) toSave[fn] = qty;
+    for (let fn in dailyConsumption) if (dailyConsumption[fn] > 0) toSave[fn] = dailyConsumption[fn];
     if (Object.keys(toSave).length > 0) localStorage.setItem(key, JSON.stringify(toSave));
     else localStorage.removeItem(key);
     updateDailyTotal();
@@ -736,16 +780,17 @@ function gerarTabelaAlimentos() {
     if (!currentUser) { tbody.innerHTML = '<tr><td colspan="3">Selecione um usuário.</td></tr>'; return; }
     if (!cat) { tbody.innerHTML = '<tr><td colspan="3">Selecione uma categoria.</td></tr>'; return; }
     const filtered = foods.filter(f => f.category === cat);
-    if (!filtered.length) { tbody.innerHTML = '<tr><td colspan="3">Nenhum alimento.</td></tr>'; return; }
+    if (!filtered.length) { tbody.innerHTML = '<tr><td colspan="3">Nenhum alimento nesta categoria.</td></tr>'; return; }
+    
     filtered.forEach(food => {
         const qty = dailyConsumption[food.name] || 0;
-        const { foodName, portionLine } = splitFoodName(food.name, food.cal);
+        const info = splitFoodName(food.name, food.cal);
         const inputId = `qty_${food.name.replace(/[^a-zA-Z0-9]/g,'')}`;
         const tr = document.createElement("tr");
         tr.innerHTML = `
             <td><div class="food-item-container">
-                <span class="food-name-line">${foodName}</span>
-                <span class="calorias-base-unidade">${portionLine}</span>
+                <span class="food-name-line">${info.foodName}</span>
+                <span class="calorias-base-unidade">${info.portionLine}</span>
             </div></td>
             <td><div class="contador-quantidade">
                 <button onclick="updateQuantity('${food.name.replace(/'/g,"\\'")}', -1)">-</button>
@@ -767,18 +812,18 @@ function manualUpdateQuantity(foodName, value) {
 function updateDailyTotal() {
     if (!currentUser) return;
     let total = 0;
-    for (const [fn, qty] of Object.entries(dailyConsumption)) {
+    for (let fn in dailyConsumption) {
         const f = allFoodsMap.get(fn);
-        if (f) total += f.cal * qty;
+        if (f) total += f.cal * dailyConsumption[fn];
     }
     document.getElementById("totalCalories").textContent = total.toFixed(0);
-    const raw = localStorage.getItem(`${USER_PREFIX}${currentUser}`);
+    const raw = localStorage.getItem(USER_PREFIX + currentUser);
     if (!raw) return;
     const u = JSON.parse(raw);
-    const { calDia, calMes, calTotalDieta } = calcularResultados(u);
-    const { consumedMes, consumedDieta } = getConsumedTotals(currentUser, u);
-    document.getElementById("remainingCalories").textContent = (calMes - consumedMes).toFixed(0);
-    document.getElementById("remainingTotalDieta").textContent = (calTotalDieta - consumedDieta).toFixed(0);
+    const res = calcularResultados(u);
+    const cons = getConsumedTotals(currentUser, u);
+    document.getElementById("remainingCalories").textContent = (res.calMes - cons.consumedMes).toFixed(0);
+    document.getElementById("remainingTotalDieta").textContent = (res.total - cons.consumedDieta).toFixed(0);
     const limit = Number(document.getElementById("caloriesLimit").value);
     if (total > limit && !speaking) falarAlerta(currentUser);
 }
@@ -797,16 +842,16 @@ function generateDailyReport() {
     if (!currentUser) { alert("Selecione um usuário."); return; }
     const date = document.getElementById("consumptionDate").value;
     if (!date) { alert("Selecione uma data."); return; }
-    const raw = localStorage.getItem(`${USER_PREFIX}${currentUser}`);
+    const raw = localStorage.getItem(USER_PREFIX + currentUser);
     const u = raw ? JSON.parse(raw) : {};
-    const { calDia } = calcularResultados(u);
+    const res = calcularResultados(u);
     let total = 0;
     const items = [];
-    for (const [fn, qty] of Object.entries(dailyConsumption)) {
-        if (qty > 0) {
+    for (let fn in dailyConsumption) {
+        if (dailyConsumption[fn] > 0) {
             const f = allFoodsMap.get(fn);
-            const cal = f.cal * qty;
-            items.push({ fn, qty, cal });
+            const cal = f.cal * dailyConsumption[fn];
+            items.push({ fn, qty: dailyConsumption[fn], cal });
             total += cal;
         }
     }
@@ -822,12 +867,12 @@ b{color:#f40000}
 <h1>Relatório Diário</h1>
 <h2>👤 ${currentUser}</h2>
 <p>🗓️ Data: <b>${formatDateToBR(date)}</b></p>
-<p>🎯 Limite: <b>${calDia.toFixed(0)} kcal</b></p>
+<p>🎯 Limite: <b>${res.calDia.toFixed(0)} kcal</b></p>
 <h2>🍽️ Consumo</h2>
 <ul>${items.map(i=>`<li>${i.fn} × ${i.qty} = <b>${i.cal} kcal</b></li>`).join('')}
-${!items.length?'<li>Nenhum alimento.</li>':''}</ul>
+${!items.length?'<li>Nenhum alimento registrado.</li>':''}</ul>
 <div class="total">Total: ${total.toFixed(0)} kcal</div>
-<p>${total > calDia ? `<b style="color:#ff4d4d">Excedido em ${(total-calDia).toFixed(0)} kcal!</b>` : `<b style="color:#4dff4d">OK — Restam ${(calDia-total).toFixed(0)} kcal</b>`}</p>
+<p>${total > res.calDia ? `<b style="color:#ff4d4d">Excedido em ${(total-res.calDia).toFixed(0)} kcal!</b>` : `<b style="color:#4dff4d">OK — Restam ${(res.calDia-total).toFixed(0)} kcal</b>`}</p>
 </body></html>`;
     const blob = new Blob([html], {type:'text/html'});
     const a = document.createElement('a');
