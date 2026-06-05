@@ -38,7 +38,7 @@
             color: white;
             padding: 15px 20px;
             border-radius: 50px;
-            display: none; /* Escondido por padrão */
+            display: none;
             justify-content: space-between;
             align-items: center;
             box-shadow: 0 10px 30px rgba(244, 0, 0, 0.4);
@@ -52,10 +52,6 @@
         @keyframes slideUp {
             from { bottom: -100px; opacity: 0; }
             to { bottom: 20px; opacity: 1; }
-        }
-        #pwaInstallBanner:hover {
-            background: #c40000;
-            transform: translateX(-50%) scale(1.02);
         }
 
         /* ===== TELA DE CADASTRO ===== */
@@ -365,32 +361,22 @@ const db = firebase.database();
 // ====== LOGICA PWA (BARRINHA DE INSTALAÇÃO) ======
 let deferredPrompt;
 window.addEventListener('beforeinstallprompt', (e) => {
-    // Previne que o navegador mostre o prompt automático
     e.preventDefault();
-    // Guarda o evento para ser usado depois
     deferredPrompt = e;
-    // Mostra a nossa barrinha customizada
     document.getElementById('pwaInstallBanner').style.display = 'flex';
 });
 
 function installPWA() {
     if (!deferredPrompt) return;
-    // Mostra o prompt de instalação
     deferredPrompt.prompt();
-    // Espera a resposta do usuário
     deferredPrompt.userChoice.then((choiceResult) => {
         if (choiceResult.outcome === 'accepted') {
-            console.log('Usuário aceitou a instalação');
-            // Esconde a barrinha após aceitar
             document.getElementById('pwaInstallBanner').style.display = 'none';
-        } else {
-            console.log('Usuário recusou a instalação');
         }
         deferredPrompt = null;
     });
 }
 
-// Esconde a barrinha se o app já estiver instalado
 window.addEventListener('appinstalled', (evt) => {
     document.getElementById('pwaInstallBanner').style.display = 'none';
 });
@@ -548,7 +534,7 @@ function resetLoadButton() {
     gerarTabelaAlimentos();
 }
 function resetAnalisarButton() {
-    document.getElementById("analisarButton").textContent = "Analisar peso ideal";
+    document.getElementById("analisarButton").textContent = "Análise Atualizada";
     document.getElementById("analisarButton").classList.remove("active");
 }
 
