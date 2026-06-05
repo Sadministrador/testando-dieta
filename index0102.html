@@ -1,0 +1,1072 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <title>Dieta Monitorada</title>
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database-compat.js"></script>
+    <style>
+        :root {
+            --red: #f40000;
+            --blue: #1400ff;
+            --bg: #000;
+            --fg: #fff;
+            --card: #0d0d0d;
+            --border: #222;
+            --input-bg: #1a1a1a;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        html { font-size: 169.5%; }
+        body {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            background: var(--bg); color: var(--fg);
+            min-height: 100vh; padding-bottom: 6rem;
+        }
+
+        /* ===== TELA DE CADASTRO ===== */
+        #cadastroScreen {
+            min-height: 100vh; display: flex; align-items: center; justify-content: center;
+            padding: 2rem;
+        }
+        .cad-box {
+            background: var(--card); border: 2px solid var(--red);
+            border-radius: 1.5rem; padding: 3rem 2.5rem; width: 100%; max-width: 480px;
+            box-shadow: 0 0 60px rgba(244,0,0,0.2);
+        }
+        .cad-box h2 {
+            text-align: center; font-size: 2.5rem; color: var(--fg);
+            margin-bottom: 2rem; letter-spacing: -0.5px;
+        }
+        .cad-box h2 span { color: var(--red); }
+        .cad-field { margin-bottom: 1.5rem; }
+        .cad-field label { display: block; font-size: 1.2rem; color: #aaa; margin-bottom: 0.5rem; font-weight: 600; letter-spacing: 0.5px; text-transform: uppercase; }
+        .cad-field input {
+            width: 100%; padding: 1.3rem 1.5rem; border-radius: 0.8rem;
+            border: 2px solid #333; background: var(--input-bg); color: var(--fg);
+            font-size: 1.4rem; transition: border-color 0.3s;
+        }
+        .cad-field input:focus { outline: none; border-color: var(--red); }
+
+        /* Foto upload */
+        .foto-upload-area {
+            border: 2px dashed #444; border-radius: 0.8rem; padding: 2rem;
+            text-align: center; cursor: pointer; transition: all 0.3s; position: relative;
+        }
+        .foto-upload-area:hover { border-color: var(--red); background: rgba(244,0,0,0.05); }
+        .foto-upload-area input { position: absolute; inset: 0; opacity: 0; cursor: pointer; width: 100%; height: 100%; }
+        .foto-preview { width: 80px; height: 80px; border-radius: 50%; object-fit: cover; border: 3px solid var(--red); display: none; margin: 0 auto 0.8rem; }
+        .foto-icon { font-size: 3rem; margin-bottom: 0.5rem; }
+        .foto-text { font-size: 1.2rem; color: #888; }
+        .foto-text.selected { color: #00e676; }
+
+        .btn-cad {
+            width: 100%; padding: 1.5rem; border-radius: 0.8rem; border: none;
+            background: var(--red); color: #fff; font-size: 1.6rem; font-weight: 900;
+            cursor: pointer; transition: background 0.3s; margin-top: 1rem;
+            letter-spacing: 0.5px;
+        }
+        .btn-cad:hover { background: #c40000; }
+        .btn-cad:disabled { background: #444; cursor: not-allowed; }
+
+        /* Status aguardando */
+        #aguardandoScreen {
+            min-height: 100vh; display: none; align-items: center; justify-content: center;
+            flex-direction: column; text-align: center; padding: 3rem;
+        }
+        .aguardando-box {
+            background: var(--card); border: 2px solid #333;
+            border-radius: 1.5rem; padding: 3rem; max-width: 480px; width: 100%;
+        }
+        .pulse-dot {
+            width: 60px; height: 60px; border-radius: 50%; background: rgba(255,165,0,0.2);
+            border: 3px solid orange; margin: 0 auto 1.5rem;
+            animation: pulse 2s infinite; display: flex; align-items: center; justify-content: center;
+            font-size: 1.8rem;
+        }
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255,165,0,0.4); }
+            50% { transform: scale(1.05); box-shadow: 0 0 0 15px rgba(255,165,0,0); }
+        }
+        .aguardando-box h3 { font-size: 2rem; margin-bottom: 1rem; }
+        .aguardando-box p { color: #888; font-size: 1.3rem; line-height: 1.6; }
+        .user-info-preview {
+            margin-top: 2rem; padding: 1.5rem; background: #111; border-radius: 0.8rem;
+            display: flex; align-items: center; gap: 1.5rem;
+        }
+        .user-info-preview img { width: 60px; height: 60px; border-radius: 50%; object-fit: cover; border: 2px solid var(--red); }
+        .user-info-preview .no-foto { width: 60px; height: 60px; border-radius: 50%; background: #333; display: flex; align-items: center; justify-content: center; font-size: 1.8rem; }
+        .user-info-preview .info p { font-size: 1.3rem; color: #aaa; }
+        .user-info-preview .info strong { font-size: 1.5rem; color: var(--fg); }
+
+        /* ===== APP PRINCIPAL ===== */
+        #appSection { display: none; }
+        .main-container { max-width: 800px; margin: 0 auto; padding: 2rem; }
+        h1 { text-align: center; font-size: 3rem; margin-bottom: 2rem; }
+        h1 span { display: block; font-size: 2rem; font-weight: bold; margin-bottom: 0.3rem; }
+        h2 { color: var(--red); border-bottom: 2px solid rgba(244,0,0,0.7); padding-bottom: 0.8rem; margin-top: 3.5rem; font-size: 2rem; }
+        input, select, button {
+            padding: 1.5rem; border-radius: 1rem; border: 3px solid var(--red);
+            background: var(--input-bg); color: var(--fg); width: 100%;
+            box-sizing: border-box; font-size: 1.5rem; min-height: 4rem; transition: all 0.3s;
+        }
+        input:focus, select:focus { border-color: var(--fg); box-shadow: 0 0 12px var(--red); background: #222; outline: none; }
+        label { display: block; margin-top: 0.5rem; font-size: 1.6rem; font-weight: bold; }
+        button {
+            background: var(--red); color: var(--fg); font-weight: 900; cursor: pointer;
+            margin-top: 2rem; border: none; font-size: 1.8rem; min-height: 5rem;
+            box-shadow: 0 6px 18px rgba(0,0,0,0.7);
+        }
+        button:hover { background: #c40000; }
+        .active { background: var(--blue) !important; }
+        .active:hover { background: #0000d4 !important; }
+        #cadastroForm { display: grid; gap: 1.8rem; }
+        #toggleCadastroButton { background: #333; border: 1px solid #555; font-size: 1.4rem; font-weight: normal; min-height: 4.5rem; }
+        table { border-collapse: collapse; width: 100%; margin-top: 1.8rem; }
+        th, td { border: 2px solid var(--red); padding: 1.4rem 1rem; text-align: center; font-size: 1.3rem; white-space: nowrap; }
+        th { background: var(--red); color: var(--fg); font-size: 1.4rem; }
+        .calories-total { margin-top: 2.5rem; font-weight: bold; padding: 2rem; border: 4px solid var(--red); border-radius: 1.2rem; background: var(--input-bg); font-size: 1.8rem; line-height: 1.8; }
+        .hidden { display: none !important; }
+        #resultadoSection p { font-size: 1.5rem; padding: 0.7rem 0; }
+        #resultadoSection b { color: var(--red); }
+        .food-item-container { display: flex; flex-direction: column; align-items: flex-start; width: 100%; }
+        .food-name-line { font-weight: bold; margin-bottom: 2px; text-align: left; }
+        .calorias-base-unidade { color: #fff; font-size: 0.8em; font-weight: normal; }
+        .contador-quantidade { display: flex; align-items: center; justify-content: center; }
+        .contador-quantidade button { padding: 0.8rem; width: 40px; height: 40px; font-size: 2rem; line-height: 1; border-radius: 8px; border: 3px solid var(--red); background: var(--input-bg); color: var(--fg); margin: 0; min-height: 40px; }
+        .quantidade-input { width: 60px; padding: 0.5rem 0.1rem; text-align: center; font-size: 1.8rem; border-radius: 0; border-left: none; border-right: none; border-top: 3px solid var(--red); border-bottom: 3px solid var(--red); background: #1a1a1a; color: var(--fg); min-height: 40px; }
+        .quantidade-input::-webkit-outer-spin-button, .quantidade-input::-webkit-inner-spin-button { -webkit-appearance: none; }
+        .quantidade-input { -moz-appearance: textfield; }
+        #foodTableBody td:nth-child(1) { text-align: left; }
+        #controleSection table { table-layout: fixed; width: 100%; }
+        #controleSection table th:nth-child(1), #controleSection table td:nth-child(1) { width: 45%; white-space: normal; word-break: break-word; }
+        #controleSection table th:nth-child(2), #controleSection table td:nth-child(2) { width: 35%; white-space: nowrap; }
+        #controleSection table th:nth-child(3), #controleSection table td:nth-child(3) { width: 20%; white-space: normal; word-break: break-word; }
+
+        /* Banner usuário logado */
+        #userBanner {
+            background: rgba(244,0,0,0.1); border-bottom: 2px solid rgba(244,0,0,0.3);
+            padding: 0.8rem 1.5rem; display: flex; align-items: center; gap: 1rem;
+            position: sticky; top: 0; z-index: 100;
+        }
+        #userBanner img { width: 36px; height: 36px; border-radius: 50%; object-fit: cover; border: 2px solid var(--red); }
+        #userBanner .no-foto-mini { width: 36px; height: 36px; border-radius: 50%; background: #333; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; }
+        #userBanner span { font-size: 1.3rem; font-weight: 700; }
+        #userBanner .sair-btn { margin-left: auto; margin-top: 0; background: transparent; border: 1px solid #444; color: #888; font-size: 1rem; padding: 0.4rem 1rem; min-height: unset; width: auto; cursor: pointer; border-radius: 0.4rem; }
+
+        /* ===== INSTALL BANNER ===== */
+        #installBanner {
+            position: fixed; bottom: 1.5rem; left: 50%;
+            transform: translateX(-50%) translateY(120px);
+            z-index: 9999; display: flex; align-items: center; gap: 1.2rem;
+            background: linear-gradient(135deg, #1a1a1a 0%, #0d0d0d 100%);
+            border: 2px solid #f40000; border-radius: 3rem;
+            padding: 0.9rem 1.8rem 0.9rem 1rem;
+            box-shadow: 0 8px 32px rgba(244,0,0,0.35), 0 2px 8px rgba(0,0,0,0.8);
+            cursor: pointer;
+            transition: transform 0.5s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.3s;
+            white-space: nowrap;
+        }
+        #installBanner.visible { transform: translateX(-50%) translateY(0); }
+        #installBanner:hover { box-shadow: 0 12px 40px rgba(244,0,0,0.55); transform: translateX(-50%) translateY(-4px); }
+        .install-icon-wrap { width:44px;height:44px;background:linear-gradient(135deg,#f40000,#c40000);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;box-shadow:0 3px 10px rgba(244,0,0,0.5); }
+        .install-icon-wrap svg { width:22px;height:22px;fill:#fff; }
+        .install-text-wrap { display:flex;flex-direction:column;line-height:1.2; }
+        .install-label { font-size:0.68rem;color:#f40000;font-weight:700;text-transform:uppercase;letter-spacing:1.5px; }
+        .install-title { font-size:0.95rem;color:#fff;font-weight:800; }
+        .install-close { margin-left:0.6rem;color:#555;font-size:1.4rem;line-height:1;padding:0 0.2rem;cursor:pointer;transition:color 0.2s; }
+        .install-close:hover { color:#f40000; }
+
+        @media print {
+            button, #cadastroSection, #userSelect, #loadUserButton, #categorySelect, .contador-quantidade, #listaSection { display: none !important; }
+            @page { margin: 10mm; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- ===== TELA CADASTRO ===== -->
+<div id="cadastroScreen">
+    <div class="cad-box">
+        <h2>🍎 <span>Dieta</span> Monitorada</h2>
+
+        <div class="cad-field">
+            <label>Nome completo</label>
+            <input type="text" id="cadNome" placeholder="Seu nome">
+        </div>
+        <div class="cad-field">
+            <label>Telefone</label>
+            <input type="tel" id="cadTelefone" placeholder="DDD + número" maxlength="20">
+        </div>
+        <div class="cad-field">
+            <label>Foto (opcional)</label>
+            <div class="foto-upload-area" id="fotoArea" onclick="document.getElementById('cadFoto').click()">
+                <img id="fotoPreview" class="foto-preview" src="" alt="preview">
+                <div class="foto-icon" id="fotoIcon">📷</div>
+                <div class="foto-text" id="fotoText">Toque para escolher uma foto</div>
+                <input type="file" id="cadFoto" accept="image/*" style="display:none" onchange="onFotoChange(this)">
+            </div>
+        </div>
+
+        <button class="btn-cad" id="btnCadastrar" onclick="cadastrar()">Cadastrar e Aguardar Liberação</button>
+        <button class="btn-cad" id="btnJaTenho" onclick="verificarJaCadastrado()" style="background:#333; border:1px solid #555; margin-top:0.8rem; font-size:1.3rem; font-weight:normal;">Já me cadastrei — verificar status</button>
+    </div>
+</div>
+
+<!-- ===== AGUARDANDO LIBERAÇÃO ===== -->
+<div id="aguardandoScreen">
+    <div class="aguardando-box">
+        <div class="pulse-dot">⏳</div>
+        <h3>Aguardando Liberação</h3>
+        <p>Seu cadastro foi enviado com sucesso.<br>Aguarde o administrador liberar seu acesso.</p>
+        <div class="user-info-preview" id="userInfoPreview"></div>
+    </div>
+</div>
+
+<!-- ===== APP PRINCIPAL ===== -->
+<div id="appSection">
+    <div id="userBanner">
+        <div id="bannerFoto"></div>
+        <span id="bannerNome"></span>
+        <button class="sair-btn" onclick="sair()">Sair</button>
+    </div>
+    <div class="main-container">
+        <h1>Dieta Monitorada</h1>
+
+        <div id="cadastroSection">
+            <h2>1️⃣ Cadastro do Usuário</h2>
+            <button id="toggleCadastroButton" onclick="abrirAnalise(true)">Fechar Análise</button>
+            <div id="cadastroForm">
+                <label>Nome: <input type="text" id="nome" placeholder="Seu nome" onchange="saveUserCadastro()"></label>
+                <label>Idade (anos): <input type="number" id="idade" placeholder="Anos" min="1" onchange="saveUserCadastro()"></label>
+                <label>Gênero: <select id="genero" onchange="saveUserCadastro()">
+                    <option value="Feminino">Feminino</option>
+                    <option value="Masculino">Masculino</option>
+                </select></label>
+                <label>Altura (cm): <input type="number" id="altura" placeholder="Ex: 170" onchange="saveUserCadastro()"></label>
+                <label>Peso atual (kg): <input type="number" id="peso" placeholder="Ex: 80" onchange="saveUserCadastro()"></label>
+                <label>Data de início da dieta: <input type="date" id="dataInicio" onchange="saveUserCadastro()"></label>
+                <label>Duração da Dieta: <select id="duracaoDieta" onchange="saveUserCadastro()">
+                    <option value="3">3 Meses</option>
+                    <option value="6" selected>6 Meses</option>
+                </select></label>
+                <label>Tipo de Dieta: <select id="tipoDieta" onchange="saveUserCadastro()">
+                    <option value="Exata">Exata (foco na perda de peso)</option>
+                    <option value="Balanceada">Balanceada (+30% Calorias)</option>
+                </select></label>
+                <label>Pratica exercícios diários? <select id="exercicio" onchange="saveUserCadastro()">
+                    <option value="0">Não</option>
+                    <option value="1">Sim</option>
+                </select></label>
+                <button id="analisarButton" onclick="analisar()">Analisar peso ideal</button>
+            </div>
+        </div>
+
+        <div id="resultadoSection" class="hidden">
+            <h2>2️⃣ Resultado da Análise</h2>
+            <p>Nome: <b><span id="resNome"></span></b></p>
+            <p>Gênero: <b><span id="resGenero"></span></b></p>
+            <p>Peso atual: <b><span id="resPeso"></span> kg</b></p>
+            <p>Altura: <b><span id="resAltura"></span> cm</b></p>
+            <p>IMC atual: <b><span id="resIMC"></span></b></p>
+            <p>Peso ideal: <b><span id="resPesoIdeal"></span> kg</b></p>
+            <p>Kg a emagrecer: <b><span id="resKgEmagrecer"></span> kg</b></p>
+            <p>Data de início: <b><span id="resDataInicio"></span></b></p>
+            <p>Data final: <b><span id="resDataFim"></span></b></p>
+            <p>Duração: <b><span id="resDuracao"></span></b></p>
+            <p>Tipo de dieta: <b><span id="resTipoDieta"></span></b></p>
+            <p>Calorias por dia: <b><span id="resCalDia"></span> kcal</b></p>
+            <p>Calorias por mês: <b><span id="resCalMes"></span> kcal</b></p>
+            <p>Total calorias na dieta: <b><span id="resCalTotalDieta"></span> kcal</b></p>
+            <p>Restante este mês: <b><span id="resFaltandoMes"></span> kcal</b></p>
+            <p>Restante na dieta: <b><span id="resFaltandoDieta"></span> kcal</b></p>
+            <button onclick="salvarNutri()">Salvar na lista do nutricionista</button>
+        </div>
+
+        <div id="listaSection" class="hidden">
+            <h2>3️⃣ Lista do Nutricionista</h2>
+            <div style="overflow-x:auto;">
+                <table id="tabelaNutri">
+                    <thead><tr>
+                        <th>Nome</th><th>Idade</th><th>Gênero</th><th>Altura</th><th>Peso</th>
+                        <th>IMC</th><th>Peso Ideal</th><th>Kg Emagrecer</th>
+                        <th>Cal/Dia</th><th>Cal/Mês</th><th>Total</th><th>Duração</th><th>Tipo</th><th>Exercício</th><th>Início</th><th>Fim</th>
+                    </tr></thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </div>
+
+        <div id="controleSection" class="hidden">
+            <h2>🍽️ Controle de Alimentos</h2>
+            <label for="userSelect">Selecionar usuário:</label>
+            <select id="userSelect" onchange="resetLoadButton()"><option value="">Selecione</option></select>
+            <button id="loadUserButton" onclick="carregarUsuario()">Carregar Usuário</button>
+            <div style="margin-top:1.5rem;">
+                <label for="consumptionDate">Data do consumo:</label>
+                <input type="date" id="consumptionDate" onchange="carregarConsumoDoDia()">
+                <label for="caloriesLimit" style="margin-top:1rem;">Limite calórico dia:</label>
+                <input type="number" id="caloriesLimit" value="0" readonly>
+            </div>
+            <label for="categorySelect" style="margin-top:1.5rem;">Categoria:</label>
+            <select id="categorySelect" onchange="gerarTabelaAlimentos()"><option value="">Selecione</option></select>
+            <div style="overflow-x:auto; margin-top:1rem;">
+                <table>
+                    <thead><tr><th>Alimento</th><th>Porções</th><th>Total</th></tr></thead>
+                    <tbody id="foodTableBody"><tr><td colspan="3">Selecione um usuário e categoria.</td></tr></tbody>
+                </table>
+            </div>
+            <div class="calories-total">
+                Total consumido: <span id="totalCalories">0</span> kcal<br>
+                Restante no mês: <span id="remainingCalories">0</span> kcal<br>
+                Restante na dieta: <span id="remainingTotalDieta">0</span> kcal
+            </div>
+            <button onclick="generateDailyReport()">📄 Gerar Relatório do Dia</button>
+        </div>
+    </div>
+</div>
+
+<!-- ===== INSTALL BANNER ===== -->
+<div id="installBanner">
+    <div class="install-icon-wrap">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M19 9h-4V3H9v6H5l7 7 7-7zm-14 9v2h14v-2H5z"/>
+        </svg>
+    </div>
+    <div class="install-text-wrap">
+        <span class="install-label">Toque para</span>
+        <span class="install-title">Instalar Aplicativo</span>
+    </div>
+    <span class="install-close" onclick="closeBanner(event)">&#x2715;</span>
+</div>
+
+<script>
+// ====== FIREBASE ======
+const firebaseConfig = {
+    apiKey: "AIzaSyCEAFNYezHe0_qsk-0ob4ibcEglUEP_KH0",
+    authDomain: "dieta-monitorada-b9500.firebaseapp.com",
+    databaseURL: "https://dieta-monitorada-b9500-default-rtdb.firebaseio.com",
+    projectId: "dieta-monitorada-b9500",
+    storageBucket: "dieta-monitorada-b9500.firebasestorage.app",
+    messagingSenderId: "515092760726",
+    appId: "1:515092760726:web:cf0f62f5879d2a9dc35ab7"
+};
+firebase.initializeApp(firebaseConfig);
+const db = firebase.database();
+
+// ====== ESTADO ======
+const CALORIAS_POR_KG = 7700;
+const DIAS_NO_MES = 30;
+const USER_PREFIX = "userCadastro_";
+const DAILY_PREFIX = "dailyConsumption_";
+
+let currentUser = null;
+let dailyConsumption = {};
+let speaking = false;
+let sessionTel = null;
+let statusListener = null;
+
+// ====== UTILS ======
+function sanitizeKey(str) { return str.replace(/[.#$/\[\]\s]/g, '_'); }
+function formatDateToBR(d) {
+    if (!d) return '';
+    const [y,m,day] = d.split('-');
+    return `${day}/${m}/${y}`;
+}
+function getDuracaoText(v) {
+    const el = document.getElementById("duracaoDieta");
+    if (el) for (let o of el.options) if (o.value == v) return o.text;
+    return `${v} meses`;
+}
+function calcularDataFim(ini, meses) {
+    if (!ini || !meses) return "";
+    const d = new Date(ini + 'T00:00:00');
+    d.setMonth(d.getMonth() + Number(meses));
+    d.setDate(d.getDate() - 1);
+    return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
+}
+function splitFoodName(name, cal) {
+    const m = name.match(/^(.*?)(\s*\((.*?)\))?$/);
+    const foodName = m ? m[1].trim() : name;
+    const portion = (m && m[3]) ? m[3].trim() + ' ' : '';
+    return { foodName, portionLine: portion + cal + ' kcal' };
+}
+
+// ====== FOTO ======
+let fotoBase64 = "";
+function onFotoChange(input) {
+    const file = input.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onloadend = () => {
+        fotoBase64 = reader.result;
+        document.getElementById('fotoPreview').src = fotoBase64;
+        document.getElementById('fotoPreview').style.display = 'block';
+        document.getElementById('fotoIcon').style.display = 'none';
+        document.getElementById('fotoText').textContent = '✅ Foto selecionada';
+        document.getElementById('fotoText').className = 'foto-text selected';
+    };
+    reader.readAsDataURL(file);
+}
+
+// ====== CADASTRO ======
+async function cadastrar() {
+    const nome = document.getElementById('cadNome').value.trim();
+    const tel = document.getElementById('cadTelefone').value.trim().replace(/\D/g,'');
+    if (!nome || !tel) { alert('Nome e telefone são obrigatórios.'); return; }
+
+    const btn = document.getElementById('btnCadastrar');
+    btn.disabled = true; btn.textContent = 'Enviando...';
+
+    const key = sanitizeKey(tel);
+    const snap = await db.ref('adminUsers/' + key).get();
+    if (snap.exists()) {
+        const d = snap.val();
+        if (d.status === 'liberado') { iniciarApp(d); return; }
+        mostrarAguardando(d);
+        btn.disabled = false; btn.textContent = 'Cadastrar e Aguardar Liberação';
+        return;
+    }
+
+    const userData = {
+        id: tel, nome, telefone: tel, foto: fotoBase64,
+        status: 'aguardando', cadastradoEm: Date.now()
+    };
+    await db.ref('adminUsers/' + key).set(userData);
+    sessionTel = tel;
+    localStorage.setItem('_dietaTel', tel);
+    mostrarAguardando(userData);
+    iniciarListenerStatus(tel);
+    btn.disabled = false; btn.textContent = 'Cadastrar e Aguardar Liberação';
+}
+
+async function verificarJaCadastrado() {
+    const tel = localStorage.getItem('_dietaTel');
+    if (!tel) { alert('Nenhum cadastro encontrado neste dispositivo.'); return; }
+    const key = sanitizeKey(tel);
+    const snap = await db.ref('adminUsers/' + key).get();
+    if (!snap.exists()) { alert('Cadastro não encontrado.'); return; }
+    const d = snap.val();
+    if (d.status === 'liberado') { iniciarApp(d); return; }
+    mostrarAguardando(d);
+    iniciarListenerStatus(tel);
+}
+
+function mostrarAguardando(userData) {
+    document.getElementById('cadastroScreen').style.display = 'none';
+    document.getElementById('aguardandoScreen').style.display = 'flex';
+    const preview = document.getElementById('userInfoPreview');
+    const fotoHtml = userData.foto
+        ? `<img src="${userData.foto}" alt="foto">`
+        : `<div class="no-foto">👤</div>`;
+    preview.innerHTML = `${fotoHtml}<div class="info"><strong>${userData.nome}</strong><p>Tel: ${userData.telefone}</p></div>`;
+}
+
+function iniciarListenerStatus(tel) {
+    const key = sanitizeKey(tel);
+    if (statusListener) statusListener();
+    statusListener = db.ref('adminUsers/' + key).on('value', snap => {
+        if (!snap.exists()) return;
+        const d = snap.val();
+        if (d.status === 'liberado') iniciarApp(d);
+        if (d.status === 'excluido') {
+            localStorage.removeItem('_dietaTel');
+            location.reload();
+        }
+    });
+}
+
+function iniciarApp(userData) {
+    if (statusListener) { statusListener(); statusListener = null; }
+    document.getElementById('cadastroScreen').style.display = 'none';
+    document.getElementById('aguardandoScreen').style.display = 'none';
+    document.getElementById('appSection').style.display = 'block';
+
+    // Banner
+    const fotoHtml = userData.foto
+        ? `<img src="${userData.foto}" alt="foto">`
+        : `<div class="no-foto-mini">👤</div>`;
+    document.getElementById('bannerFoto').innerHTML = fotoHtml;
+    document.getElementById('bannerNome').textContent = userData.nome;
+
+    sessionTel = userData.telefone;
+    localStorage.setItem('_dietaTel', userData.telefone);
+
+    // Pre-preenche nome
+    const saved = localStorage.getItem(`${USER_PREFIX}${userData.nome}`);
+    if (saved) {
+        const u = JSON.parse(saved);
+        document.getElementById('nome').value = u.nome || '';
+        document.getElementById('idade').value = u.idade || '';
+        document.getElementById('genero').value = u.genero || 'Feminino';
+        document.getElementById('altura').value = u.altura || '';
+        document.getElementById('peso').value = u.peso || '';
+        document.getElementById('dataInicio').value = u.dataInicio || '';
+        document.getElementById('duracaoDieta').value = u.duracaoDieta || '6';
+        document.getElementById('tipoDieta').value = u.tipoDieta || 'Exata';
+        document.getElementById('exercicio').value = u.exercicio || '0';
+    } else {
+        document.getElementById('nome').value = userData.nome;
+    }
+
+    mostrarLista(userData.nome);
+    document.getElementById('controleSection').classList.remove('hidden');
+
+    // Listener para exclusão em tempo real
+    iniciarListenerStatus(userData.telefone);
+}
+
+function sair() {
+    localStorage.removeItem('_dietaTel');
+    location.reload();
+}
+
+// ====== APP FUNÇÕES ======
+function saveUserCadastro() {
+    const nome = document.getElementById("nome").value.trim();
+    if (!nome) return;
+    const u = {
+        nome, idade: document.getElementById("idade").value,
+        genero: document.getElementById("genero").value,
+        altura: document.getElementById("altura").value,
+        peso: document.getElementById("peso").value,
+        dataInicio: document.getElementById("dataInicio").value,
+        duracaoDieta: document.getElementById("duracaoDieta").value || "6",
+        tipoDieta: document.getElementById("tipoDieta").value,
+        exercicio: document.getElementById("exercicio").value
+    };
+    localStorage.setItem(`${USER_PREFIX}${nome}`, JSON.stringify(u));
+    resetAnalisarButton();
+    mostrarLista(nome);
+}
+
+function loadUserCadastro(nome) {
+    const raw = localStorage.getItem(`${USER_PREFIX}${nome}`);
+    if (!raw) return;
+    const u = JSON.parse(raw);
+    document.getElementById("nome").value = u.nome || "";
+    document.getElementById("idade").value = u.idade || "";
+    document.getElementById("genero").value = u.genero || "Feminino";
+    document.getElementById("altura").value = u.altura || "";
+    document.getElementById("peso").value = u.peso || "";
+    document.getElementById("dataInicio").value = u.dataInicio || "";
+    document.getElementById("duracaoDieta").value = u.duracaoDieta || "6";
+    document.getElementById("tipoDieta").value = u.tipoDieta || "Exata";
+    document.getElementById("exercicio").value = u.exercicio || "0";
+    analisar();
+    document.getElementById("toggleCadastroButton").textContent = "Fechar Análise";
+    document.getElementById("analisarButton").textContent = "Análise Atualizada";
+    document.getElementById("analisarButton").classList.add("active");
+}
+
+function resetLoadButton() {
+    document.getElementById("loadUserButton").textContent = "Carregar Usuário";
+    document.getElementById("loadUserButton").classList.remove("active");
+    gerarTabelaAlimentos();
+}
+function resetAnalisarButton() {
+    document.getElementById("analisarButton").textContent = "Analisar peso ideal";
+    document.getElementById("analisarButton").classList.remove("active");
+}
+
+function calcularResultados(u) {
+    const alturaM = Number(u.altura) / 100;
+    const pesoN = Number(u.peso);
+    const dur = Number(u.duracaoDieta);
+    const ex = Number(u.exercicio);
+    if (!alturaM || !pesoN || !dur || !u.idade) return { imc:0, pesoIdeal:0, kgEmagrecer:0, calDia:0, calMes:0, calTotalDieta:0 };
+    const imc = pesoN / (alturaM * alturaM);
+    let pesoIdeal = u.genero === "Masculino"
+        ? alturaM*100 - 100 - ((alturaM*100 - 150)/4)
+        : alturaM*100 - 100 - ((alturaM*100 - 150)/2);
+    const kgEmagrecer = pesoN - pesoIdeal;
+    let tmb = u.genero === "Masculino"
+        ? 66 + (13.7*pesoN) + (5*(alturaM*100)) - (6.8*Number(u.idade))
+        : 655 + (9.6*pesoN) + (1.8*(alturaM*100)) - (4.7*Number(u.idade));
+    const fator = ex === 1 ? 1.55 : 1.2;
+    const manutencao = tmb * fator;
+    const corteTotal = kgEmagrecer * CALORIAS_POR_KG;
+    const corteDiario = corteTotal / (dur * 4 * 7);
+    let calDia = manutencao - corteDiario;
+    if (u.tipoDieta === "Balanceada") calDia *= 1.30;
+    if (calDia < 1000) calDia = 1000;
+    return { imc, pesoIdeal, kgEmagrecer, calDia, calMes: calDia * DIAS_NO_MES, calTotalDieta: calDia * dur * DIAS_NO_MES };
+}
+
+function getConsumedTotals(nome, u) {
+    let consumedDieta = 0, consumedMes = 0;
+    const today = new Date().toISOString().split('T')[0];
+    const currentMonth = today.substring(0,7);
+    for (let i = 0; i < localStorage.length; i++) {
+        const key = localStorage.key(i);
+        if (!key.startsWith(DAILY_PREFIX + nome + '_')) continue;
+        try {
+            const data = JSON.parse(localStorage.getItem(key));
+            let daily = 0;
+            for (const [fn, qty] of Object.entries(data)) {
+                const f = allFoodsMap.get(fn);
+                if (f) daily += f.cal * qty;
+            }
+            consumedDieta += daily;
+            const dateStr = key.substring(key.lastIndexOf('_') + 1);
+            if (dateStr.length === 10 && dateStr.substring(0,7) === currentMonth) consumedMes += daily;
+        } catch(e) {}
+    }
+    return { consumedMes, consumedDieta };
+}
+
+function analisar() {
+    const nome = document.getElementById("nome").value.trim();
+    const idade = document.getElementById("idade").value;
+    const altura = document.getElementById("altura").value;
+    const peso = document.getElementById("peso").value;
+    const dataInicio = document.getElementById("dataInicio").value;
+    if (!nome || !idade || !altura || !peso || !dataInicio) { alert("Preencha todos os campos."); return; }
+    const u = {
+        nome, idade, genero: document.getElementById("genero").value,
+        altura, peso, dataInicio,
+        duracaoDieta: document.getElementById("duracaoDieta").value,
+        tipoDieta: document.getElementById("tipoDieta").value,
+        exercicio: document.getElementById("exercicio").value
+    };
+    const { imc, pesoIdeal, kgEmagrecer, calDia, calMes, calTotalDieta } = calcularResultados(u);
+    const dataFim = calcularDataFim(dataInicio, u.duracaoDieta);
+    const { consumedMes, consumedDieta } = getConsumedTotals(nome, u);
+
+    document.getElementById("resNome").textContent = nome;
+    document.getElementById("resGenero").textContent = u.genero;
+    document.getElementById("resPeso").textContent = Number(peso).toFixed(1);
+    document.getElementById("resAltura").textContent = altura;
+    document.getElementById("resIMC").textContent = imc.toFixed(2);
+    document.getElementById("resPesoIdeal").textContent = pesoIdeal.toFixed(1);
+    document.getElementById("resKgEmagrecer").textContent = kgEmagrecer > 0 ? kgEmagrecer.toFixed(1) : "0.0";
+    document.getElementById("resDataInicio").textContent = formatDateToBR(dataInicio);
+    document.getElementById("resDataFim").textContent = formatDateToBR(dataFim);
+    document.getElementById("resDuracao").textContent = getDuracaoText(u.duracaoDieta);
+    document.getElementById("resTipoDieta").textContent = u.tipoDieta;
+    document.getElementById("resCalDia").textContent = calDia.toFixed(0);
+    document.getElementById("resCalMes").textContent = calMes.toFixed(0);
+    document.getElementById("resCalTotalDieta").textContent = calTotalDieta.toFixed(0);
+    document.getElementById("resFaltandoMes").textContent = (calMes - consumedMes).toFixed(0);
+    document.getElementById("resFaltandoDieta").textContent = (calTotalDieta - consumedDieta).toFixed(0);
+
+    document.getElementById("resultadoSection").classList.remove("hidden");
+    document.getElementById("controleSection").classList.remove("hidden");
+    document.getElementById("analisarButton").textContent = "Análise Atualizada";
+    document.getElementById("analisarButton").classList.add("active");
+    saveUserCadastro();
+    carregarUsuarioControle(nome, calDia);
+}
+
+function salvarNutri() {
+    alert("Salvo com sucesso!");
+    resetAnalisarButton();
+    mostrarLista(document.getElementById("resNome").textContent);
+}
+
+function mostrarLista(nomeParaSelecionar = '') {
+    const tbody = document.querySelector("#tabelaNutri tbody");
+    tbody.innerHTML = '';
+    const users = [];
+    for (let i = 0; i < localStorage.length; i++) {
+        const key = localStorage.key(i);
+        if (key.startsWith(USER_PREFIX)) {
+            try { users.push(JSON.parse(localStorage.getItem(key))); } catch(e) {}
+        }
+    }
+    users.sort((a,b) => a.nome.localeCompare(b.nome));
+    users.forEach(u => {
+        const { imc, pesoIdeal, kgEmagrecer, calDia, calMes, calTotalDieta } = calcularResultados(u);
+        const dataFim = calcularDataFim(u.dataInicio, u.duracaoDieta);
+        const tr = document.createElement("tr");
+        tr.innerHTML = `<td>${u.nome}</td><td>${u.idade}</td><td>${u.genero}</td>
+            <td>${u.altura}</td><td>${u.peso}</td><td>${imc.toFixed(2)}</td>
+            <td>${pesoIdeal.toFixed(2)}</td><td>${kgEmagrecer.toFixed(2)}</td>
+            <td>${calDia.toFixed(0)}</td><td>${calMes.toFixed(0)}</td><td>${calTotalDieta.toFixed(0)}</td>
+            <td>${getDuracaoText(u.duracaoDieta)}</td><td>${u.tipoDieta}</td>
+            <td>${u.exercicio=="1"?"Sim":"Não"}</td>
+            <td>${formatDateToBR(u.dataInicio)}</td><td>${formatDateToBR(dataFim)}</td>`;
+        tr.onclick = () => { loadUserCadastro(u.nome); window.scrollTo(0,0); };
+        tbody.appendChild(tr);
+    });
+    const sel = document.getElementById("userSelect");
+    sel.innerHTML = '<option value="">Selecione</option>';
+    users.forEach(u => {
+        const o = document.createElement("option");
+        o.value = u.nome; o.textContent = u.nome;
+        sel.appendChild(o);
+        if (u.nome === nomeParaSelecionar) sel.value = nomeParaSelecionar;
+    });
+    document.getElementById("listaSection").classList.remove("hidden");
+}
+
+async function carregarUsuario() {
+    const nome = document.getElementById("userSelect").value;
+    if (!nome) { alert("Selecione um usuário."); return; }
+    const raw = localStorage.getItem(`${USER_PREFIX}${nome}`);
+    if (!raw) { alert("Cadastro não encontrado."); return; }
+    const u = JSON.parse(raw);
+    const { calDia } = calcularResultados(u);
+    carregarUsuarioControle(nome, calDia);
+}
+
+function carregarUsuarioControle(nome, calDia) {
+    currentUser = nome;
+    document.getElementById("loadUserButton").textContent = `Usuário: ${nome}`;
+    document.getElementById("loadUserButton").classList.add("active");
+    const today = new Date().toISOString().split('T')[0];
+    document.getElementById("consumptionDate").value = today;
+    document.getElementById("caloriesLimit").value = calDia.toFixed(0);
+    carregarConsumoDoDia();
+    if (document.getElementById("categorySelect").options.length <= 1) {
+        const cats = [...new Set(foods.map(f => f.category))].sort();
+        cats.forEach(c => {
+            const o = document.createElement("option");
+            o.value = c; o.textContent = c;
+            document.getElementById("categorySelect").appendChild(o);
+        });
+    }
+    gerarTabelaAlimentos();
+}
+
+function carregarConsumoDoDia() {
+    if (!currentUser) return;
+    const date = document.getElementById("consumptionDate").value;
+    if (!date) { dailyConsumption = {}; updateDailyTotal(); return; }
+    const raw = localStorage.getItem(`${DAILY_PREFIX}${currentUser}_${date}`);
+    dailyConsumption = raw ? JSON.parse(raw) : {};
+    gerarTabelaAlimentos();
+    updateDailyTotal();
+}
+
+function saveConsumoDoDia() {
+    if (!currentUser) return;
+    const date = document.getElementById("consumptionDate").value;
+    if (!date) return;
+    const key = `${DAILY_PREFIX}${currentUser}_${date}`;
+    const toSave = {};
+    for (const [fn, qty] of Object.entries(dailyConsumption)) if (qty > 0) toSave[fn] = qty;
+    if (Object.keys(toSave).length > 0) localStorage.setItem(key, JSON.stringify(toSave));
+    else localStorage.removeItem(key);
+    updateDailyTotal();
+}
+
+function updateQuantity(foodName, delta) {
+    dailyConsumption[foodName] = Math.max(0, (dailyConsumption[foodName] || 0) + delta);
+    const id = `qty_${foodName.replace(/[^a-zA-Z0-9]/g,'')}`;
+    const el = document.getElementById(id);
+    if (el) el.value = dailyConsumption[foodName];
+    saveConsumoDoDia();
+    gerarTabelaAlimentos();
+}
+
+function gerarTabelaAlimentos() {
+    const cat = document.getElementById("categorySelect").value;
+    const tbody = document.getElementById("foodTableBody");
+    tbody.innerHTML = '';
+    if (!currentUser) { tbody.innerHTML = '<tr><td colspan="3">Selecione um usuário.</td></tr>'; return; }
+    if (!cat) { tbody.innerHTML = '<tr><td colspan="3">Selecione uma categoria.</td></tr>'; return; }
+    const filtered = foods.filter(f => f.category === cat);
+    if (!filtered.length) { tbody.innerHTML = '<tr><td colspan="3">Nenhum alimento.</td></tr>'; return; }
+    filtered.forEach(food => {
+        const qty = dailyConsumption[food.name] || 0;
+        const { foodName, portionLine } = splitFoodName(food.name, food.cal);
+        const inputId = `qty_${food.name.replace(/[^a-zA-Z0-9]/g,'')}`;
+        const tr = document.createElement("tr");
+        tr.innerHTML = `
+            <td><div class="food-item-container">
+                <span class="food-name-line">${foodName}</span>
+                <span class="calorias-base-unidade">${portionLine}</span>
+            </div></td>
+            <td><div class="contador-quantidade">
+                <button onclick="updateQuantity('${food.name.replace(/'/g,"\\'")}', -1)">-</button>
+                <input type="number" id="${inputId}" class="quantidade-input" value="${qty}" min="0" onchange="manualUpdateQuantity('${food.name.replace(/'/g,"\\'")}', this.value)">
+                <button onclick="updateQuantity('${food.name.replace(/'/g,"\\'")}', 1)">+</button>
+            </div></td>
+            <td>${food.cal * qty} kcal</td>`;
+        tbody.appendChild(tr);
+    });
+}
+
+function manualUpdateQuantity(foodName, value) {
+    const n = Number(value);
+    dailyConsumption[foodName] = isNaN(n) || n < 0 ? 0 : n;
+    saveConsumoDoDia();
+    gerarTabelaAlimentos();
+}
+
+function updateDailyTotal() {
+    if (!currentUser) return;
+    let total = 0;
+    for (const [fn, qty] of Object.entries(dailyConsumption)) {
+        const f = allFoodsMap.get(fn);
+        if (f) total += f.cal * qty;
+    }
+    document.getElementById("totalCalories").textContent = total.toFixed(0);
+    const raw = localStorage.getItem(`${USER_PREFIX}${currentUser}`);
+    if (!raw) return;
+    const u = JSON.parse(raw);
+    const { calDia, calMes, calTotalDieta } = calcularResultados(u);
+    const { consumedMes, consumedDieta } = getConsumedTotals(currentUser, u);
+    document.getElementById("remainingCalories").textContent = (calMes - consumedMes).toFixed(0);
+    document.getElementById("remainingTotalDieta").textContent = (calTotalDieta - consumedDieta).toFixed(0);
+    const limit = Number(document.getElementById("caloriesLimit").value);
+    if (total > limit && !speaking) falarAlerta(currentUser);
+}
+
+function falarAlerta(nome) {
+    if ('speechSynthesis' in window) {
+        speaking = true;
+        const u = new SpeechSynthesisUtterance(`${nome}, você já atingiu suas calorias de hoje.`);
+        u.lang = 'pt-BR';
+        u.onend = () => { speaking = false; };
+        window.speechSynthesis.speak(u);
+    }
+}
+
+function generateDailyReport() {
+    if (!currentUser) { alert("Selecione um usuário."); return; }
+    const date = document.getElementById("consumptionDate").value;
+    if (!date) { alert("Selecione uma data."); return; }
+    const raw = localStorage.getItem(`${USER_PREFIX}${currentUser}`);
+    const u = raw ? JSON.parse(raw) : {};
+    const { calDia } = calcularResultados(u);
+    let total = 0;
+    const items = [];
+    for (const [fn, qty] of Object.entries(dailyConsumption)) {
+        if (qty > 0) {
+            const f = allFoodsMap.get(fn);
+            const cal = f.cal * qty;
+            items.push({ fn, qty, cal });
+            total += cal;
+        }
+    }
+    const html = `<!DOCTYPE html><html><head><meta charset="UTF-8"><title>Relatório</title>
+<style>body{font-family:Arial;padding:30px;background:#000;color:#fff}
+h1{color:#f40000;font-size:3rem;border-bottom:4px solid #f40000;padding-bottom:1rem}
+h2{font-size:2rem;margin-top:2rem}p{font-size:1.8rem;margin:1rem 0}b{color:#1400ff}
+ul{list-style:none;padding:0}li{font-size:1.8rem;padding:.8rem 0;border-bottom:1px dotted #555}
+.total{font-size:3rem;color:#f40000;font-weight:bold;border:4px solid #f40000;padding:2rem;text-align:center;margin-top:2rem}</style>
+</head><body>
+<h1>Relatório Diário</h1>
+<h2>👤 ${currentUser}</h2>
+<p>🗓️ Data: <b>${formatDateToBR(date)}</b></p>
+<p>🎯 Limite: <b>${calDia.toFixed(0)} kcal</b></p>
+<h2>🍽️ Consumo</h2>
+<ul>${items.map(i=>`<li>${i.fn} × ${i.qty} = <b>${i.cal} kcal</b></li>`).join('')}
+${!items.length?'<li>Nenhum alimento.</li>':''}</ul>
+<div class="total">Total: ${total.toFixed(0)} kcal</div>
+<p>${total > calDia ? `<b style="color:#ff4d4d">Excedido em ${(total-calDia).toFixed(0)} kcal!</b>` : `<b style="color:#4dff4d">OK — Restam ${(calDia-total).toFixed(0)} kcal</b>`}</p>
+</body></html>`;
+    const blob = new Blob([html], {type:'text/html'});
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = `Relatorio_${currentUser}_${date}.html`;
+    document.body.appendChild(a); a.click(); document.body.removeChild(a);
+}
+
+function abrirAnalise(fechar) {
+    const btn = document.getElementById("toggleCadastroButton");
+    if (fechar) {
+        document.getElementById("cadastroSection").classList.add("hidden");
+        document.getElementById("resultadoSection").classList.add("hidden");
+        document.getElementById("controleSection").classList.remove("hidden");
+        document.getElementById("listaSection").classList.remove("hidden");
+        btn.textContent = "Abrir Análise";
+        btn.onclick = () => abrirAnalise(false);
+    } else {
+        document.getElementById("cadastroSection").classList.remove("hidden");
+        document.getElementById("resultadoSection").classList.add("hidden");
+        document.getElementById("controleSection").classList.add("hidden");
+        document.getElementById("listaSection").classList.add("hidden");
+        btn.textContent = "Fechar Análise";
+        btn.onclick = () => abrirAnalise(true);
+        const n = document.getElementById("nome").value.trim();
+        if (n) loadUserCadastro(n);
+    }
+}
+
+// ====== ALIMENTOS ======
+const foods = [
+    {category:"Grãos e cereais",name:"Arroz branco (1 colher de sopa)",cal:70},
+    {category:"Grãos e cereais",name:"Arroz integral (1 colher de sopa)",cal:65},
+    {category:"Grãos e cereais",name:"Feijão (1 concha média)",cal:80},
+    {category:"Grãos e cereais",name:"Macarrão instantâneo (1 pacote pequeno)",cal:350},
+    {category:"Grãos e cereais",name:"Macarrão normal (1 prato)",cal:180},
+    {category:"Grãos e cereais",name:"Ervilha (100g)",cal:81},
+    {category:"Grãos e cereais",name:"Batata comum (100g)",cal:77},
+    {category:"Grãos e cereais",name:"Polenta ou angu (100g)",cal:100},
+    {category:"Grãos e cereais",name:"Farinha de mandioca (1 colher de sopa)",cal:35},
+    {category:"Legumes",name:"Cenoura (100g)",cal:40},
+    {category:"Legumes",name:"Abobrinha (100g)",cal:20},
+    {category:"Legumes",name:"Quiabo (100g)",cal:33},
+    {category:"Legumes",name:"Batata-doce (100g)",cal:86},
+    {category:"Legumes",name:"Abóbora comum (100g)",cal:26},
+    {category:"Legumes",name:"Beterraba (100g)",cal:43},
+    {category:"Legumes",name:"Pepino (100g)",cal:16},
+    {category:"Legumes",name:"Pimentão (100g)",cal:27},
+    {category:"Legumes",name:"Tomate (100g)",cal:18},
+    {category:"Legumes",name:"Chuchu (100g)",cal:19},
+    {category:"Legumes",name:"Aspargos (100g)",cal:20},
+    {category:"Legumes",name:"Berinjela (100g)",cal:25},
+    {category:"Legumes",name:"Inhame (100g)",cal:118},
+    {category:"Legumes",name:"Aipim/Mandioca (100g)",cal:130},
+    {category:"Verduras",name:"Alface (100g)",cal:15},
+    {category:"Verduras",name:"Couve (100g)",cal:32},
+    {category:"Verduras",name:"Couve-flor (100g)",cal:25},
+    {category:"Verduras",name:"Espinafre (100g)",cal:23},
+    {category:"Verduras",name:"Rúcula (100g)",cal:25},
+    {category:"Verduras",name:"Repolho (100g)",cal:25},
+    {category:"Frutas",name:"Banana (100g)",cal:89},
+    {category:"Frutas",name:"Maçã (100g)",cal:52},
+    {category:"Frutas",name:"Laranja (100g)",cal:43},
+    {category:"Frutas",name:"Manga (100g)",cal:60},
+    {category:"Frutas",name:"Tangerina (100g)",cal:53},
+    {category:"Frutas",name:"Abacate (100g)",cal:160},
+    {category:"Frutas",name:"Morango (100g)",cal:32},
+    {category:"Frutas",name:"Uva vinho (100g)",cal:69},
+    {category:"Frutas",name:"Uva verde (100g)",cal:69},
+    {category:"Frutas",name:"Melancia (100g)",cal:30},
+    {category:"Frutas",name:"Melão (100g)",cal:34},
+    {category:"Frutas",name:"Azeitona (100g)",cal:115},
+    {category:"Frutas",name:"Limão (100g)",cal:29},
+    {category:"Frutas",name:"Abacaxi (100g)",cal:50},
+    {category:"Frutas",name:"Ameixa (100g)",cal:46},
+    {category:"Frutas",name:"Amora (100g)",cal:43},
+    {category:"Frutas",name:"Cereja (100g)",cal:50},
+    {category:"Frutas",name:"Coco (100g)",cal:354},
+    {category:"Frutas",name:"Figo (100g)",cal:74},
+    {category:"Frutas",name:"Mamão (100g)",cal:43},
+    {category:"Frutas",name:"Maracujá (100g)",cal:97},
+    {category:"Frutas",name:"Pêra (100g)",cal:57},
+    {category:"Frutas",name:"Pêssego (100g)",cal:39},
+    {category:"Frutas",name:"Acerola (100g)",cal:32},
+    {category:"Frutas",name:"Caju (100g)",cal:43},
+    {category:"Frutas",name:"Jaca (100g)",cal:95},
+    {category:"Frutas",name:"Goiaba (100g)",cal:68},
+    {category:"Bebidas",name:"Refrigerante (200ml)",cal:90},
+    {category:"Bebidas",name:"Cerveja (350ml)",cal:150},
+    {category:"Bebidas",name:"Leite Ninho achocolatado (200ml)",cal:160},
+    {category:"Bebidas",name:"Leite Ninho puro (200ml)",cal:130},
+    {category:"Bebidas",name:"Água com gás (200ml)",cal:0},
+    {category:"Bebidas",name:"Vitamina (200ml)",cal:180},
+    {category:"Bebidas",name:"Suco de laranja (200ml)",cal:90},
+    {category:"Bebidas",name:"Chá sem açúcar (200ml)",cal:2},
+    {category:"Bebidas",name:"Café com açúcar (200ml)",cal:40},
+    {category:"Bebidas",name:"Café sem açúcar (200ml)",cal:2},
+    {category:"Bebidas",name:"Energético (250ml)",cal:110},
+    {category:"Bebidas",name:"Suco de caixa (200ml)",cal:100},
+    {category:"Bebidas",name:"Leite integral (200ml)",cal:120},
+    {category:"Bebidas",name:"Leite desnatado (200ml)",cal:70},
+    {category:"Frios",name:"Apresuntado (30g)",cal:45},
+    {category:"Frios",name:"Mortadela (30g)",cal:90},
+    {category:"Frios",name:"Mussarela (30g)",cal:80},
+    {category:"Frios",name:"Peito de peru (30g)",cal:30},
+    {category:"Frios",name:"Presunto (30g)",cal:45},
+    {category:"Frios",name:"Queijo Minas (30g)",cal:90},
+    {category:"Frios",name:"Queijo prato (30g)",cal:110},
+    {category:"Frios",name:"Sardinha enlatada (100g)",cal:200},
+    {category:"Frios",name:"Atum enlatado (100g)",cal:120},
+    {category:"Carnes e ovos",name:"Frango empanado (100g)",cal:250},
+    {category:"Carnes e ovos",name:"Filé de frango (100g)",cal:165},
+    {category:"Carnes e ovos",name:"Bife (100g)",cal:250},
+    {category:"Carnes e ovos",name:"Carne vermelha (100g)",cal:290},
+    {category:"Carnes e ovos",name:"Fígado de boi (100g)",cal:135},
+    {category:"Carnes e ovos",name:"Linguiça (100g)",cal:300},
+    {category:"Carnes e ovos",name:"Peixe (100g)",cal:160},
+    {category:"Carnes e ovos",name:"Carne de porco (100g)",cal:240},
+    {category:"Carnes e ovos",name:"Torresmo (100g)",cal:550},
+    {category:"Carnes e ovos",name:"Nuggets (100g)",cal:280},
+    {category:"Doces",name:"Bolo normal (1 fatia)",cal:250},
+    {category:"Doces",name:"Bolo confeitado (1 fatia)",cal:350},
+    {category:"Doces",name:"Pudim (1 fatia)",cal:220},
+    {category:"Doces",name:"Sorvete (100g)",cal:200},
+    {category:"Doces",name:"Brigadeiro (1 unidade)",cal:80},
+    {category:"Doces",name:"Chocolate ao leite (100g)",cal:535},
+    {category:"Doces",name:"Goiabada (100g)",cal:260},
+    {category:"Doces",name:"Doce de leite (100g)",cal:300},
+    {category:"Pães e Massas",name:"Pão Francês (50g)",cal:150},
+    {category:"Pães e Massas",name:"Pão Integral (50g)",cal:120},
+    {category:"Pães e Massas",name:"Pão de Forma (1 fatia)",cal:70},
+    {category:"Pães e Massas",name:"Pizza mussarela (1 fatia)",cal:280},
+    {category:"Pães e Massas",name:"Lasanha (1 porção)",cal:400},
+    {category:"Pães e Massas",name:"Pão de queijo (1 unidade)",cal:100},
+    {category:"Pães e Massas",name:"Tapioca (1 unidade)",cal:150},
+    {category:"Azeites e Óleos",name:"Azeite de oliva (1 colher)",cal:120},
+    {category:"Azeites e Óleos",name:"Manteiga (1 colher)",cal:100},
+    {category:"Azeites e Óleos",name:"Maionese (1 colher)",cal:90},
+    {category:"Azeites e Óleos",name:"Requeijão (1 colher)",cal:70},
+    {category:"Lanches Rápido",name:"Hambúrguer simples",cal:300},
+    {category:"Lanches Rápido",name:"Batata frita (porção)",cal:350},
+    {category:"Lanches Rápido",name:"Salgado frito (coxinha)",cal:300},
+    {category:"Lanches Rápido",name:"Hot dog simples",cal:350},
+    {category:"Lanches Rápido",name:"Açaí (200ml)",cal:200},
+    {category:"Lanches Rápido",name:"Cheeseburger completo",cal:450},
+    {category:"Lanches Rápido",name:"X-Tudo",cal:650},
+    {category:"Lanches Rápido",name:"Pastel frito",cal:320},
+    {category:"Lanches Rápido",name:"Wrap de Frango",cal:380}
+];
+const allFoodsMap = new Map(foods.map(f => [f.name, f]));
+
+// ====== INIT ======
+window.onload = async function() {
+    const tel = localStorage.getItem('_dietaTel');
+    if (tel) {
+        const key = sanitizeKey(tel);
+        const snap = await db.ref('adminUsers/' + key).get();
+        if (snap.exists()) {
+            const d = snap.val();
+            if (d.status === 'liberado') { iniciarApp(d); return; }
+            if (d.status === 'aguardando') {
+                mostrarAguardando(d);
+                iniciarListenerStatus(tel);
+                return;
+            }
+        }
+    }
+    // Mostra tela de cadastro
+};
+
+// ===== PWA INSTALL BANNER =====
+(function() {
+    var deferredPrompt = null;
+    var _banner = document.getElementById('installBanner');
+    _banner.addEventListener('click', function(e) {
+        if (e.target.classList.contains('install-close')) return;
+        triggerInstall();
+    });
+    window.addEventListener('beforeinstallprompt', function(e) {
+        e.preventDefault();
+        deferredPrompt = e;
+        setTimeout(function() { _banner.classList.add('visible'); }, 1500);
+    });
+    window.addEventListener('appinstalled', function() { _banner.style.display = 'none'; });
+    function triggerInstall() {
+        if (deferredPrompt) {
+            deferredPrompt.prompt();
+            deferredPrompt.userChoice.then(function(c) {
+                if (c.outcome === 'accepted') _banner.style.display = 'none';
+                deferredPrompt = null;
+            });
+        } else {
+            alert('Para instalar:\n\niPhone/iPad: Compartilhar > Adicionar a Tela de Inicio\nAndroid: Menu (3 pontos) > Adicionar a tela inicial');
+        }
+    }
+    window.closeBanner = function(e) {
+        e.stopPropagation();
+        _banner.classList.remove('visible');
+        setTimeout(function() { _banner.style.display = 'none'; }, 500);
+    };
+    // Show after 3s for iOS (no beforeinstallprompt support)
+    setTimeout(function() {
+        if (!deferredPrompt && _banner && !window.matchMedia('(display-mode: standalone)').matches) {
+            var isIOS = /iphone|ipad|ipod/i.test(navigator.userAgent);
+            if (isIOS) _banner.classList.add('visible');
+        }
+    }, 3000);
+})();
+</script>
+</body>
+</html>
