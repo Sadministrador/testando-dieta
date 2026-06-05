@@ -6,321 +6,189 @@
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
-    <meta name="apple-mobile-web-app-title" content="Dieta Monitorada">
+    <meta name="apple-mobile-web-app-title" content="Dieta">
     <meta name="theme-color" content="#f40000">
+    <link rel="apple-touch-icon" href="data:image/png;base64,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">
     <title>Dieta Monitorada</title>
     <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database-compat.js"></script>
     <style>
-        :root {
-            --red: #f40000;
-            --blue: #1400ff;
-            --bg: #000;
-            --fg: #fff;
-            --card: #0d0d0d;
-            --border: #222;
-            --input-bg: #1a1a1a;
-        }
-        * { box-sizing: border-box; margin: 0; padding: 0; }
-        html { font-size: 169.5%; }
-        body {
-            font-family: 'Helvetica Neue', Arial, sans-serif;
-            background: var(--bg); color: var(--fg);
-            min-height: 100vh; padding-bottom: 6rem;
-        }
+        :root { --red:#f40000; --blue:#1400ff; --bg:#000; --fg:#fff; --card:#0d0d0d; --input-bg:#1a1a1a; }
+        *{box-sizing:border-box;margin:0;padding:0}
+        html{font-size:169.5%}
+        body{font-family:'Helvetica Neue',Arial,sans-serif;background:var(--bg);color:var(--fg);min-height:100vh;padding-bottom:5rem}
 
-        /* ===== BARRA INSTALAR ===== */
-        #installBar {
-            position: fixed;
-            bottom: 0; left: 0; right: 0;
-            z-index: 99999;
-            background: linear-gradient(135deg, #1a0000 0%, #0d0d0d 100%);
-            border-top: 2px solid var(--red);
-            padding: 0.55rem 0.9rem;
-            display: flex;
-            align-items: center;
-            gap: 0.7rem;
-            box-shadow: 0 -4px 24px rgba(244,0,0,0.4);
-            animation: slideUp 0.5s cubic-bezier(0.34,1.56,0.64,1) both;
+        /* INSTALL BAR */
+        #installBar{
+            position:fixed;bottom:0;left:0;right:0;z-index:99999;
+            background:linear-gradient(135deg,#1a0000,#0d0d0d);
+            border-top:2px solid var(--red);
+            padding:0.5rem 0.8rem;
+            display:flex;align-items:center;gap:0.7rem;
+            box-shadow:0 -4px 24px rgba(244,0,0,0.45);
+            animation:slideUp 0.5s cubic-bezier(0.34,1.56,0.64,1) both;
         }
-        @keyframes slideUp {
-            from { transform: translateY(100%); opacity: 0; }
-            to   { transform: translateY(0);    opacity: 1; }
+        @keyframes slideUp{from{transform:translateY(100%);opacity:0}to{transform:translateY(0);opacity:1}}
+        #installBar .ibar-icon{
+            width:44px;height:44px;min-width:44px;border-radius:10px;overflow:hidden;
+            border:2px solid var(--red);flex-shrink:0;
         }
-        .install-icon-box {
-            width: 40px; height: 40px; min-width: 40px;
-            border-radius: 10px;
-            background: linear-gradient(135deg, #f40000, #8b0000);
-            display: flex; align-items: center; justify-content: center;
-            font-size: 1.3rem;
-            box-shadow: 0 2px 10px rgba(244,0,0,0.5);
+        #installBar .ibar-icon img{width:100%;height:100%;object-fit:cover;}
+        #installBar .ibar-texts{flex:1;min-width:0;}
+        #installBar .ibar-texts strong{display:block;font-size:0.74rem;color:#fff;font-weight:900;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;line-height:1.2}
+        #installBar .ibar-texts span{display:block;font-size:0.58rem;color:#aaa;line-height:1.3}
+        #btnInstalar{
+            background:var(--red);color:#fff;border:none;border-radius:0.5rem;
+            padding:0.5rem 1rem;font-size:0.72rem;font-weight:900;cursor:pointer;
+            white-space:nowrap;min-height:unset;width:auto;margin:0;flex-shrink:0;
+            box-shadow:0 2px 8px rgba(244,0,0,0.5);
         }
-        .install-texts {
-            flex: 1; min-width: 0;
+        #btnInstalar:hover{background:#c40000}
+        #btnFecharBar{
+            background:transparent;border:none;color:#555;font-size:1.1rem;cursor:pointer;
+            padding:0.2rem 0.3rem;min-height:unset;width:auto;margin:0;flex-shrink:0;
+            line-height:1;
         }
-        .install-texts strong {
-            display: block; font-size: 0.72rem; color: #fff; font-weight: 800;
-            white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
-            line-height: 1.2;
-        }
-        .install-texts span {
-            display: block; font-size: 0.58rem; color: #aaa;
-            white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
-            line-height: 1.3;
-        }
-        #btnInstalar {
-            background: var(--red); color: #fff; border: none;
-            border-radius: 0.55rem; padding: 0.45rem 0.8rem;
-            font-size: 0.68rem; font-weight: 900; cursor: pointer;
-            white-space: nowrap; min-height: unset; width: auto;
-            margin: 0; letter-spacing: 0.3px; flex-shrink: 0;
-            box-shadow: 0 2px 8px rgba(244,0,0,0.45);
-            transition: background 0.2s;
-        }
-        #btnInstalar:hover { background: #c40000; }
-        #btnFecharInstall {
-            background: transparent; border: none; color: #555;
-            font-size: 1rem; cursor: pointer; padding: 0.2rem 0.3rem;
-            min-height: unset; width: auto; margin: 0; line-height: 1;
-            flex-shrink: 0; transition: color 0.2s;
-        }
-        #btnFecharInstall:hover { color: #999; background: transparent; }
+        #btnFecharBar:hover{color:#999;background:transparent}
 
-        /* ===== MODAL INSTRUÇÃO INSTALAR ===== */
-        #modalInstall {
-            display: none; position: fixed; inset: 0; z-index: 999999;
-            background: rgba(0,0,0,0.85);
-            align-items: flex-end; justify-content: center;
+        /* MODAL INSTRUÇÃO */
+        #modalInstall{
+            display:none;position:fixed;inset:0;z-index:999999;
+            background:rgba(0,0,0,0.88);align-items:flex-end;justify-content:center;
         }
-        #modalInstall.open { display: flex; }
-        .modal-install-box {
-            background: #111; border: 2px solid var(--red);
-            border-radius: 1.2rem 1.2rem 0 0; padding: 2rem 1.8rem 2.5rem;
-            width: 100%; max-width: 500px;
-            animation: slideUp 0.35s ease both;
+        #modalInstall.open{display:flex}
+        .modal-box{
+            background:#111;border:2px solid var(--red);border-radius:1.2rem 1.2rem 0 0;
+            padding:1.8rem 1.6rem 2.5rem;width:100%;max-width:500px;
+            animation:slideUp 0.3s ease both;
         }
-        .modal-install-box h3 {
-            font-size: 1rem; color: #fff; font-weight: 900;
-            margin-bottom: 1.2rem; text-align: center;
-        }
-        .modal-install-box h3 span { color: var(--red); }
-        .install-step {
-            display: flex; align-items: flex-start; gap: 0.8rem;
-            margin-bottom: 1rem;
-        }
-        .step-num {
-            width: 28px; height: 28px; min-width: 28px; border-radius: 50%;
-            background: var(--red); color: #fff; font-size: 0.7rem;
-            font-weight: 900; display: flex; align-items: center;
-            justify-content: center;
-        }
-        .step-txt { font-size: 0.7rem; color: #ccc; line-height: 1.5; padding-top: 3px; }
-        .step-txt b { color: #fff; }
-        .btn-fechar-modal {
-            width: 100%; margin-top: 1.2rem; padding: 0.9rem;
-            background: #222; border: 1px solid #444; color: #aaa;
-            border-radius: 0.7rem; font-size: 0.75rem; font-weight: 700;
-            cursor: pointer; min-height: unset;
-        }
-        .btn-fechar-modal:hover { background: #333; }
+        .modal-box .modal-header{display:flex;align-items:center;gap:0.9rem;margin-bottom:1.4rem;justify-content:center}
+        .modal-box .modal-header img{width:52px;height:52px;border-radius:12px;border:2px solid var(--red)}
+        .modal-box .modal-header h3{font-size:1rem;color:#fff;font-weight:900}
+        .modal-box .modal-header h3 span{color:var(--red)}
+        .step{display:flex;align-items:flex-start;gap:0.75rem;margin-bottom:0.9rem}
+        .step-n{width:26px;height:26px;min-width:26px;border-radius:50%;background:var(--red);color:#fff;font-size:0.65rem;font-weight:900;display:flex;align-items:center;justify-content:center}
+        .step-t{font-size:0.68rem;color:#ccc;line-height:1.5;padding-top:3px}
+        .step-t b{color:#fff}
+        .btn-ok{width:100%;margin-top:1rem;padding:0.8rem;background:#222;border:1px solid #444;color:#aaa;border-radius:0.7rem;font-size:0.72rem;font-weight:700;cursor:pointer;min-height:unset}
+        .btn-ok:hover{background:#333}
 
-        /* ===== TELA DE CADASTRO ===== */
-        #cadastroScreen {
-            min-height: 100vh; display: flex; align-items: center; justify-content: center;
-            padding: 2rem;
-        }
-        .cad-box {
-            background: var(--card); border: 2px solid var(--red);
-            border-radius: 1.5rem; padding: 3rem 2.5rem; width: 100%; max-width: 480px;
-            box-shadow: 0 0 60px rgba(244,0,0,0.2);
-        }
-        .cad-box h2 {
-            text-align: center; font-size: 2.5rem; color: var(--fg);
-            margin-bottom: 2rem; letter-spacing: -0.5px;
-        }
-        .cad-box h2 span { color: var(--red); }
-        .cad-field { margin-bottom: 1.5rem; }
-        .cad-field label { display: block; font-size: 1.2rem; color: #aaa; margin-bottom: 0.5rem; font-weight: 600; letter-spacing: 0.5px; text-transform: uppercase; }
-        .cad-field input {
-            width: 100%; padding: 1.3rem 1.5rem; border-radius: 0.8rem;
-            border: 2px solid #333; background: var(--input-bg); color: var(--fg);
-            font-size: 1.4rem; transition: border-color 0.3s;
-        }
-        .cad-field input:focus { outline: none; border-color: var(--red); }
-        .foto-upload-area {
-            border: 2px dashed #444; border-radius: 0.8rem; padding: 2rem;
-            text-align: center; cursor: pointer; transition: all 0.3s; position: relative;
-        }
-        .foto-upload-area:hover { border-color: var(--red); background: rgba(244,0,0,0.05); }
-        .foto-upload-area input { position: absolute; inset: 0; opacity: 0; cursor: pointer; width: 100%; height: 100%; }
-        .foto-preview { width: 80px; height: 80px; border-radius: 50%; object-fit: cover; border: 3px solid var(--red); display: none; margin: 0 auto 0.8rem; }
-        .foto-icon { font-size: 3rem; margin-bottom: 0.5rem; }
-        .foto-text { font-size: 1.2rem; color: #888; }
-        .foto-text.selected { color: #00e676; }
-        .btn-cad {
-            width: 100%; padding: 1.5rem; border-radius: 0.8rem; border: none;
-            background: var(--red); color: #fff; font-size: 1.6rem; font-weight: 900;
-            cursor: pointer; transition: background 0.3s; margin-top: 1rem; letter-spacing: 0.5px;
-        }
-        .btn-cad:hover { background: #c40000; }
-        .btn-cad:disabled { background: #444; cursor: not-allowed; }
+        /* CADASTRO */
+        #cadastroScreen{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:2rem}
+        .cad-box{background:var(--card);border:2px solid var(--red);border-radius:1.5rem;padding:3rem 2.5rem;width:100%;max-width:480px;box-shadow:0 0 60px rgba(244,0,0,0.2)}
+        .cad-box h2{text-align:center;font-size:2.5rem;color:var(--fg);margin-bottom:2rem}
+        .cad-box h2 span{color:var(--red)}
+        .cad-field{margin-bottom:1.5rem}
+        .cad-field label{display:block;font-size:1.2rem;color:#aaa;margin-bottom:0.5rem;font-weight:600;letter-spacing:0.5px;text-transform:uppercase}
+        .cad-field input{width:100%;padding:1.3rem 1.5rem;border-radius:0.8rem;border:2px solid #333;background:var(--input-bg);color:var(--fg);font-size:1.4rem;transition:border-color 0.3s}
+        .cad-field input:focus{outline:none;border-color:var(--red)}
+        .foto-upload-area{border:2px dashed #444;border-radius:0.8rem;padding:2rem;text-align:center;cursor:pointer;transition:all 0.3s;position:relative}
+        .foto-upload-area:hover{border-color:var(--red);background:rgba(244,0,0,0.05)}
+        .foto-upload-area input{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%}
+        .foto-preview{width:80px;height:80px;border-radius:50%;object-fit:cover;border:3px solid var(--red);display:none;margin:0 auto 0.8rem}
+        .foto-icon{font-size:3rem;margin-bottom:0.5rem}
+        .foto-text{font-size:1.2rem;color:#888}
+        .foto-text.selected{color:#00e676}
+        .btn-cad{width:100%;padding:1.5rem;border-radius:0.8rem;border:none;background:var(--red);color:#fff;font-size:1.6rem;font-weight:900;cursor:pointer;transition:background 0.3s;margin-top:1rem;letter-spacing:0.5px}
+        .btn-cad:hover{background:#c40000}
+        .btn-cad:disabled{background:#444;cursor:not-allowed}
 
-        /* ===== AGUARDANDO ===== */
-        #aguardandoScreen {
-            min-height: 100vh; display: none; align-items: center; justify-content: center;
-            flex-direction: column; text-align: center; padding: 3rem;
-        }
-        .aguardando-box {
-            background: var(--card); border: 2px solid #333;
-            border-radius: 1.5rem; padding: 3rem; max-width: 480px; width: 100%;
-        }
-        .pulse-dot {
-            width: 60px; height: 60px; border-radius: 50%; background: rgba(255,165,0,0.2);
-            border: 3px solid orange; margin: 0 auto 1.5rem;
-            animation: pulse 2s infinite; display: flex; align-items: center; justify-content: center;
-            font-size: 1.8rem;
-        }
-        @keyframes pulse {
-            0%,100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255,165,0,0.4); }
-            50%      { transform: scale(1.05); box-shadow: 0 0 0 15px rgba(255,165,0,0); }
-        }
-        .aguardando-box h3 { font-size: 2rem; margin-bottom: 1rem; }
-        .aguardando-box p { color: #888; font-size: 1.3rem; line-height: 1.6; }
-        .user-info-preview {
-            margin-top: 2rem; padding: 1.5rem; background: #111; border-radius: 0.8rem;
-            display: flex; align-items: center; gap: 1.5rem;
-        }
-        .user-info-preview img { width: 60px; height: 60px; border-radius: 50%; object-fit: cover; border: 2px solid var(--red); }
-        .user-info-preview .no-foto { width: 60px; height: 60px; border-radius: 50%; background: #333; display: flex; align-items: center; justify-content: center; font-size: 1.8rem; }
-        .user-info-preview .info p { font-size: 1.3rem; color: #aaa; }
-        .user-info-preview .info strong { font-size: 1.5rem; color: var(--fg); }
+        /* AGUARDANDO */
+        #aguardandoScreen{min-height:100vh;display:none;align-items:center;justify-content:center;flex-direction:column;text-align:center;padding:3rem}
+        .aguardando-box{background:var(--card);border:2px solid #333;border-radius:1.5rem;padding:3rem;max-width:480px;width:100%}
+        .pulse-dot{width:60px;height:60px;border-radius:50%;background:rgba(255,165,0,0.2);border:3px solid orange;margin:0 auto 1.5rem;animation:pulse 2s infinite;display:flex;align-items:center;justify-content:center;font-size:1.8rem}
+        @keyframes pulse{0%,100%{transform:scale(1);box-shadow:0 0 0 0 rgba(255,165,0,0.4)}50%{transform:scale(1.05);box-shadow:0 0 0 15px rgba(255,165,0,0)}}
+        .aguardando-box h3{font-size:2rem;margin-bottom:1rem}
+        .aguardando-box p{color:#888;font-size:1.3rem;line-height:1.6}
+        .user-info-preview{margin-top:2rem;padding:1.5rem;background:#111;border-radius:0.8rem;display:flex;align-items:center;gap:1.5rem}
+        .user-info-preview img{width:60px;height:60px;border-radius:50%;object-fit:cover;border:2px solid var(--red)}
+        .user-info-preview .no-foto{width:60px;height:60px;border-radius:50%;background:#333;display:flex;align-items:center;justify-content:center;font-size:1.8rem}
+        .user-info-preview .info p{font-size:1.3rem;color:#aaa}
+        .user-info-preview .info strong{font-size:1.5rem;color:var(--fg)}
 
-        /* ===== APP PRINCIPAL ===== */
-        #appSection { display: none; }
-        .main-container { max-width: 800px; margin: 0 auto; padding: 2rem; }
-        h1 { text-align: center; font-size: 3rem; margin-bottom: 2rem; }
-        h1 span { display: block; font-size: 2rem; font-weight: bold; margin-bottom: 0.3rem; }
-        h2 { color: var(--red); border-bottom: 2px solid rgba(244,0,0,0.7); padding-bottom: 0.8rem; margin-top: 3.5rem; font-size: 2rem; }
-        input, select, button {
-            padding: 1.5rem; border-radius: 1rem; border: 3px solid var(--red);
-            background: var(--input-bg); color: var(--fg); width: 100%;
-            box-sizing: border-box; font-size: 1.5rem; min-height: 4rem; transition: all 0.3s;
-        }
-        input:focus, select:focus { border-color: var(--fg); box-shadow: 0 0 12px var(--red); background: #222; outline: none; }
-        label { display: block; margin-top: 0.5rem; font-size: 1.6rem; font-weight: bold; }
-        button {
-            background: var(--red); color: var(--fg); font-weight: 900; cursor: pointer;
-            margin-top: 2rem; border: none; font-size: 1.8rem; min-height: 5rem;
-            box-shadow: 0 6px 18px rgba(0,0,0,0.7);
-        }
-        button:hover { background: #c40000; }
-        .active { background: var(--blue) !important; }
-        .active:hover { background: #0000d4 !important; }
-        #cadastroForm { display: grid; gap: 1.8rem; }
-        #toggleCadastroButton { background: #333; border: 1px solid #555; font-size: 1.4rem; font-weight: normal; min-height: 4.5rem; }
-        table { border-collapse: collapse; width: 100%; margin-top: 1.8rem; }
-        th, td { border: 2px solid var(--red); padding: 1.4rem 1rem; text-align: center; font-size: 1.3rem; white-space: nowrap; }
-        th { background: var(--red); color: var(--fg); font-size: 1.4rem; }
-        .calories-total { margin-top: 2.5rem; font-weight: bold; padding: 2rem; border: 4px solid var(--red); border-radius: 1.2rem; background: var(--input-bg); font-size: 1.8rem; line-height: 1.8; }
-        .hidden { display: none !important; }
-        #resultadoSection p { font-size: 1.5rem; padding: 0.7rem 0; }
-        #resultadoSection b { color: var(--red); }
-        .food-item-container { display: flex; flex-direction: column; align-items: flex-start; width: 100%; }
-        .food-name-line { font-weight: bold; margin-bottom: 2px; text-align: left; }
-        .calorias-base-unidade { color: #fff; font-size: 0.8em; font-weight: normal; }
-        .contador-quantidade { display: flex; align-items: center; justify-content: center; }
-        .contador-quantidade button { padding: 0.8rem; width: 40px; height: 40px; font-size: 2rem; line-height: 1; border-radius: 8px; border: 3px solid var(--red); background: var(--input-bg); color: var(--fg); margin: 0; min-height: 40px; }
-        .quantidade-input { width: 60px; padding: 0.5rem 0.1rem; text-align: center; font-size: 1.8rem; border-radius: 0; border-left: none; border-right: none; border-top: 3px solid var(--red); border-bottom: 3px solid var(--red); background: #1a1a1a; color: var(--fg); min-height: 40px; }
-        .quantidade-input::-webkit-outer-spin-button, .quantidade-input::-webkit-inner-spin-button { -webkit-appearance: none; }
-        .quantidade-input { -moz-appearance: textfield; }
-        #foodTableBody td:nth-child(1) { text-align: left; }
-        #controleSection table { table-layout: fixed; width: 100%; }
-        #controleSection table th:nth-child(1), #controleSection table td:nth-child(1) { width: 45%; white-space: normal; word-break: break-word; }
-        #controleSection table th:nth-child(2), #controleSection table td:nth-child(2) { width: 35%; white-space: nowrap; }
-        #controleSection table th:nth-child(3), #controleSection table td:nth-child(3) { width: 20%; white-space: normal; word-break: break-word; }
-        #userBanner {
-            background: rgba(244,0,0,0.1); border-bottom: 2px solid rgba(244,0,0,0.3);
-            padding: 0.8rem 1.5rem; display: flex; align-items: center; gap: 1rem;
-            position: sticky; top: 0; z-index: 100;
-        }
-        #userBanner img { width: 36px; height: 36px; border-radius: 50%; object-fit: cover; border: 2px solid var(--red); }
-        #userBanner .no-foto-mini { width: 36px; height: 36px; border-radius: 50%; background: #333; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; }
-        #userBanner span { font-size: 1.3rem; font-weight: 700; }
-        #userBanner .sair-btn { margin-left: auto; margin-top: 0; background: transparent; border: 1px solid #444; color: #888; font-size: 1rem; padding: 0.4rem 1rem; min-height: unset; width: auto; cursor: pointer; border-radius: 0.4rem; }
-
-        @media print {
-            button, #cadastroSection, #userSelect, #loadUserButton, #categorySelect,
-            .contador-quantidade, #listaSection, #installBar, #modalInstall { display: none !important; }
-            @page { margin: 10mm; }
-        }
+        /* APP */
+        #appSection{display:none}
+        .main-container{max-width:800px;margin:0 auto;padding:2rem}
+        h1{text-align:center;font-size:3rem;margin-bottom:2rem}
+        h1 span{display:block;font-size:2rem;font-weight:bold;margin-bottom:0.3rem}
+        h2{color:var(--red);border-bottom:2px solid rgba(244,0,0,0.7);padding-bottom:0.8rem;margin-top:3.5rem;font-size:2rem}
+        input,select,button{padding:1.5rem;border-radius:1rem;border:3px solid var(--red);background:var(--input-bg);color:var(--fg);width:100%;box-sizing:border-box;font-size:1.5rem;min-height:4rem;transition:all 0.3s}
+        input:focus,select:focus{border-color:var(--fg);box-shadow:0 0 12px var(--red);background:#222;outline:none}
+        label{display:block;margin-top:0.5rem;font-size:1.6rem;font-weight:bold}
+        button{background:var(--red);color:var(--fg);font-weight:900;cursor:pointer;margin-top:2rem;border:none;font-size:1.8rem;min-height:5rem;box-shadow:0 6px 18px rgba(0,0,0,0.7)}
+        button:hover{background:#c40000}
+        .active{background:var(--blue)!important}
+        .active:hover{background:#0000d4!important}
+        #cadastroForm{display:grid;gap:1.8rem}
+        #toggleCadastroButton{background:#333;border:1px solid #555;font-size:1.4rem;font-weight:normal;min-height:4.5rem}
+        table{border-collapse:collapse;width:100%;margin-top:1.8rem}
+        th,td{border:2px solid var(--red);padding:1.4rem 1rem;text-align:center;font-size:1.3rem;white-space:nowrap}
+        th{background:var(--red);color:var(--fg);font-size:1.4rem}
+        .calories-total{margin-top:2.5rem;font-weight:bold;padding:2rem;border:4px solid var(--red);border-radius:1.2rem;background:var(--input-bg);font-size:1.8rem;line-height:1.8}
+        .hidden{display:none!important}
+        #resultadoSection p{font-size:1.5rem;padding:0.7rem 0}
+        #resultadoSection b{color:var(--red)}
+        .food-item-container{display:flex;flex-direction:column;align-items:flex-start;width:100%}
+        .food-name-line{font-weight:bold;margin-bottom:2px;text-align:left}
+        .calorias-base-unidade{color:#fff;font-size:0.8em;font-weight:normal}
+        .contador-quantidade{display:flex;align-items:center;justify-content:center}
+        .contador-quantidade button{padding:0.8rem;width:40px;height:40px;font-size:2rem;line-height:1;border-radius:8px;border:3px solid var(--red);background:var(--input-bg);color:var(--fg);margin:0;min-height:40px}
+        .quantidade-input{width:60px;padding:0.5rem 0.1rem;text-align:center;font-size:1.8rem;border-radius:0;border-left:none;border-right:none;border-top:3px solid var(--red);border-bottom:3px solid var(--red);background:#1a1a1a;color:var(--fg);min-height:40px}
+        .quantidade-input::-webkit-outer-spin-button,.quantidade-input::-webkit-inner-spin-button{-webkit-appearance:none}
+        .quantidade-input{-moz-appearance:textfield}
+        #foodTableBody td:nth-child(1){text-align:left}
+        #controleSection table{table-layout:fixed;width:100%}
+        #controleSection table th:nth-child(1),#controleSection table td:nth-child(1){width:45%;white-space:normal;word-break:break-word}
+        #controleSection table th:nth-child(2),#controleSection table td:nth-child(2){width:35%;white-space:nowrap}
+        #controleSection table th:nth-child(3),#controleSection table td:nth-child(3){width:20%;white-space:normal;word-break:break-word}
+        #userBanner{background:rgba(244,0,0,0.1);border-bottom:2px solid rgba(244,0,0,0.3);padding:0.8rem 1.5rem;display:flex;align-items:center;gap:1rem;position:sticky;top:0;z-index:100}
+        #userBanner img{width:36px;height:36px;border-radius:50%;object-fit:cover;border:2px solid var(--red)}
+        #userBanner .no-foto-mini{width:36px;height:36px;border-radius:50%;background:#333;display:flex;align-items:center;justify-content:center;font-size:1.2rem}
+        #userBanner span{font-size:1.3rem;font-weight:700}
+        #userBanner .sair-btn{margin-left:auto;margin-top:0;background:transparent;border:1px solid #444;color:#888;font-size:1rem;padding:0.4rem 1rem;min-height:unset;width:auto;cursor:pointer;border-radius:0.4rem}
+        @media print{button,#cadastroSection,#userSelect,#loadUserButton,#categorySelect,.contador-quantidade,#listaSection,#installBar,#modalInstall{display:none!important}@page{margin:10mm}}
     </style>
 </head>
 <body>
 
-<!-- ===== BARRA FLUTUANTE INSTALAR ===== -->
+<!-- INSTALL BAR -->
 <div id="installBar">
-    <div class="install-icon-box">🍎</div>
-    <div class="install-texts">
-        <strong>Instalar Aplicativo</strong>
-        <span>Adicionar à tela inicial</span>
+    <div class="ibar-icon"><img src="data:image/png;base64,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" alt="Dieta"></div>
+    <div class="ibar-texts">
+        <strong>Dieta Monitorada</strong>
+        <span>Toque para instalar na tela inicial</span>
     </div>
-    <button id="btnInstalar" onclick="abrirModalInstall()">⬇️ Instalar</button>
-    <button id="btnFecharInstall" onclick="fecharInstallBar()" title="Fechar">✕</button>
+    <button id="btnInstalar" onclick="instalarApp()">⬇ Instalar</button>
+    <button id="btnFecharBar" onclick="fecharBar()" title="Fechar">✕</button>
 </div>
 
-<!-- ===== MODAL INSTRUÇÃO INSTALAR ===== -->
+<!-- MODAL INSTRUÇÃO -->
 <div id="modalInstall">
-    <div class="modal-install-box">
-        <h3>📲 Instalar <span>Dieta Monitorada</span></h3>
-
-        <!-- Android Chrome -->
-        <div id="passoAndroid">
-            <div class="install-step">
-                <div class="step-num">1</div>
-                <div class="step-txt">Toque no menu <b>⋮</b> (três pontos) no canto superior direito do Chrome</div>
-            </div>
-            <div class="install-step">
-                <div class="step-num">2</div>
-                <div class="step-txt">Selecione <b>"Adicionar à tela inicial"</b></div>
-            </div>
-            <div class="install-step">
-                <div class="step-num">3</div>
-                <div class="step-txt">Confirme tocando em <b>"Adicionar"</b> — o ícone aparecerá na sua tela!</div>
-            </div>
+    <div class="modal-box">
+        <div class="modal-header">
+            <img src="data:image/png;base64,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" alt="Dieta">
+            <h3>Instalar <span>Dieta Monitorada</span></h3>
         </div>
-
-        <!-- iPhone Safari -->
-        <div id="passoIOS" style="display:none;">
-            <div class="install-step">
-                <div class="step-num">1</div>
-                <div class="step-txt">Toque no botão <b>Compartilhar</b> (□ com seta) na barra do Safari</div>
-            </div>
-            <div class="install-step">
-                <div class="step-num">2</div>
-                <div class="step-txt">Role para baixo e toque em <b>"Adicionar à Tela de Início"</b></div>
-            </div>
-            <div class="install-step">
-                <div class="step-num">3</div>
-                <div class="step-txt">Toque em <b>"Adicionar"</b> no canto superior direito</div>
-            </div>
+        <div id="stepsAndroid">
+            <div class="step"><div class="step-n">1</div><div class="step-t">No Chrome, toque nos <b>3 pontinhos ⋮</b> no canto superior direito</div></div>
+            <div class="step"><div class="step-n">2</div><div class="step-t">Toque em <b>"Adicionar à tela inicial"</b></div></div>
+            <div class="step"><div class="step-n">3</div><div class="step-t">Toque em <b>"Adicionar"</b> — o ícone DIETA aparece na sua tela! ✅</div></div>
         </div>
-
-        <button class="btn-fechar-modal" onclick="fecharModalInstall()">Entendi, fechar</button>
+        <div id="stepsIOS" style="display:none">
+            <div class="step"><div class="step-n">1</div><div class="step-t">No Safari, toque no botão <b>Compartilhar</b> (quadrado com seta ↑)</div></div>
+            <div class="step"><div class="step-n">2</div><div class="step-t">Toque em <b>"Adicionar à Tela de Início"</b></div></div>
+            <div class="step"><div class="step-n">3</div><div class="step-t">Toque em <b>"Adicionar"</b> — o ícone DIETA aparece na sua tela! ✅</div></div>
+        </div>
+        <button class="btn-ok" onclick="fecharModal()">Entendi ✓</button>
     </div>
 </div>
 
-<!-- ===== TELA CADASTRO ===== -->
+<!-- CADASTRO -->
 <div id="cadastroScreen">
     <div class="cad-box">
         <h2>🍎 <span>Dieta</span> Monitorada</h2>
-        <div class="cad-field">
-            <label>Nome completo</label>
-            <input type="text" id="cadNome" placeholder="Seu nome">
-        </div>
-        <div class="cad-field">
-            <label>Telefone</label>
-            <input type="tel" id="cadTelefone" placeholder="DDD + número" maxlength="20">
-        </div>
+        <div class="cad-field"><label>Nome completo</label><input type="text" id="cadNome" placeholder="Seu nome"></div>
+        <div class="cad-field"><label>Telefone</label><input type="tel" id="cadTelefone" placeholder="DDD + número" maxlength="20"></div>
         <div class="cad-field">
             <label>Foto (opcional)</label>
             <div class="foto-upload-area" id="fotoArea" onclick="document.getElementById('cadFoto').click()">
@@ -331,11 +199,11 @@
             </div>
         </div>
         <button class="btn-cad" id="btnCadastrar" onclick="cadastrar()">Cadastrar e Aguardar Liberação</button>
-        <button class="btn-cad" id="btnJaTenho" onclick="verificarJaCadastrado()" style="background:#333; border:1px solid #555; margin-top:0.8rem; font-size:1.3rem; font-weight:normal;">Já me cadastrei — verificar status</button>
+        <button class="btn-cad" id="btnJaTenho" onclick="verificarJaCadastrado()" style="background:#333;border:1px solid #555;margin-top:0.8rem;font-size:1.3rem;font-weight:normal">Já me cadastrei — verificar status</button>
     </div>
 </div>
 
-<!-- ===== AGUARDANDO LIBERAÇÃO ===== -->
+<!-- AGUARDANDO -->
 <div id="aguardandoScreen">
     <div class="aguardando-box">
         <div class="pulse-dot">⏳</div>
@@ -345,7 +213,7 @@
     </div>
 </div>
 
-<!-- ===== APP PRINCIPAL ===== -->
+<!-- APP -->
 <div id="appSection">
     <div id="userBanner">
         <div id="bannerFoto"></div>
@@ -354,36 +222,22 @@
     </div>
     <div class="main-container">
         <h1>Dieta Monitorada</h1>
-
         <div id="cadastroSection">
             <h2>1️⃣ Cadastro do Usuário</h2>
             <button id="toggleCadastroButton" onclick="abrirAnalise(true)">Fechar Análise</button>
             <div id="cadastroForm">
                 <label>Nome: <input type="text" id="nome" placeholder="Seu nome" onchange="saveUserCadastro()"></label>
                 <label>Idade (anos): <input type="number" id="idade" placeholder="Anos" min="1" onchange="saveUserCadastro()"></label>
-                <label>Gênero: <select id="genero" onchange="saveUserCadastro()">
-                    <option value="Feminino">Feminino</option>
-                    <option value="Masculino">Masculino</option>
-                </select></label>
+                <label>Gênero: <select id="genero" onchange="saveUserCadastro()"><option value="Feminino">Feminino</option><option value="Masculino">Masculino</option></select></label>
                 <label>Altura (cm): <input type="number" id="altura" placeholder="Ex: 170" onchange="saveUserCadastro()"></label>
                 <label>Peso atual (kg): <input type="number" id="peso" placeholder="Ex: 80" onchange="saveUserCadastro()"></label>
                 <label>Data de início da dieta: <input type="date" id="dataInicio" onchange="saveUserCadastro()"></label>
-                <label>Duração da Dieta: <select id="duracaoDieta" onchange="saveUserCadastro()">
-                    <option value="3">3 Meses</option>
-                    <option value="6" selected>6 Meses</option>
-                </select></label>
-                <label>Tipo de Dieta: <select id="tipoDieta" onchange="saveUserCadastro()">
-                    <option value="Exata">Exata (foco na perda de peso)</option>
-                    <option value="Balanceada">Balanceada (+30% Calorias)</option>
-                </select></label>
-                <label>Pratica exercícios diários? <select id="exercicio" onchange="saveUserCadastro()">
-                    <option value="0">Não</option>
-                    <option value="1">Sim</option>
-                </select></label>
+                <label>Duração da Dieta: <select id="duracaoDieta" onchange="saveUserCadastro()"><option value="3">3 Meses</option><option value="6" selected>6 Meses</option></select></label>
+                <label>Tipo de Dieta: <select id="tipoDieta" onchange="saveUserCadastro()"><option value="Exata">Exata (foco na perda de peso)</option><option value="Balanceada">Balanceada (+30% Calorias)</option></select></label>
+                <label>Pratica exercícios diários? <select id="exercicio" onchange="saveUserCadastro()"><option value="0">Não</option><option value="1">Sim</option></select></label>
                 <button id="analisarButton" onclick="analisar()">Analisar peso ideal</button>
             </div>
         </div>
-
         <div id="resultadoSection" class="hidden">
             <h2>2️⃣ Resultado da Análise</h2>
             <p>Nome: <b><span id="resNome"></span></b></p>
@@ -404,39 +258,31 @@
             <p>Restante na dieta: <b><span id="resFaltandoDieta"></span> kcal</b></p>
             <button onclick="salvarNutri()">Salvar na lista do nutricionista</button>
         </div>
-
         <div id="listaSection" class="hidden">
             <h2>3️⃣ Lista do Nutricionista</h2>
-            <div style="overflow-x:auto;">
+            <div style="overflow-x:auto">
                 <table id="tabelaNutri">
-                    <thead><tr>
-                        <th>Nome</th><th>Idade</th><th>Gênero</th><th>Altura</th><th>Peso</th>
-                        <th>IMC</th><th>Peso Ideal</th><th>Kg Emagrecer</th>
-                        <th>Cal/Dia</th><th>Cal/Mês</th><th>Total</th><th>Duração</th><th>Tipo</th><th>Exercício</th><th>Início</th><th>Fim</th>
-                    </tr></thead>
+                    <thead><tr><th>Nome</th><th>Idade</th><th>Gênero</th><th>Altura</th><th>Peso</th><th>IMC</th><th>Peso Ideal</th><th>Kg Emagrecer</th><th>Cal/Dia</th><th>Cal/Mês</th><th>Total</th><th>Duração</th><th>Tipo</th><th>Exercício</th><th>Início</th><th>Fim</th></tr></thead>
                     <tbody></tbody>
                 </table>
             </div>
         </div>
-
         <div id="controleSection" class="hidden">
             <h2>🍽️ Controle de Alimentos</h2>
             <label for="userSelect">Selecionar usuário:</label>
             <select id="userSelect" onchange="resetLoadButton()"><option value="">Selecione</option></select>
             <button id="loadUserButton" onclick="carregarUsuario()">Carregar Usuário</button>
-            <div style="margin-top:1.5rem;">
+            <div style="margin-top:1.5rem">
                 <label for="consumptionDate">Data do consumo:</label>
                 <input type="date" id="consumptionDate" onchange="carregarConsumoDoDia()">
-                <label for="caloriesLimit" style="margin-top:1rem;">Limite calórico dia:</label>
+                <label for="caloriesLimit" style="margin-top:1rem">Limite calórico dia:</label>
                 <input type="number" id="caloriesLimit" value="0" readonly>
             </div>
-            <label for="categorySelect" style="margin-top:1.5rem;">Categoria:</label>
+            <label for="categorySelect" style="margin-top:1.5rem">Categoria:</label>
             <select id="categorySelect" onchange="gerarTabelaAlimentos()"><option value="">Selecione</option></select>
-            <div style="overflow-x:auto; margin-top:1rem;">
-                <table>
-                    <thead><tr><th>Alimento</th><th>Porções</th><th>Total</th></tr></thead>
-                    <tbody id="foodTableBody"><tr><td colspan="3">Selecione um usuário e categoria.</td></tr></tbody>
-                </table>
+            <div style="overflow-x:auto;margin-top:1rem">
+                <table><thead><tr><th>Alimento</th><th>Porções</th><th>Total</th></tr></thead>
+                <tbody id="foodTableBody"><tr><td colspan="3">Selecione um usuário e categoria.</td></tr></tbody></table>
             </div>
             <div class="calories-total">
                 Total consumido: <span id="totalCalories">0</span> kcal<br>
@@ -449,556 +295,203 @@
 </div>
 
 <script>
-// ====== FIREBASE ======
-const firebaseConfig = {
-    apiKey: "AIzaSyCEAFNYezHe0_qsk-0ob4ibcEglUEP_KH0",
-    authDomain: "dieta-monitorada-b9500.firebaseapp.com",
-    databaseURL: "https://dieta-monitorada-b9500-default-rtdb.firebaseio.com",
-    projectId: "dieta-monitorada-b9500",
-    storageBucket: "dieta-monitorada-b9500.firebasestorage.app",
-    messagingSenderId: "515092760726",
-    appId: "1:515092760726:web:cf0f62f5879d2a9dc35ab7"
-};
+// FIREBASE
+const firebaseConfig={apiKey:"AIzaSyCEAFNYezHe0_qsk-0ob4ibcEglUEP_KH0",authDomain:"dieta-monitorada-b9500.firebaseapp.com",databaseURL:"https://dieta-monitorada-b9500-default-rtdb.firebaseio.com",projectId:"dieta-monitorada-b9500",storageBucket:"dieta-monitorada-b9500.firebasestorage.app",messagingSenderId:"515092760726",appId:"1:515092760726:web:cf0f62f5879d2a9dc35ab7"};
 firebase.initializeApp(firebaseConfig);
-const db = firebase.database();
+const db=firebase.database();
 
-// ====== ESTADO ======
-const CALORIAS_POR_KG = 7700;
-const DIAS_NO_MES = 30;
-const USER_PREFIX = "userCadastro_";
-const DAILY_PREFIX = "dailyConsumption_";
+const CALORIAS_POR_KG=7700,DIAS_NO_MES=30,USER_PREFIX="userCadastro_",DAILY_PREFIX="dailyConsumption_";
+let currentUser=null,dailyConsumption={},speaking=false,sessionTel=null,statusListener=null;
+let deferredPrompt=null;
 
-let currentUser = null;
-let dailyConsumption = {};
-let speaking = false;
-let sessionTel = null;
-let statusListener = null;
-
-// ====== INSTALL BAR ======
-function abrirModalInstall() {
-    // Detecta iOS ou Android para mostrar instrução correta
-    const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
-    document.getElementById('passoAndroid').style.display = isIOS ? 'none' : 'block';
-    document.getElementById('passoIOS').style.display = isIOS ? 'block' : 'none';
-    document.getElementById('modalInstall').classList.add('open');
-}
-function fecharModalInstall() {
+// PWA INSTALL
+window.addEventListener('beforeinstallprompt',(e)=>{
+    e.preventDefault();
+    deferredPrompt=e;
+    if(!sessionStorage.getItem('_barFechada')){
+        document.getElementById('installBar').style.display='flex';
+    }
+});
+window.addEventListener('appinstalled',()=>{
+    document.getElementById('installBar').style.display='none';
     document.getElementById('modalInstall').classList.remove('open');
-}
-function fecharInstallBar() {
-    document.getElementById('installBar').style.display = 'none';
-    sessionStorage.setItem('_installBarFechada', '1');
-}
+    deferredPrompt=null;
+});
 
-// ====== UTILS ======
-function sanitizeKey(str) { return str.replace(/[.#$/\[\]\s]/g, '_'); }
-function formatDateToBR(d) {
-    if (!d) return '';
-    const [y,m,day] = d.split('-');
-    return `${day}/${m}/${y}`;
-}
-function getDuracaoText(v) {
-    const el = document.getElementById("duracaoDieta");
-    if (el) for (let o of el.options) if (o.value == v) return o.text;
-    return `${v} meses`;
-}
-function calcularDataFim(ini, meses) {
-    if (!ini || !meses) return "";
-    const d = new Date(ini + 'T00:00:00');
-    d.setMonth(d.getMonth() + Number(meses));
-    d.setDate(d.getDate() - 1);
-    return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
-}
-function splitFoodName(name, cal) {
-    const m = name.match(/^(.*?)(\s*\((.*?)\))?$/);
-    const foodName = m ? m[1].trim() : name;
-    const portion = (m && m[3]) ? m[3].trim() + ' ' : '';
-    return { foodName, portionLine: portion + cal + ' kcal' };
-}
-
-// ====== FOTO ======
-let fotoBase64 = "";
-function onFotoChange(input) {
-    const file = input.files[0];
-    if (!file) return;
-    const reader = new FileReader();
-    reader.onloadend = () => {
-        fotoBase64 = reader.result;
-        document.getElementById('fotoPreview').src = fotoBase64;
-        document.getElementById('fotoPreview').style.display = 'block';
-        document.getElementById('fotoIcon').style.display = 'none';
-        document.getElementById('fotoText').textContent = '✅ Foto selecionada';
-        document.getElementById('fotoText').className = 'foto-text selected';
-    };
-    reader.readAsDataURL(file);
-}
-
-// ====== CADASTRO ======
-async function cadastrar() {
-    const nome = document.getElementById('cadNome').value.trim();
-    const tel = document.getElementById('cadTelefone').value.trim().replace(/\D/g,'');
-    if (!nome || !tel) { alert('Nome e telefone são obrigatórios.'); return; }
-    const btn = document.getElementById('btnCadastrar');
-    btn.disabled = true; btn.textContent = 'Enviando...';
-    const key = sanitizeKey(tel);
-    const snap = await db.ref('adminUsers/' + key).get();
-    if (snap.exists()) {
-        const d = snap.val();
-        if (d.status === 'liberado') { iniciarApp(d); return; }
-        mostrarAguardando(d);
-        btn.disabled = false; btn.textContent = 'Cadastrar e Aguardar Liberação';
-        return;
-    }
-    const userData = {
-        id: tel, nome, telefone: tel, foto: fotoBase64,
-        status: 'aguardando', cadastradoEm: Date.now()
-    };
-    await db.ref('adminUsers/' + key).set(userData);
-    sessionTel = tel;
-    localStorage.setItem('_dietaTel', tel);
-    mostrarAguardando(userData);
-    iniciarListenerStatus(tel);
-    btn.disabled = false; btn.textContent = 'Cadastrar e Aguardar Liberação';
-}
-
-async function verificarJaCadastrado() {
-    const tel = localStorage.getItem('_dietaTel');
-    if (!tel) { alert('Nenhum cadastro encontrado neste dispositivo.'); return; }
-    const key = sanitizeKey(tel);
-    const snap = await db.ref('adminUsers/' + key).get();
-    if (!snap.exists()) { alert('Cadastro não encontrado.'); return; }
-    const d = snap.val();
-    if (d.status === 'liberado') { iniciarApp(d); return; }
-    mostrarAguardando(d);
-    iniciarListenerStatus(tel);
-}
-
-function mostrarAguardando(userData) {
-    document.getElementById('cadastroScreen').style.display = 'none';
-    document.getElementById('aguardandoScreen').style.display = 'flex';
-    const preview = document.getElementById('userInfoPreview');
-    const fotoHtml = userData.foto
-        ? `<img src="${userData.foto}" alt="foto">`
-        : `<div class="no-foto">👤</div>`;
-    preview.innerHTML = `${fotoHtml}<div class="info"><strong>${userData.nome}</strong><p>Tel: ${userData.telefone}</p></div>`;
-}
-
-function iniciarListenerStatus(tel) {
-    const key = sanitizeKey(tel);
-    if (statusListener) statusListener();
-    statusListener = db.ref('adminUsers/' + key).on('value', snap => {
-        if (!snap.exists()) return;
-        const d = snap.val();
-        if (d.status === 'liberado') iniciarApp(d);
-        if (d.status === 'excluido') {
-            localStorage.removeItem('_dietaTel');
-            location.reload();
-        }
-    });
-}
-
-function iniciarApp(userData) {
-    if (statusListener) { statusListener(); statusListener = null; }
-    document.getElementById('cadastroScreen').style.display = 'none';
-    document.getElementById('aguardandoScreen').style.display = 'none';
-    document.getElementById('appSection').style.display = 'block';
-    const fotoHtml = userData.foto
-        ? `<img src="${userData.foto}" alt="foto">`
-        : `<div class="no-foto-mini">👤</div>`;
-    document.getElementById('bannerFoto').innerHTML = fotoHtml;
-    document.getElementById('bannerNome').textContent = userData.nome;
-    sessionTel = userData.telefone;
-    localStorage.setItem('_dietaTel', userData.telefone);
-    const saved = localStorage.getItem(`${USER_PREFIX}${userData.nome}`);
-    if (saved) {
-        const u = JSON.parse(saved);
-        document.getElementById('nome').value = u.nome || '';
-        document.getElementById('idade').value = u.idade || '';
-        document.getElementById('genero').value = u.genero || 'Feminino';
-        document.getElementById('altura').value = u.altura || '';
-        document.getElementById('peso').value = u.peso || '';
-        document.getElementById('dataInicio').value = u.dataInicio || '';
-        document.getElementById('duracaoDieta').value = u.duracaoDieta || '6';
-        document.getElementById('tipoDieta').value = u.tipoDieta || 'Exata';
-        document.getElementById('exercicio').value = u.exercicio || '0';
-    } else {
-        document.getElementById('nome').value = userData.nome;
-    }
-    mostrarLista(userData.nome);
-    document.getElementById('controleSection').classList.remove('hidden');
-    iniciarListenerStatus(userData.telefone);
-}
-
-function sair() {
-    localStorage.removeItem('_dietaTel');
-    location.reload();
-}
-
-// ====== APP FUNÇÕES ======
-function saveUserCadastro() {
-    const nome = document.getElementById("nome").value.trim();
-    if (!nome) return;
-    const u = {
-        nome, idade: document.getElementById("idade").value,
-        genero: document.getElementById("genero").value,
-        altura: document.getElementById("altura").value,
-        peso: document.getElementById("peso").value,
-        dataInicio: document.getElementById("dataInicio").value,
-        duracaoDieta: document.getElementById("duracaoDieta").value || "6",
-        tipoDieta: document.getElementById("tipoDieta").value,
-        exercicio: document.getElementById("exercicio").value
-    };
-    localStorage.setItem(`${USER_PREFIX}${nome}`, JSON.stringify(u));
-    resetAnalisarButton();
-    mostrarLista(nome);
-}
-
-function loadUserCadastro(nome) {
-    const raw = localStorage.getItem(`${USER_PREFIX}${nome}`);
-    if (!raw) return;
-    const u = JSON.parse(raw);
-    document.getElementById("nome").value = u.nome || "";
-    document.getElementById("idade").value = u.idade || "";
-    document.getElementById("genero").value = u.genero || "Feminino";
-    document.getElementById("altura").value = u.altura || "";
-    document.getElementById("peso").value = u.peso || "";
-    document.getElementById("dataInicio").value = u.dataInicio || "";
-    document.getElementById("duracaoDieta").value = u.duracaoDieta || "6";
-    document.getElementById("tipoDieta").value = u.tipoDieta || "Exata";
-    document.getElementById("exercicio").value = u.exercicio || "0";
-    analisar();
-    document.getElementById("toggleCadastroButton").textContent = "Fechar Análise";
-    document.getElementById("analisarButton").textContent = "Análise Atualizada";
-    document.getElementById("analisarButton").classList.add("active");
-}
-
-function resetLoadButton() {
-    document.getElementById("loadUserButton").textContent = "Carregar Usuário";
-    document.getElementById("loadUserButton").classList.remove("active");
-    gerarTabelaAlimentos();
-}
-function resetAnalisarButton() {
-    document.getElementById("analisarButton").textContent = "Analisar peso ideal";
-    document.getElementById("analisarButton").classList.remove("active");
-}
-
-function calcularResultados(u) {
-    const alturaM = Number(u.altura) / 100;
-    const pesoN = Number(u.peso);
-    const dur = Number(u.duracaoDieta);
-    const ex = Number(u.exercicio);
-    if (!alturaM || !pesoN || !dur || !u.idade) return { imc:0, pesoIdeal:0, kgEmagrecer:0, calDia:0, calMes:0, calTotalDieta:0 };
-    const imc = pesoN / (alturaM * alturaM);
-    let pesoIdeal = u.genero === "Masculino"
-        ? alturaM*100 - 100 - ((alturaM*100 - 150)/4)
-        : alturaM*100 - 100 - ((alturaM*100 - 150)/2);
-    const kgEmagrecer = pesoN - pesoIdeal;
-    let tmb = u.genero === "Masculino"
-        ? 66 + (13.7*pesoN) + (5*(alturaM*100)) - (6.8*Number(u.idade))
-        : 655 + (9.6*pesoN) + (1.8*(alturaM*100)) - (4.7*Number(u.idade));
-    const fator = ex === 1 ? 1.55 : 1.2;
-    const manutencao = tmb * fator;
-    const corteTotal = kgEmagrecer * CALORIAS_POR_KG;
-    const corteDiario = corteTotal / (dur * 4 * 7);
-    let calDia = manutencao - corteDiario;
-    if (u.tipoDieta === "Balanceada") calDia *= 1.30;
-    if (calDia < 1000) calDia = 1000;
-    return { imc, pesoIdeal, kgEmagrecer, calDia, calMes: calDia * DIAS_NO_MES, calTotalDieta: calDia * dur * DIAS_NO_MES };
-}
-
-function getConsumedTotals(nome, u) {
-    let consumedDieta = 0, consumedMes = 0;
-    const today = new Date().toISOString().split('T')[0];
-    const currentMonth = today.substring(0,7);
-    for (let i = 0; i < localStorage.length; i++) {
-        const key = localStorage.key(i);
-        if (!key.startsWith(DAILY_PREFIX + nome + '_')) continue;
-        try {
-            const data = JSON.parse(localStorage.getItem(key));
-            let daily = 0;
-            for (const [fn, qty] of Object.entries(data)) {
-                const f = allFoodsMap.get(fn);
-                if (f) daily += f.cal * qty;
+function instalarApp(){
+    if(deferredPrompt){
+        // Chrome/Android: instala direto sem modal
+        deferredPrompt.prompt();
+        deferredPrompt.userChoice.then(r=>{
+            if(r.outcome==='accepted'){
+                document.getElementById('installBar').style.display='none';
             }
-            consumedDieta += daily;
-            const dateStr = key.substring(key.lastIndexOf('_') + 1);
-            if (dateStr.length === 10 && dateStr.substring(0,7) === currentMonth) consumedMes += daily;
-        } catch(e) {}
+            deferredPrompt=null;
+        });
+    } else {
+        // iOS/Samsung/outros: mostra instrução
+        const isIOS=/iPad|iPhone|iPod/.test(navigator.userAgent)&&!window.MSStream;
+        document.getElementById('stepsAndroid').style.display=isIOS?'none':'block';
+        document.getElementById('stepsIOS').style.display=isIOS?'block':'none';
+        document.getElementById('modalInstall').classList.add('open');
     }
-    return { consumedMes, consumedDieta };
 }
-
-function analisar() {
-    const nome = document.getElementById("nome").value.trim();
-    const idade = document.getElementById("idade").value;
-    const altura = document.getElementById("altura").value;
-    const peso = document.getElementById("peso").value;
-    const dataInicio = document.getElementById("dataInicio").value;
-    if (!nome || !idade || !altura || !peso || !dataInicio) { alert("Preencha todos os campos."); return; }
-    const u = {
-        nome, idade, genero: document.getElementById("genero").value,
-        altura, peso, dataInicio,
-        duracaoDieta: document.getElementById("duracaoDieta").value,
-        tipoDieta: document.getElementById("tipoDieta").value,
-        exercicio: document.getElementById("exercicio").value
-    };
-    const { imc, pesoIdeal, kgEmagrecer, calDia, calMes, calTotalDieta } = calcularResultados(u);
-    const dataFim = calcularDataFim(dataInicio, u.duracaoDieta);
-    const { consumedMes, consumedDieta } = getConsumedTotals(nome, u);
-    document.getElementById("resNome").textContent = nome;
-    document.getElementById("resGenero").textContent = u.genero;
-    document.getElementById("resPeso").textContent = Number(peso).toFixed(1);
-    document.getElementById("resAltura").textContent = altura;
-    document.getElementById("resIMC").textContent = imc.toFixed(2);
-    document.getElementById("resPesoIdeal").textContent = pesoIdeal.toFixed(1);
-    document.getElementById("resKgEmagrecer").textContent = kgEmagrecer > 0 ? kgEmagrecer.toFixed(1) : "0.0";
-    document.getElementById("resDataInicio").textContent = formatDateToBR(dataInicio);
-    document.getElementById("resDataFim").textContent = formatDateToBR(dataFim);
-    document.getElementById("resDuracao").textContent = getDuracaoText(u.duracaoDieta);
-    document.getElementById("resTipoDieta").textContent = u.tipoDieta;
-    document.getElementById("resCalDia").textContent = calDia.toFixed(0);
-    document.getElementById("resCalMes").textContent = calMes.toFixed(0);
-    document.getElementById("resCalTotalDieta").textContent = calTotalDieta.toFixed(0);
-    document.getElementById("resFaltandoMes").textContent = (calMes - consumedMes).toFixed(0);
-    document.getElementById("resFaltandoDieta").textContent = (calTotalDieta - consumedDieta).toFixed(0);
-    document.getElementById("resultadoSection").classList.remove("hidden");
-    document.getElementById("controleSection").classList.remove("hidden");
-    document.getElementById("analisarButton").textContent = "Análise Atualizada";
-    document.getElementById("analisarButton").classList.add("active");
-    saveUserCadastro();
-    carregarUsuarioControle(nome, calDia);
+function fecharBar(){
+    document.getElementById('installBar').style.display='none';
+    sessionStorage.setItem('_barFechada','1');
 }
+function fecharModal(){document.getElementById('modalInstall').classList.remove('open')}
 
-function salvarNutri() {
-    alert("Salvo com sucesso!");
-    resetAnalisarButton();
-    mostrarLista(document.getElementById("resNome").textContent);
+// UTILS
+function sanitizeKey(s){return s.replace(/[.#$/\[\]\s]/g,'_')}
+function formatDateToBR(d){if(!d)return'';const[y,m,day]=d.split('-');return`${day}/${m}/${y}`}
+function getDuracaoText(v){const el=document.getElementById("duracaoDieta");if(el)for(let o of el.options)if(o.value==v)return o.text;return`${v} meses`}
+function calcularDataFim(ini,meses){if(!ini||!meses)return"";const d=new Date(ini+'T00:00:00');d.setMonth(d.getMonth()+Number(meses));d.setDate(d.getDate()-1);return`${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`}
+function splitFoodName(name,cal){const m=name.match(/^(.*?)(\s*\((.*?)\))?$/);const foodName=m?m[1].trim():name;const portion=(m&&m[3])?m[3].trim()+' ':'';return{foodName,portionLine:portion+cal+' kcal'}}
+
+// FOTO
+let fotoBase64="";
+function onFotoChange(input){const file=input.files[0];if(!file)return;const reader=new FileReader();reader.onloadend=()=>{fotoBase64=reader.result;document.getElementById('fotoPreview').src=fotoBase64;document.getElementById('fotoPreview').style.display='block';document.getElementById('fotoIcon').style.display='none';document.getElementById('fotoText').textContent='✅ Foto selecionada';document.getElementById('fotoText').className='foto-text selected'};reader.readAsDataURL(file)}
+
+// CADASTRO
+async function cadastrar(){
+    const nome=document.getElementById('cadNome').value.trim();
+    const tel=document.getElementById('cadTelefone').value.trim().replace(/\D/g,'');
+    if(!nome||!tel){alert('Nome e telefone são obrigatórios.');return}
+    const btn=document.getElementById('btnCadastrar');btn.disabled=true;btn.textContent='Enviando...';
+    const key=sanitizeKey(tel);
+    const snap=await db.ref('adminUsers/'+key).get();
+    if(snap.exists()){const d=snap.val();if(d.status==='liberado'){iniciarApp(d);return}mostrarAguardando(d);btn.disabled=false;btn.textContent='Cadastrar e Aguardar Liberação';return}
+    const userData={id:tel,nome,telefone:tel,foto:fotoBase64,status:'aguardando',cadastradoEm:Date.now()};
+    await db.ref('adminUsers/'+key).set(userData);
+    sessionTel=tel;localStorage.setItem('_dietaTel',tel);mostrarAguardando(userData);iniciarListenerStatus(tel);
+    btn.disabled=false;btn.textContent='Cadastrar e Aguardar Liberação';
 }
-
-function mostrarLista(nomeParaSelecionar = '') {
-    const tbody = document.querySelector("#tabelaNutri tbody");
-    tbody.innerHTML = '';
-    const users = [];
-    for (let i = 0; i < localStorage.length; i++) {
-        const key = localStorage.key(i);
-        if (key.startsWith(USER_PREFIX)) {
-            try { users.push(JSON.parse(localStorage.getItem(key))); } catch(e) {}
-        }
-    }
-    users.sort((a,b) => a.nome.localeCompare(b.nome));
-    users.forEach(u => {
-        const { imc, pesoIdeal, kgEmagrecer, calDia, calMes, calTotalDieta } = calcularResultados(u);
-        const dataFim = calcularDataFim(u.dataInicio, u.duracaoDieta);
-        const tr = document.createElement("tr");
-        tr.innerHTML = `<td>${u.nome}</td><td>${u.idade}</td><td>${u.genero}</td>
-            <td>${u.altura}</td><td>${u.peso}</td><td>${imc.toFixed(2)}</td>
-            <td>${pesoIdeal.toFixed(2)}</td><td>${kgEmagrecer.toFixed(2)}</td>
-            <td>${calDia.toFixed(0)}</td><td>${calMes.toFixed(0)}</td><td>${calTotalDieta.toFixed(0)}</td>
-            <td>${getDuracaoText(u.duracaoDieta)}</td><td>${u.tipoDieta}</td>
-            <td>${u.exercicio=="1"?"Sim":"Não"}</td>
-            <td>${formatDateToBR(u.dataInicio)}</td><td>${formatDateToBR(dataFim)}</td>`;
-        tr.onclick = () => { loadUserCadastro(u.nome); window.scrollTo(0,0); };
-        tbody.appendChild(tr);
+async function verificarJaCadastrado(){
+    const tel=localStorage.getItem('_dietaTel');if(!tel){alert('Nenhum cadastro encontrado neste dispositivo.');return}
+    const key=sanitizeKey(tel);const snap=await db.ref('adminUsers/'+key).get();
+    if(!snap.exists()){alert('Cadastro não encontrado.');return}
+    const d=snap.val();if(d.status==='liberado'){iniciarApp(d);return}mostrarAguardando(d);iniciarListenerStatus(tel);
+}
+function mostrarAguardando(u){
+    document.getElementById('cadastroScreen').style.display='none';document.getElementById('aguardandoScreen').style.display='flex';
+    const fotoHtml=u.foto?`<img src="${u.foto}" alt="foto">`:`<div class="no-foto">👤</div>`;
+    document.getElementById('userInfoPreview').innerHTML=`${fotoHtml}<div class="info"><strong>${u.nome}</strong><p>Tel: ${u.telefone}</p></div>`;
+}
+function iniciarListenerStatus(tel){
+    const key=sanitizeKey(tel);if(statusListener)statusListener();
+    statusListener=db.ref('adminUsers/'+key).on('value',snap=>{
+        if(!snap.exists())return;const d=snap.val();
+        if(d.status==='liberado')iniciarApp(d);
+        if(d.status==='excluido'){localStorage.removeItem('_dietaTel');location.reload()}
     });
-    const sel = document.getElementById("userSelect");
-    sel.innerHTML = '<option value="">Selecione</option>';
-    users.forEach(u => {
-        const o = document.createElement("option");
-        o.value = u.nome; o.textContent = u.nome;
-        sel.appendChild(o);
-        if (u.nome === nomeParaSelecionar) sel.value = nomeParaSelecionar;
-    });
+}
+function iniciarApp(u){
+    if(statusListener){statusListener();statusListener=null}
+    document.getElementById('cadastroScreen').style.display='none';document.getElementById('aguardandoScreen').style.display='none';document.getElementById('appSection').style.display='block';
+    const fotoHtml=u.foto?`<img src="${u.foto}" alt="foto">`:`<div class="no-foto-mini">👤</div>`;
+    document.getElementById('bannerFoto').innerHTML=fotoHtml;document.getElementById('bannerNome').textContent=u.nome;
+    sessionTel=u.telefone;localStorage.setItem('_dietaTel',u.telefone);
+    const saved=localStorage.getItem(`${USER_PREFIX}${u.nome}`);
+    if(saved){const s=JSON.parse(saved);document.getElementById('nome').value=s.nome||'';document.getElementById('idade').value=s.idade||'';document.getElementById('genero').value=s.genero||'Feminino';document.getElementById('altura').value=s.altura||'';document.getElementById('peso').value=s.peso||'';document.getElementById('dataInicio').value=s.dataInicio||'';document.getElementById('duracaoDieta').value=s.duracaoDieta||'6';document.getElementById('tipoDieta').value=s.tipoDieta||'Exata';document.getElementById('exercicio').value=s.exercicio||'0';}
+    else document.getElementById('nome').value=u.nome;
+    mostrarLista(u.nome);document.getElementById('controleSection').classList.remove('hidden');iniciarListenerStatus(u.telefone);
+}
+function sair(){localStorage.removeItem('_dietaTel');location.reload()}
+
+// APP
+function saveUserCadastro(){
+    const nome=document.getElementById("nome").value.trim();if(!nome)return;
+    const u={nome,idade:document.getElementById("idade").value,genero:document.getElementById("genero").value,altura:document.getElementById("altura").value,peso:document.getElementById("peso").value,dataInicio:document.getElementById("dataInicio").value,duracaoDieta:document.getElementById("duracaoDieta").value||"6",tipoDieta:document.getElementById("tipoDieta").value,exercicio:document.getElementById("exercicio").value};
+    localStorage.setItem(`${USER_PREFIX}${nome}`,JSON.stringify(u));resetAnalisarButton();mostrarLista(nome);
+}
+function loadUserCadastro(nome){
+    const raw=localStorage.getItem(`${USER_PREFIX}${nome}`);if(!raw)return;const u=JSON.parse(raw);
+    document.getElementById("nome").value=u.nome||"";document.getElementById("idade").value=u.idade||"";document.getElementById("genero").value=u.genero||"Feminino";document.getElementById("altura").value=u.altura||"";document.getElementById("peso").value=u.peso||"";document.getElementById("dataInicio").value=u.dataInicio||"";document.getElementById("duracaoDieta").value=u.duracaoDieta||"6";document.getElementById("tipoDieta").value=u.tipoDieta||"Exata";document.getElementById("exercicio").value=u.exercicio||"0";
+    analisar();document.getElementById("toggleCadastroButton").textContent="Fechar Análise";document.getElementById("analisarButton").textContent="Análise Atualizada";document.getElementById("analisarButton").classList.add("active");
+}
+function resetLoadButton(){document.getElementById("loadUserButton").textContent="Carregar Usuário";document.getElementById("loadUserButton").classList.remove("active");gerarTabelaAlimentos()}
+function resetAnalisarButton(){document.getElementById("analisarButton").textContent="Analisar peso ideal";document.getElementById("analisarButton").classList.remove("active")}
+function calcularResultados(u){
+    const alturaM=Number(u.altura)/100,pesoN=Number(u.peso),dur=Number(u.duracaoDieta),ex=Number(u.exercicio);
+    if(!alturaM||!pesoN||!dur||!u.idade)return{imc:0,pesoIdeal:0,kgEmagrecer:0,calDia:0,calMes:0,calTotalDieta:0};
+    const imc=pesoN/(alturaM*alturaM);
+    let pesoIdeal=u.genero==="Masculino"?alturaM*100-100-((alturaM*100-150)/4):alturaM*100-100-((alturaM*100-150)/2);
+    const kgEmagrecer=pesoN-pesoIdeal;
+    let tmb=u.genero==="Masculino"?66+(13.7*pesoN)+(5*(alturaM*100))-(6.8*Number(u.idade)):655+(9.6*pesoN)+(1.8*(alturaM*100))-(4.7*Number(u.idade));
+    const manutencao=tmb*(ex===1?1.55:1.2);
+    let calDia=manutencao-(kgEmagrecer*CALORIAS_POR_KG/(dur*4*7));
+    if(u.tipoDieta==="Balanceada")calDia*=1.30;if(calDia<1000)calDia=1000;
+    return{imc,pesoIdeal,kgEmagrecer,calDia,calMes:calDia*DIAS_NO_MES,calTotalDieta:calDia*dur*DIAS_NO_MES};
+}
+function getConsumedTotals(nome){
+    let consumedDieta=0,consumedMes=0;const currentMonth=new Date().toISOString().substring(0,7);
+    for(let i=0;i<localStorage.length;i++){const key=localStorage.key(i);if(!key.startsWith(DAILY_PREFIX+nome+'_'))continue;
+        try{const data=JSON.parse(localStorage.getItem(key));let daily=0;for(const[fn,qty]of Object.entries(data)){const f=allFoodsMap.get(fn);if(f)daily+=f.cal*qty}consumedDieta+=daily;const dateStr=key.substring(key.lastIndexOf('_')+1);if(dateStr.length===10&&dateStr.substring(0,7)===currentMonth)consumedMes+=daily}catch(e){}}
+    return{consumedMes,consumedDieta};
+}
+function analisar(){
+    const nome=document.getElementById("nome").value.trim(),idade=document.getElementById("idade").value,altura=document.getElementById("altura").value,peso=document.getElementById("peso").value,dataInicio=document.getElementById("dataInicio").value;
+    if(!nome||!idade||!altura||!peso||!dataInicio){alert("Preencha todos os campos.");return}
+    const u={nome,idade,genero:document.getElementById("genero").value,altura,peso,dataInicio,duracaoDieta:document.getElementById("duracaoDieta").value,tipoDieta:document.getElementById("tipoDieta").value,exercicio:document.getElementById("exercicio").value};
+    const{imc,pesoIdeal,kgEmagrecer,calDia,calMes,calTotalDieta}=calcularResultados(u);
+    const dataFim=calcularDataFim(dataInicio,u.duracaoDieta);const{consumedMes,consumedDieta}=getConsumedTotals(nome);
+    document.getElementById("resNome").textContent=nome;document.getElementById("resGenero").textContent=u.genero;document.getElementById("resPeso").textContent=Number(peso).toFixed(1);document.getElementById("resAltura").textContent=altura;document.getElementById("resIMC").textContent=imc.toFixed(2);document.getElementById("resPesoIdeal").textContent=pesoIdeal.toFixed(1);document.getElementById("resKgEmagrecer").textContent=kgEmagrecer>0?kgEmagrecer.toFixed(1):"0.0";document.getElementById("resDataInicio").textContent=formatDateToBR(dataInicio);document.getElementById("resDataFim").textContent=formatDateToBR(dataFim);document.getElementById("resDuracao").textContent=getDuracaoText(u.duracaoDieta);document.getElementById("resTipoDieta").textContent=u.tipoDieta;document.getElementById("resCalDia").textContent=calDia.toFixed(0);document.getElementById("resCalMes").textContent=calMes.toFixed(0);document.getElementById("resCalTotalDieta").textContent=calTotalDieta.toFixed(0);document.getElementById("resFaltandoMes").textContent=(calMes-consumedMes).toFixed(0);document.getElementById("resFaltandoDieta").textContent=(calTotalDieta-consumedDieta).toFixed(0);
+    document.getElementById("resultadoSection").classList.remove("hidden");document.getElementById("controleSection").classList.remove("hidden");document.getElementById("analisarButton").textContent="Análise Atualizada";document.getElementById("analisarButton").classList.add("active");
+    saveUserCadastro();carregarUsuarioControle(nome,calDia);
+}
+function salvarNutri(){alert("Salvo com sucesso!");resetAnalisarButton();mostrarLista(document.getElementById("resNome").textContent)}
+function mostrarLista(nomeParaSelecionar=''){
+    const tbody=document.querySelector("#tabelaNutri tbody");tbody.innerHTML='';const users=[];
+    for(let i=0;i<localStorage.length;i++){const key=localStorage.key(i);if(key.startsWith(USER_PREFIX)){try{users.push(JSON.parse(localStorage.getItem(key)))}catch(e){}}}
+    users.sort((a,b)=>a.nome.localeCompare(b.nome));
+    users.forEach(u=>{const{imc,pesoIdeal,kgEmagrecer,calDia,calMes,calTotalDieta}=calcularResultados(u);const dataFim=calcularDataFim(u.dataInicio,u.duracaoDieta);const tr=document.createElement("tr");tr.innerHTML=`<td>${u.nome}</td><td>${u.idade}</td><td>${u.genero}</td><td>${u.altura}</td><td>${u.peso}</td><td>${imc.toFixed(2)}</td><td>${pesoIdeal.toFixed(2)}</td><td>${kgEmagrecer.toFixed(2)}</td><td>${calDia.toFixed(0)}</td><td>${calMes.toFixed(0)}</td><td>${calTotalDieta.toFixed(0)}</td><td>${getDuracaoText(u.duracaoDieta)}</td><td>${u.tipoDieta}</td><td>${u.exercicio=="1"?"Sim":"Não"}</td><td>${formatDateToBR(u.dataInicio)}</td><td>${formatDateToBR(dataFim)}</td>`;tr.onclick=()=>{loadUserCadastro(u.nome);window.scrollTo(0,0)};tbody.appendChild(tr)});
+    const sel=document.getElementById("userSelect");sel.innerHTML='<option value="">Selecione</option>';
+    users.forEach(u=>{const o=document.createElement("option");o.value=u.nome;o.textContent=u.nome;sel.appendChild(o);if(u.nome===nomeParaSelecionar)sel.value=nomeParaSelecionar});
     document.getElementById("listaSection").classList.remove("hidden");
 }
-
-async function carregarUsuario() {
-    const nome = document.getElementById("userSelect").value;
-    if (!nome) { alert("Selecione um usuário."); return; }
-    const raw = localStorage.getItem(`${USER_PREFIX}${nome}`);
-    if (!raw) { alert("Cadastro não encontrado."); return; }
-    const u = JSON.parse(raw);
-    const { calDia } = calcularResultados(u);
-    carregarUsuarioControle(nome, calDia);
-}
-
-function carregarUsuarioControle(nome, calDia) {
-    currentUser = nome;
-    document.getElementById("loadUserButton").textContent = `Usuário: ${nome}`;
-    document.getElementById("loadUserButton").classList.add("active");
-    const today = new Date().toISOString().split('T')[0];
-    document.getElementById("consumptionDate").value = today;
-    document.getElementById("caloriesLimit").value = calDia.toFixed(0);
+async function carregarUsuario(){const nome=document.getElementById("userSelect").value;if(!nome){alert("Selecione um usuário.");return}const raw=localStorage.getItem(`${USER_PREFIX}${nome}`);if(!raw){alert("Cadastro não encontrado.");return}const u=JSON.parse(raw);const{calDia}=calcularResultados(u);carregarUsuarioControle(nome,calDia)}
+function carregarUsuarioControle(nome,calDia){
+    currentUser=nome;document.getElementById("loadUserButton").textContent=`Usuário: ${nome}`;document.getElementById("loadUserButton").classList.add("active");
+    const today=new Date().toISOString().split('T')[0];document.getElementById("consumptionDate").value=today;document.getElementById("caloriesLimit").value=calDia.toFixed(0);
     carregarConsumoDoDia();
-    if (document.getElementById("categorySelect").options.length <= 1) {
-        const cats = [...new Set(foods.map(f => f.category))].sort();
-        cats.forEach(c => {
-            const o = document.createElement("option");
-            o.value = c; o.textContent = c;
-            document.getElementById("categorySelect").appendChild(o);
-        });
-    }
+    if(document.getElementById("categorySelect").options.length<=1){const cats=[...new Set(foods.map(f=>f.category))].sort();cats.forEach(c=>{const o=document.createElement("option");o.value=c;o.textContent=c;document.getElementById("categorySelect").appendChild(o)})}
     gerarTabelaAlimentos();
 }
-
-function carregarConsumoDoDia() {
-    if (!currentUser) return;
-    const date = document.getElementById("consumptionDate").value;
-    if (!date) { dailyConsumption = {}; updateDailyTotal(); return; }
-    const raw = localStorage.getItem(`${DAILY_PREFIX}${currentUser}_${date}`);
-    dailyConsumption = raw ? JSON.parse(raw) : {};
-    gerarTabelaAlimentos();
-    updateDailyTotal();
+function carregarConsumoDoDia(){if(!currentUser)return;const date=document.getElementById("consumptionDate").value;if(!date){dailyConsumption={};updateDailyTotal();return}const raw=localStorage.getItem(`${DAILY_PREFIX}${currentUser}_${date}`);dailyConsumption=raw?JSON.parse(raw):{};gerarTabelaAlimentos();updateDailyTotal()}
+function saveConsumoDoDia(){if(!currentUser)return;const date=document.getElementById("consumptionDate").value;if(!date)return;const key=`${DAILY_PREFIX}${currentUser}_${date}`;const toSave={};for(const[fn,qty]of Object.entries(dailyConsumption))if(qty>0)toSave[fn]=qty;if(Object.keys(toSave).length>0)localStorage.setItem(key,JSON.stringify(toSave));else localStorage.removeItem(key);updateDailyTotal()}
+function updateQuantity(foodName,delta){dailyConsumption[foodName]=Math.max(0,(dailyConsumption[foodName]||0)+delta);const id=`qty_${foodName.replace(/[^a-zA-Z0-9]/g,'')}`;const el=document.getElementById(id);if(el)el.value=dailyConsumption[foodName];saveConsumoDoDia();gerarTabelaAlimentos()}
+function gerarTabelaAlimentos(){
+    const cat=document.getElementById("categorySelect").value;const tbody=document.getElementById("foodTableBody");tbody.innerHTML='';
+    if(!currentUser){tbody.innerHTML='<tr><td colspan="3">Selecione um usuário.</td></tr>';return}
+    if(!cat){tbody.innerHTML='<tr><td colspan="3">Selecione uma categoria.</td></tr>';return}
+    const filtered=foods.filter(f=>f.category===cat);if(!filtered.length){tbody.innerHTML='<tr><td colspan="3">Nenhum alimento.</td></tr>';return}
+    filtered.forEach(food=>{const qty=dailyConsumption[food.name]||0;const{foodName,portionLine}=splitFoodName(food.name,food.cal);const inputId=`qty_${food.name.replace(/[^a-zA-Z0-9]/g,'')}`;const tr=document.createElement("tr");tr.innerHTML=`<td><div class="food-item-container"><span class="food-name-line">${foodName}</span><span class="calorias-base-unidade">${portionLine}</span></div></td><td><div class="contador-quantidade"><button onclick="updateQuantity('${food.name.replace(/'/g,"\'")}', -1)">-</button><input type="number" id="${inputId}" class="quantidade-input" value="${qty}" min="0" onchange="manualUpdateQuantity('${food.name.replace(/'/g,"\'")}', this.value)"><button onclick="updateQuantity('${food.name.replace(/'/g,"\'")}', 1)">+</button></div></td><td>${food.cal*qty} kcal</td>`;tbody.appendChild(tr)});
+}
+function manualUpdateQuantity(foodName,value){const n=Number(value);dailyConsumption[foodName]=isNaN(n)||n<0?0:n;saveConsumoDoDia();gerarTabelaAlimentos()}
+function updateDailyTotal(){
+    if(!currentUser)return;let total=0;for(const[fn,qty]of Object.entries(dailyConsumption)){const f=allFoodsMap.get(fn);if(f)total+=f.cal*qty}
+    document.getElementById("totalCalories").textContent=total.toFixed(0);
+    const raw=localStorage.getItem(`${USER_PREFIX}${currentUser}`);if(!raw)return;
+    const u=JSON.parse(raw);const{calDia,calMes,calTotalDieta}=calcularResultados(u);const{consumedMes,consumedDieta}=getConsumedTotals(currentUser);
+    document.getElementById("remainingCalories").textContent=(calMes-consumedMes).toFixed(0);document.getElementById("remainingTotalDieta").textContent=(calTotalDieta-consumedDieta).toFixed(0);
+    const limit=Number(document.getElementById("caloriesLimit").value);if(total>limit&&!speaking)falarAlerta(currentUser);
+}
+function falarAlerta(nome){if('speechSynthesis'in window){speaking=true;const u=new SpeechSynthesisUtterance(`${nome}, você já atingiu suas calorias de hoje.`);u.lang='pt-BR';u.onend=()=>{speaking=false};window.speechSynthesis.speak(u)}}
+function generateDailyReport(){
+    if(!currentUser){alert("Selecione um usuário.");return}const date=document.getElementById("consumptionDate").value;if(!date){alert("Selecione uma data.");return}
+    const raw=localStorage.getItem(`${USER_PREFIX}${currentUser}`);const u=raw?JSON.parse(raw):{};const{calDia}=calcularResultados(u);
+    let total=0;const items=[];for(const[fn,qty]of Object.entries(dailyConsumption)){if(qty>0){const f=allFoodsMap.get(fn);const cal=f.cal*qty;items.push({fn,qty,cal});total+=cal}}
+    const html=`<!DOCTYPE html><html><head><meta charset="UTF-8"><title>Relatório</title><style>body{font-family:Arial;padding:30px;background:#000;color:#fff}h1{color:#f40000;font-size:3rem;border-bottom:4px solid #f40000;padding-bottom:1rem}h2{font-size:2rem;margin-top:2rem}p{font-size:1.8rem;margin:1rem 0}b{color:#1400ff}ul{list-style:none;padding:0}li{font-size:1.8rem;padding:.8rem 0;border-bottom:1px dotted #555}.total{font-size:3rem;color:#f40000;font-weight:bold;border:4px solid #f40000;padding:2rem;text-align:center;margin-top:2rem}</style></head><body><h1>Relatório Diário</h1><h2>👤 ${currentUser}</h2><p>🗓️ Data: <b>${formatDateToBR(date)}</b></p><p>🎯 Limite: <b>${calDia.toFixed(0)} kcal</b></p><h2>🍽️ Consumo</h2><ul>${items.map(i=>`<li>${i.fn} × ${i.qty} = <b>${i.cal} kcal</b></li>`).join('')}${!items.length?'<li>Nenhum alimento.</li>':''}</ul><div class="total">Total: ${total.toFixed(0)} kcal</div><p>${total>calDia?`<b style="color:#ff4d4d">Excedido em ${(total-calDia).toFixed(0)} kcal!</b>`:`<b style="color:#4dff4d">OK — Restam ${(calDia-total).toFixed(0)} kcal</b>`}</p></body></html>`;
+    const blob=new Blob([html],{type:'text/html'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=`Relatorio_${currentUser}_${date}.html`;document.body.appendChild(a);a.click();document.body.removeChild(a);
+}
+function abrirAnalise(fechar){
+    const btn=document.getElementById("toggleCadastroButton");
+    if(fechar){document.getElementById("cadastroSection").classList.add("hidden");document.getElementById("resultadoSection").classList.add("hidden");document.getElementById("controleSection").classList.remove("hidden");document.getElementById("listaSection").classList.remove("hidden");btn.textContent="Abrir Análise";btn.onclick=()=>abrirAnalise(false)}
+    else{document.getElementById("cadastroSection").classList.remove("hidden");document.getElementById("resultadoSection").classList.add("hidden");document.getElementById("controleSection").classList.add("hidden");document.getElementById("listaSection").classList.add("hidden");btn.textContent="Fechar Análise";btn.onclick=()=>abrirAnalise(true);const n=document.getElementById("nome").value.trim();if(n)loadUserCadastro(n)}
 }
 
-function saveConsumoDoDia() {
-    if (!currentUser) return;
-    const date = document.getElementById("consumptionDate").value;
-    if (!date) return;
-    const key = `${DAILY_PREFIX}${currentUser}_${date}`;
-    const toSave = {};
-    for (const [fn, qty] of Object.entries(dailyConsumption)) if (qty > 0) toSave[fn] = qty;
-    if (Object.keys(toSave).length > 0) localStorage.setItem(key, JSON.stringify(toSave));
-    else localStorage.removeItem(key);
-    updateDailyTotal();
-}
-
-function updateQuantity(foodName, delta) {
-    dailyConsumption[foodName] = Math.max(0, (dailyConsumption[foodName] || 0) + delta);
-    const id = `qty_${foodName.replace(/[^a-zA-Z0-9]/g,'')}`;
-    const el = document.getElementById(id);
-    if (el) el.value = dailyConsumption[foodName];
-    saveConsumoDoDia();
-    gerarTabelaAlimentos();
-}
-
-function gerarTabelaAlimentos() {
-    const cat = document.getElementById("categorySelect").value;
-    const tbody = document.getElementById("foodTableBody");
-    tbody.innerHTML = '';
-    if (!currentUser) { tbody.innerHTML = '<tr><td colspan="3">Selecione um usuário.</td></tr>'; return; }
-    if (!cat) { tbody.innerHTML = '<tr><td colspan="3">Selecione uma categoria.</td></tr>'; return; }
-    const filtered = foods.filter(f => f.category === cat);
-    if (!filtered.length) { tbody.innerHTML = '<tr><td colspan="3">Nenhum alimento.</td></tr>'; return; }
-    filtered.forEach(food => {
-        const qty = dailyConsumption[food.name] || 0;
-        const { foodName, portionLine } = splitFoodName(food.name, food.cal);
-        const inputId = `qty_${food.name.replace(/[^a-zA-Z0-9]/g,'')}`;
-        const tr = document.createElement("tr");
-        tr.innerHTML = `
-            <td><div class="food-item-container">
-                <span class="food-name-line">${foodName}</span>
-                <span class="calorias-base-unidade">${portionLine}</span>
-            </div></td>
-            <td><div class="contador-quantidade">
-                <button onclick="updateQuantity('${food.name.replace(/'/g,"\\'")}', -1)">-</button>
-                <input type="number" id="${inputId}" class="quantidade-input" value="${qty}" min="0" onchange="manualUpdateQuantity('${food.name.replace(/'/g,"\\'")}', this.value)">
-                <button onclick="updateQuantity('${food.name.replace(/'/g,"\\'")}', 1)">+</button>
-            </div></td>
-            <td>${food.cal * qty} kcal</td>`;
-        tbody.appendChild(tr);
-    });
-}
-
-function manualUpdateQuantity(foodName, value) {
-    const n = Number(value);
-    dailyConsumption[foodName] = isNaN(n) || n < 0 ? 0 : n;
-    saveConsumoDoDia();
-    gerarTabelaAlimentos();
-}
-
-function updateDailyTotal() {
-    if (!currentUser) return;
-    let total = 0;
-    for (const [fn, qty] of Object.entries(dailyConsumption)) {
-        const f = allFoodsMap.get(fn);
-        if (f) total += f.cal * qty;
-    }
-    document.getElementById("totalCalories").textContent = total.toFixed(0);
-    const raw = localStorage.getItem(`${USER_PREFIX}${currentUser}`);
-    if (!raw) return;
-    const u = JSON.parse(raw);
-    const { calDia, calMes, calTotalDieta } = calcularResultados(u);
-    const { consumedMes, consumedDieta } = getConsumedTotals(currentUser, u);
-    document.getElementById("remainingCalories").textContent = (calMes - consumedMes).toFixed(0);
-    document.getElementById("remainingTotalDieta").textContent = (calTotalDieta - consumedDieta).toFixed(0);
-    const limit = Number(document.getElementById("caloriesLimit").value);
-    if (total > limit && !speaking) falarAlerta(currentUser);
-}
-
-function falarAlerta(nome) {
-    if ('speechSynthesis' in window) {
-        speaking = true;
-        const u = new SpeechSynthesisUtterance(`${nome}, você já atingiu suas calorias de hoje.`);
-        u.lang = 'pt-BR';
-        u.onend = () => { speaking = false; };
-        window.speechSynthesis.speak(u);
-    }
-}
-
-function generateDailyReport() {
-    if (!currentUser) { alert("Selecione um usuário."); return; }
-    const date = document.getElementById("consumptionDate").value;
-    if (!date) { alert("Selecione uma data."); return; }
-    const raw = localStorage.getItem(`${USER_PREFIX}${currentUser}`);
-    const u = raw ? JSON.parse(raw) : {};
-    const { calDia } = calcularResultados(u);
-    let total = 0;
-    const items = [];
-    for (const [fn, qty] of Object.entries(dailyConsumption)) {
-        if (qty > 0) {
-            const f = allFoodsMap.get(fn);
-            const cal = f.cal * qty;
-            items.push({ fn, qty, cal });
-            total += cal;
-        }
-    }
-    const html = `<!DOCTYPE html><html><head><meta charset="UTF-8"><title>Relatório</title>
-<style>body{font-family:Arial;padding:30px;background:#000;color:#fff}
-h1{color:#f40000;font-size:3rem;border-bottom:4px solid #f40000;padding-bottom:1rem}
-h2{font-size:2rem;margin-top:2rem}p{font-size:1.8rem;margin:1rem 0}b{color:#1400ff}
-ul{list-style:none;padding:0}li{font-size:1.8rem;padding:.8rem 0;border-bottom:1px dotted #555}
-.total{font-size:3rem;color:#f40000;font-weight:bold;border:4px solid #f40000;padding:2rem;text-align:center;margin-top:2rem}</style>
-</head><body>
-<h1>Relatório Diário</h1>
-<h2>👤 ${currentUser}</h2>
-<p>🗓️ Data: <b>${formatDateToBR(date)}</b></p>
-<p>🎯 Limite: <b>${calDia.toFixed(0)} kcal</b></p>
-<h2>🍽️ Consumo</h2>
-<ul>${items.map(i=>`<li>${i.fn} × ${i.qty} = <b>${i.cal} kcal</b></li>`).join('')}
-${!items.length?'<li>Nenhum alimento.</li>':''}</ul>
-<div class="total">Total: ${total.toFixed(0)} kcal</div>
-<p>${total > calDia ? `<b style="color:#ff4d4d">Excedido em ${(total-calDia).toFixed(0)} kcal!</b>` : `<b style="color:#4dff4d">OK — Restam ${(calDia-total).toFixed(0)} kcal</b>`}</p>
-</body></html>`;
-    const blob = new Blob([html], {type:'text/html'});
-    const a = document.createElement('a');
-    a.href = URL.createObjectURL(blob);
-    a.download = `Relatorio_${currentUser}_${date}.html`;
-    document.body.appendChild(a); a.click(); document.body.removeChild(a);
-}
-
-function abrirAnalise(fechar) {
-    const btn = document.getElementById("toggleCadastroButton");
-    if (fechar) {
-        document.getElementById("cadastroSection").classList.add("hidden");
-        document.getElementById("resultadoSection").classList.add("hidden");
-        document.getElementById("controleSection").classList.remove("hidden");
-        document.getElementById("listaSection").classList.remove("hidden");
-        btn.textContent = "Abrir Análise";
-        btn.onclick = () => abrirAnalise(false);
-    } else {
-        document.getElementById("cadastroSection").classList.remove("hidden");
-        document.getElementById("resultadoSection").classList.add("hidden");
-        document.getElementById("controleSection").classList.add("hidden");
-        document.getElementById("listaSection").classList.add("hidden");
-        btn.textContent = "Fechar Análise";
-        btn.onclick = () => abrirAnalise(true);
-        const n = document.getElementById("nome").value.trim();
-        if (n) loadUserCadastro(n);
-    }
-}
-
-// ====== ALIMENTOS ======
-const foods = [
+const foods=[
     {category:"Grãos e cereais",name:"Arroz branco (1 colher de sopa)",cal:70},
     {category:"Grãos e cereais",name:"Arroz integral (1 colher de sopa)",cal:65},
     {category:"Grãos e cereais",name:"Feijão (1 concha média)",cal:80},
@@ -1008,138 +501,27 @@ const foods = [
     {category:"Grãos e cereais",name:"Batata comum (100g)",cal:77},
     {category:"Grãos e cereais",name:"Polenta ou angu (100g)",cal:100},
     {category:"Grãos e cereais",name:"Farinha de mandioca (1 colher de sopa)",cal:35},
-    {category:"Legumes",name:"Cenoura (100g)",cal:40},
-    {category:"Legumes",name:"Abobrinha (100g)",cal:20},
-    {category:"Legumes",name:"Quiabo (100g)",cal:33},
-    {category:"Legumes",name:"Batata-doce (100g)",cal:86},
-    {category:"Legumes",name:"Abóbora comum (100g)",cal:26},
-    {category:"Legumes",name:"Beterraba (100g)",cal:43},
-    {category:"Legumes",name:"Pepino (100g)",cal:16},
-    {category:"Legumes",name:"Pimentão (100g)",cal:27},
-    {category:"Legumes",name:"Tomate (100g)",cal:18},
-    {category:"Legumes",name:"Chuchu (100g)",cal:19},
-    {category:"Legumes",name:"Aspargos (100g)",cal:20},
-    {category:"Legumes",name:"Berinjela (100g)",cal:25},
-    {category:"Legumes",name:"Inhame (100g)",cal:118},
-    {category:"Legumes",name:"Aipim/Mandioca (100g)",cal:130},
-    {category:"Verduras",name:"Alface (100g)",cal:15},
-    {category:"Verduras",name:"Couve (100g)",cal:32},
-    {category:"Verduras",name:"Couve-flor (100g)",cal:25},
-    {category:"Verduras",name:"Espinafre (100g)",cal:23},
-    {category:"Verduras",name:"Rúcula (100g)",cal:25},
-    {category:"Verduras",name:"Repolho (100g)",cal:25},
-    {category:"Frutas",name:"Banana (100g)",cal:89},
-    {category:"Frutas",name:"Maçã (100g)",cal:52},
-    {category:"Frutas",name:"Laranja (100g)",cal:43},
-    {category:"Frutas",name:"Manga (100g)",cal:60},
-    {category:"Frutas",name:"Tangerina (100g)",cal:53},
-    {category:"Frutas",name:"Abacate (100g)",cal:160},
-    {category:"Frutas",name:"Morango (100g)",cal:32},
-    {category:"Frutas",name:"Uva vinho (100g)",cal:69},
-    {category:"Frutas",name:"Uva verde (100g)",cal:69},
-    {category:"Frutas",name:"Melancia (100g)",cal:30},
-    {category:"Frutas",name:"Melão (100g)",cal:34},
-    {category:"Frutas",name:"Azeitona (100g)",cal:115},
-    {category:"Frutas",name:"Limão (100g)",cal:29},
-    {category:"Frutas",name:"Abacaxi (100g)",cal:50},
-    {category:"Frutas",name:"Ameixa (100g)",cal:46},
-    {category:"Frutas",name:"Amora (100g)",cal:43},
-    {category:"Frutas",name:"Cereja (100g)",cal:50},
-    {category:"Frutas",name:"Coco (100g)",cal:354},
-    {category:"Frutas",name:"Figo (100g)",cal:74},
-    {category:"Frutas",name:"Mamão (100g)",cal:43},
-    {category:"Frutas",name:"Maracujá (100g)",cal:97},
-    {category:"Frutas",name:"Pêra (100g)",cal:57},
-    {category:"Frutas",name:"Pêssego (100g)",cal:39},
-    {category:"Frutas",name:"Acerola (100g)",cal:32},
-    {category:"Frutas",name:"Caju (100g)",cal:43},
-    {category:"Frutas",name:"Jaca (100g)",cal:95},
-    {category:"Frutas",name:"Goiaba (100g)",cal:68},
-    {category:"Bebidas",name:"Refrigerante (200ml)",cal:90},
-    {category:"Bebidas",name:"Cerveja (350ml)",cal:150},
-    {category:"Bebidas",name:"Leite Ninho achocolatado (200ml)",cal:160},
-    {category:"Bebidas",name:"Leite Ninho puro (200ml)",cal:130},
-    {category:"Bebidas",name:"Água com gás (200ml)",cal:0},
-    {category:"Bebidas",name:"Vitamina (200ml)",cal:180},
-    {category:"Bebidas",name:"Suco de laranja (200ml)",cal:90},
-    {category:"Bebidas",name:"Chá sem açúcar (200ml)",cal:2},
-    {category:"Bebidas",name:"Café com açúcar (200ml)",cal:40},
-    {category:"Bebidas",name:"Café sem açúcar (200ml)",cal:2},
-    {category:"Bebidas",name:"Energético (250ml)",cal:110},
-    {category:"Bebidas",name:"Suco de caixa (200ml)",cal:100},
-    {category:"Bebidas",name:"Leite integral (200ml)",cal:120},
-    {category:"Bebidas",name:"Leite desnatado (200ml)",cal:70},
-    {category:"Frios",name:"Apresuntado (30g)",cal:45},
-    {category:"Frios",name:"Mortadela (30g)",cal:90},
-    {category:"Frios",name:"Mussarela (30g)",cal:80},
-    {category:"Frios",name:"Peito de peru (30g)",cal:30},
-    {category:"Frios",name:"Presunto (30g)",cal:45},
-    {category:"Frios",name:"Queijo Minas (30g)",cal:90},
-    {category:"Frios",name:"Queijo prato (30g)",cal:110},
-    {category:"Frios",name:"Sardinha enlatada (100g)",cal:200},
-    {category:"Frios",name:"Atum enlatado (100g)",cal:120},
-    {category:"Carnes e ovos",name:"Frango empanado (100g)",cal:250},
-    {category:"Carnes e ovos",name:"Filé de frango (100g)",cal:165},
-    {category:"Carnes e ovos",name:"Bife (100g)",cal:250},
-    {category:"Carnes e ovos",name:"Carne vermelha (100g)",cal:290},
-    {category:"Carnes e ovos",name:"Fígado de boi (100g)",cal:135},
-    {category:"Carnes e ovos",name:"Linguiça (100g)",cal:300},
-    {category:"Carnes e ovos",name:"Peixe (100g)",cal:160},
-    {category:"Carnes e ovos",name:"Carne de porco (100g)",cal:240},
-    {category:"Carnes e ovos",name:"Torresmo (100g)",cal:550},
-    {category:"Carnes e ovos",name:"Nuggets (100g)",cal:280},
-    {category:"Doces",name:"Bolo normal (1 fatia)",cal:250},
-    {category:"Doces",name:"Bolo confeitado (1 fatia)",cal:350},
-    {category:"Doces",name:"Pudim (1 fatia)",cal:220},
-    {category:"Doces",name:"Sorvete (100g)",cal:200},
-    {category:"Doces",name:"Brigadeiro (1 unidade)",cal:80},
-    {category:"Doces",name:"Chocolate ao leite (100g)",cal:535},
-    {category:"Doces",name:"Goiabada (100g)",cal:260},
-    {category:"Doces",name:"Doce de leite (100g)",cal:300},
-    {category:"Pães e Massas",name:"Pão Francês (50g)",cal:150},
-    {category:"Pães e Massas",name:"Pão Integral (50g)",cal:120},
-    {category:"Pães e Massas",name:"Pão de Forma (1 fatia)",cal:70},
-    {category:"Pães e Massas",name:"Pizza mussarela (1 fatia)",cal:280},
-    {category:"Pães e Massas",name:"Lasanha (1 porção)",cal:400},
-    {category:"Pães e Massas",name:"Pão de queijo (1 unidade)",cal:100},
-    {category:"Pães e Massas",name:"Tapioca (1 unidade)",cal:150},
-    {category:"Azeites e Óleos",name:"Azeite de oliva (1 colher)",cal:120},
-    {category:"Azeites e Óleos",name:"Manteiga (1 colher)",cal:100},
-    {category:"Azeites e Óleos",name:"Maionese (1 colher)",cal:90},
-    {category:"Azeites e Óleos",name:"Requeijão (1 colher)",cal:70},
-    {category:"Lanches Rápido",name:"Hambúrguer simples",cal:300},
-    {category:"Lanches Rápido",name:"Batata frita (porção)",cal:350},
-    {category:"Lanches Rápido",name:"Salgado frito (coxinha)",cal:300},
-    {category:"Lanches Rápido",name:"Hot dog simples",cal:350},
-    {category:"Lanches Rápido",name:"Açaí (200ml)",cal:200},
-    {category:"Lanches Rápido",name:"Cheeseburger completo",cal:450},
-    {category:"Lanches Rápido",name:"X-Tudo",cal:650},
-    {category:"Lanches Rápido",name:"Pastel frito",cal:320},
-    {category:"Lanches Rápido",name:"Wrap de Frango",cal:380}
+    {category:"Legumes",name:"Cenoura (100g)",cal:40},{category:"Legumes",name:"Abobrinha (100g)",cal:20},{category:"Legumes",name:"Quiabo (100g)",cal:33},{category:"Legumes",name:"Batata-doce (100g)",cal:86},{category:"Legumes",name:"Abóbora comum (100g)",cal:26},{category:"Legumes",name:"Beterraba (100g)",cal:43},{category:"Legumes",name:"Pepino (100g)",cal:16},{category:"Legumes",name:"Pimentão (100g)",cal:27},{category:"Legumes",name:"Tomate (100g)",cal:18},{category:"Legumes",name:"Chuchu (100g)",cal:19},{category:"Legumes",name:"Aspargos (100g)",cal:20},{category:"Legumes",name:"Berinjela (100g)",cal:25},{category:"Legumes",name:"Inhame (100g)",cal:118},{category:"Legumes",name:"Aipim/Mandioca (100g)",cal:130},
+    {category:"Verduras",name:"Alface (100g)",cal:15},{category:"Verduras",name:"Couve (100g)",cal:32},{category:"Verduras",name:"Couve-flor (100g)",cal:25},{category:"Verduras",name:"Espinafre (100g)",cal:23},{category:"Verduras",name:"Rúcula (100g)",cal:25},{category:"Verduras",name:"Repolho (100g)",cal:25},
+    {category:"Frutas",name:"Banana (100g)",cal:89},{category:"Frutas",name:"Maçã (100g)",cal:52},{category:"Frutas",name:"Laranja (100g)",cal:43},{category:"Frutas",name:"Manga (100g)",cal:60},{category:"Frutas",name:"Tangerina (100g)",cal:53},{category:"Frutas",name:"Abacate (100g)",cal:160},{category:"Frutas",name:"Morango (100g)",cal:32},{category:"Frutas",name:"Uva vinho (100g)",cal:69},{category:"Frutas",name:"Uva verde (100g)",cal:69},{category:"Frutas",name:"Melancia (100g)",cal:30},{category:"Frutas",name:"Melão (100g)",cal:34},{category:"Frutas",name:"Azeitona (100g)",cal:115},{category:"Frutas",name:"Limão (100g)",cal:29},{category:"Frutas",name:"Abacaxi (100g)",cal:50},{category:"Frutas",name:"Ameixa (100g)",cal:46},{category:"Frutas",name:"Amora (100g)",cal:43},{category:"Frutas",name:"Cereja (100g)",cal:50},{category:"Frutas",name:"Coco (100g)",cal:354},{category:"Frutas",name:"Figo (100g)",cal:74},{category:"Frutas",name:"Mamão (100g)",cal:43},{category:"Frutas",name:"Maracujá (100g)",cal:97},{category:"Frutas",name:"Pêra (100g)",cal:57},{category:"Frutas",name:"Pêssego (100g)",cal:39},{category:"Frutas",name:"Acerola (100g)",cal:32},{category:"Frutas",name:"Caju (100g)",cal:43},{category:"Frutas",name:"Jaca (100g)",cal:95},{category:"Frutas",name:"Goiaba (100g)",cal:68},
+    {category:"Bebidas",name:"Refrigerante (200ml)",cal:90},{category:"Bebidas",name:"Cerveja (350ml)",cal:150},{category:"Bebidas",name:"Leite Ninho achocolatado (200ml)",cal:160},{category:"Bebidas",name:"Leite Ninho puro (200ml)",cal:130},{category:"Bebidas",name:"Água com gás (200ml)",cal:0},{category:"Bebidas",name:"Vitamina (200ml)",cal:180},{category:"Bebidas",name:"Suco de laranja (200ml)",cal:90},{category:"Bebidas",name:"Chá sem açúcar (200ml)",cal:2},{category:"Bebidas",name:"Café com açúcar (200ml)",cal:40},{category:"Bebidas",name:"Café sem açúcar (200ml)",cal:2},{category:"Bebidas",name:"Energético (250ml)",cal:110},{category:"Bebidas",name:"Suco de caixa (200ml)",cal:100},{category:"Bebidas",name:"Leite integral (200ml)",cal:120},{category:"Bebidas",name:"Leite desnatado (200ml)",cal:70},
+    {category:"Frios",name:"Apresuntado (30g)",cal:45},{category:"Frios",name:"Mortadela (30g)",cal:90},{category:"Frios",name:"Mussarela (30g)",cal:80},{category:"Frios",name:"Peito de peru (30g)",cal:30},{category:"Frios",name:"Presunto (30g)",cal:45},{category:"Frios",name:"Queijo Minas (30g)",cal:90},{category:"Frios",name:"Queijo prato (30g)",cal:110},{category:"Frios",name:"Sardinha enlatada (100g)",cal:200},{category:"Frios",name:"Atum enlatado (100g)",cal:120},
+    {category:"Carnes e ovos",name:"Frango empanado (100g)",cal:250},{category:"Carnes e ovos",name:"Filé de frango (100g)",cal:165},{category:"Carnes e ovos",name:"Bife (100g)",cal:250},{category:"Carnes e ovos",name:"Carne vermelha (100g)",cal:290},{category:"Carnes e ovos",name:"Fígado de boi (100g)",cal:135},{category:"Carnes e ovos",name:"Linguiça (100g)",cal:300},{category:"Carnes e ovos",name:"Peixe (100g)",cal:160},{category:"Carnes e ovos",name:"Carne de porco (100g)",cal:240},{category:"Carnes e ovos",name:"Torresmo (100g)",cal:550},{category:"Carnes e ovos",name:"Nuggets (100g)",cal:280},
+    {category:"Doces",name:"Bolo normal (1 fatia)",cal:250},{category:"Doces",name:"Bolo confeitado (1 fatia)",cal:350},{category:"Doces",name:"Pudim (1 fatia)",cal:220},{category:"Doces",name:"Sorvete (100g)",cal:200},{category:"Doces",name:"Brigadeiro (1 unidade)",cal:80},{category:"Doces",name:"Chocolate ao leite (100g)",cal:535},{category:"Doces",name:"Goiabada (100g)",cal:260},{category:"Doces",name:"Doce de leite (100g)",cal:300},
+    {category:"Pães e Massas",name:"Pão Francês (50g)",cal:150},{category:"Pães e Massas",name:"Pão Integral (50g)",cal:120},{category:"Pães e Massas",name:"Pão de Forma (1 fatia)",cal:70},{category:"Pães e Massas",name:"Pizza mussarela (1 fatia)",cal:280},{category:"Pães e Massas",name:"Lasanha (1 porção)",cal:400},{category:"Pães e Massas",name:"Pão de queijo (1 unidade)",cal:100},{category:"Pães e Massas",name:"Tapioca (1 unidade)",cal:150},
+    {category:"Azeites e Óleos",name:"Azeite de oliva (1 colher)",cal:120},{category:"Azeites e Óleos",name:"Manteiga (1 colher)",cal:100},{category:"Azeites e Óleos",name:"Maionese (1 colher)",cal:90},{category:"Azeites e Óleos",name:"Requeijão (1 colher)",cal:70},
+    {category:"Lanches Rápido",name:"Hambúrguer simples",cal:300},{category:"Lanches Rápido",name:"Batata frita (porção)",cal:350},{category:"Lanches Rápido",name:"Salgado frito (coxinha)",cal:300},{category:"Lanches Rápido",name:"Hot dog simples",cal:350},{category:"Lanches Rápido",name:"Açaí (200ml)",cal:200},{category:"Lanches Rápido",name:"Cheeseburger completo",cal:450},{category:"Lanches Rápido",name:"X-Tudo",cal:650},{category:"Lanches Rápido",name:"Pastel frito",cal:320},{category:"Lanches Rápido",name:"Wrap de Frango",cal:380}
 ];
-const allFoodsMap = new Map(foods.map(f => [f.name, f]));
+const allFoodsMap=new Map(foods.map(f=>[f.name,f]));
 
-// ====== INIT ======
-window.onload = async function() {
-    // Esconde a barra se já foi fechada nesta sessão
-    if (sessionStorage.getItem('_installBarFechada')) {
-        document.getElementById('installBar').style.display = 'none';
-    }
-
-    const tel = localStorage.getItem('_dietaTel');
-    if (tel) {
-        const key = sanitizeKey(tel);
-        const snap = await db.ref('adminUsers/' + key).get();
-        if (snap.exists()) {
-            const d = snap.val();
-            if (d.status === 'liberado') { iniciarApp(d); return; }
-            if (d.status === 'aguardando') {
-                mostrarAguardando(d);
-                iniciarListenerStatus(tel);
-                return;
-            }
-        }
-    }
+window.onload=async function(){
+    if(sessionStorage.getItem('_barFechada'))
+        document.getElementById('installBar').style.display='none';
+    const tel=localStorage.getItem('_dietaTel');
+    if(tel){const key=sanitizeKey(tel);const snap=await db.ref('adminUsers/'+key).get();
+        if(snap.exists()){const d=snap.val();
+            if(d.status==='liberado'){iniciarApp(d);return}
+            if(d.status==='aguardando'){mostrarAguardando(d);iniciarListenerStatus(tel);return}}}
 };
 </script>
 </body>
