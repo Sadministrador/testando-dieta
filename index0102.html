@@ -345,19 +345,6 @@
 </div>
 
 <script>
-// ====== FIREBASE CONFIG ======
-const firebaseConfig = {
-    apiKey: "AIzaSyC-L8v4-5-8-8-8-8-8-8-8",
-    authDomain: "dieta-monitorada.firebaseapp.com",
-    databaseURL: "https://dieta-monitorada-default-rtdb.firebaseio.com",
-    projectId: "dieta-monitorada",
-    storageBucket: "dieta-monitorada.appspot.com",
-    messagingSenderId: "123456789",
-    appId: "1:123456789:web:123456789"
-};
-firebase.initializeApp(firebaseConfig);
-const db = firebase.database();
-
 // ====== LOGICA PWA (BARRINHA DE INSTALAÇÃO) ======
 let deferredPrompt;
 window.addEventListener('beforeinstallprompt', (e) => {
@@ -380,6 +367,19 @@ function installPWA() {
 window.addEventListener('appinstalled', (evt) => {
     document.getElementById('pwaInstallBanner').style.display = 'none';
 });
+
+// ====== FIREBASE CONFIG ORIGINAL ======
+const firebaseConfig = {
+    apiKey: "AIzaSyC-L8v4-5-8-8-8-8-8-8-8",
+    authDomain: "dieta-monitorada.firebaseapp.com",
+    databaseURL: "https://dieta-monitorada-default-rtdb.firebaseio.com",
+    projectId: "dieta-monitorada",
+    storageBucket: "dieta-monitorada.appspot.com",
+    messagingSenderId: "123456789",
+    appId: "1:123456789:web:123456789"
+};
+firebase.initializeApp(firebaseConfig);
+const db = firebase.database();
 
 // ====== CONSTANTES E VARS ======
 const CALORIAS_POR_KG = 7700;
